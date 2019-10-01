@@ -1,0 +1,2187 @@
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................................................
+----------------------------------------------------------------------
+Ran 65 tests in 0.434s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................................................
+----------------------------------------------------------------------
+Ran 65 tests in 0.488s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................................................
+----------------------------------------------------------------------
+Ran 65 tests in 0.425s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................................................
+----------------------------------------------------------------------
+Ran 65 tests in 0.450s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEEE.....................
+======================================================================
+ERROR: test_is_transitive_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_raises_when_self_loops (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 375, in test_is_transitive_balanced_raises_when_self_loops
+    network_utils.is_transitive_balanced(triad_with_self_loop)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.435s
+
+FAILED (errors=15)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEEE.....................
+======================================================================
+ERROR: test_is_transitive_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_raises_when_self_loops (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 375, in test_is_transitive_balanced_raises_when_self_loops
+    network_utils.is_transitive_balanced(triad_with_self_loop)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.429s
+
+FAILED (errors=15)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEEE.....................
+======================================================================
+ERROR: test_is_transitive_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_raises_when_self_loops (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 375, in test_is_transitive_balanced_raises_when_self_loops
+    network_utils.is_transitive_balanced(triad_with_self_loop)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.533s
+
+FAILED (errors=15)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEEE.....................
+======================================================================
+ERROR: test_is_transitive_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_raises_when_self_loops (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 375, in test_is_transitive_balanced_raises_when_self_loops
+    network_utils.is_transitive_balanced(triad_with_self_loop)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.451s
+
+FAILED (errors=15)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEEE.....................
+======================================================================
+ERROR: test_is_transitive_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_transitive_balanced
+    network_utils.is_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+======================================================================
+ERROR: test_is_transitive_balanced_raises_when_self_loops (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 375, in test_is_transitive_balanced_raises_when_self_loops
+    network_utils.is_transitive_balanced(triad_with_self_loop)
+AttributeError: module 'network_utils' has no attribute 'is_transitive_balanced'
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.487s
+
+FAILED (errors=15)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEEE.....................
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 437, in test_is_sparsely_transitive_balanced
+    network_utils.is_sparsely_transitive_balanced(triad), expected_balance)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+======================================================================
+ERROR: test_is_sparsely_transitive_balanced_raises_when_self_loops (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 375, in test_is_sparsely_transitive_balanced_raises_when_self_loops
+    network_utils.is_sparsely_transitive_balanced(triad_with_self_loop)
+AttributeError: module 'network_utils' has no attribute 'is_sparsely_transitive_balanced'
+
+----------------------------------------------------------------------
+Ran 65 tests in 0.441s
+
+FAILED (errors=15)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................................................
+----------------------------------------------------------------------
+Ran 65 tests in 0.447s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................EEEEEEEEEEEEEE.....................................
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_10_102negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_11_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_12_012Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_2_021C (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_3_030T2negZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_4_021UnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_5_021DZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_6_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_7_210Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_8_003Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_9_102Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 515, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+----------------------------------------------------------------------
+Ran 80 tests in 0.435s
+
+FAILED (errors=14)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................E.....................................
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 463, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+----------------------------------------------------------------------
+Ran 67 tests in 0.449s
+
+FAILED (errors=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................E.....................................
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 463, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+TypeError: sum expected at most 2 arguments, got 3
+
+----------------------------------------------------------------------
+Ran 67 tests in 0.424s
+
+FAILED (errors=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................E.....................................
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 463, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (np.sum(abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])) > 1
+  File "/home/omid/.local/lib/python3.5/site-packages/numpy/core/fromnumeric.py", line 1880, in sum
+    return sum(axis=axis, dtype=dtype, out=out, **kwargs)
+  File "/home/omid/.local/lib/python3.5/site-packages/numpy/core/_methods.py", line 32, in _sum
+    return umr_sum(a, axis, dtype, out, keepdims)
+numpy.core._internal.AxisError: axis 1 is out of bounds for array of dimension 0
+
+----------------------------------------------------------------------
+Ran 67 tests in 0.451s
+
+FAILED (errors=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................E.....................................
+======================================================================
+ERROR: test_is_sparsely_cartwright_harary_balanced_0_030TZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 463, in test_is_sparsely_cartwright_harary_balanced
+    network_utils.is_sparsely_cartwright_harary_balanced(triad),
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 596, in is_sparsely_cartwright_harary_balanced
+    if (np.sum[abs(triad[0, 1]), abs(triad[1, 2]), abs(triad[0, 2])] > 1
+TypeError: 'function' object is not subscriptable
+
+----------------------------------------------------------------------
+Ran 67 tests in 0.415s
+
+FAILED (errors=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.............................................................
+----------------------------------------------------------------------
+Ran 67 tests in 0.446s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................FF.............................................
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 516, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: False != True
+
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_1_030T (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 516, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: False != True
+
+----------------------------------------------------------------------
+Ran 80 tests in 0.428s
+
+FAILED (failures=2)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+...........................F..............................................
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_13_012 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 516, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: False != True
+
+----------------------------------------------------------------------
+Ran 80 tests in 0.599s
+
+FAILED (failures=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..........................................................................
+----------------------------------------------------------------------
+Ran 80 tests in 0.418s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..........................................................................
+----------------------------------------------------------------------
+Ran 80 tests in 0.421s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..........................................................................
+----------------------------------------------------------------------
+Ran 80 tests in 0.461s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..........................................................................
+----------------------------------------------------------------------
+Ran 80 tests in 0.492s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..............................F...............................................
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_1_003 (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 532, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: False != True
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.668s
+
+FAILED (failures=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..............................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 0.413s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..............................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 0.442s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................F........................................................
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_0_0122Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 540, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: True != False
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.505s
+
+FAILED (failures=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.......................F........................................................
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_0_0122Z (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 540, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: True != False
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.412s
+
+FAILED (failures=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+............................F...................................................
+======================================================================
+FAIL: test_is_sparsely_cartwright_harary_balanced_14_102posnegZ (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 540, in test_is_sparsely_cartwright_harary_balanced
+    expected_balance)
+AssertionError: False != True
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.481s
+
+FAILED (failures=1)
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+................................................................................
+----------------------------------------------------------------------
+Ran 86 tests in 0.439s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+................................................................................
+----------------------------------------------------------------------
+Ran 86 tests in 0.495s
+
+OK
+....../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+................................................................................
+----------------------------------------------------------------------
+Ran 86 tests in 0.520s
+
+OK
+....../home/omid55/.local/lib/python3.6/site-packages/numpy/matrixlib/defmatrix.py:68: PendingDeprecationWarning: the matrix subclass is not the recommended way to represent matrices or deal with linear algebra (see https://docs.scipy.org/doc/numpy/user/numpy-for-matlab-users.html). Please adjust your code to use regular ndarray.
+  return matrix(data, dtype=dtype, copy=False)
+/home/omid55/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+............./home/omid55/.local/lib/python3.6/site-packages/networkx/classes/function.py:531: DeprecationWarning: G.fresh_copy is deprecated. Use G.__class__ instead
+  H = G.fresh_copy()
+.../home/omid55/.local/lib/python3.6/site-packages/networkx/classes/digraph.py:1180: DeprecationWarning: G.fresh_copy is deprecated. Use G.__class__ instead
+  H = self.fresh_copy()
+................................................................
+----------------------------------------------------------------------
+Ran 86 tests in 0.813s
+
+OK
+.FFFF./home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 259, in get_metrics_for_network
+    balanced_cycles += value['#balanced']
+KeyError: '#balanced'
+
+======================================================================
+FAIL: test_compute_edge_balance_allnegative_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 348, in test_compute_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'#balanced': 0, 'weight_distance[399 chars]lse}}
+Diff is 646 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_compute_edge_balance_allnegative_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 348, in test_compute_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'#balanced': 0, 'weight_distance[131 chars]lse}}
+- {}
++ {(1, 2): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 2},
++  (1, 4): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 7}}
+
+======================================================================
+FAIL: test_compute_edge_balance_small_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 292, in test_compute_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'nodes3': 1, 'balanced_node3': 1}} != {(1, 2): {'#balanced': 1, 'weight_distance'[216 chars]rue}}
+- {(2, 1): {'balanced_node3': 1, 'nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9},
++  (2, 3): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 3},
++  (3, 1): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 3}}
+
+======================================================================
+FAIL: test_compute_edge_balance_small_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 292, in test_compute_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'nodes3': 1, 'balanced_node3': 1}} != {(1, 2): {'#balanced': 1, 'weight_distance'[40 chars]rue}}
+- {(2, 1): {'balanced_node3': 1, 'nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9}}
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.469s
+
+FAILED (failures=4, errors=1)
+.FFFF./home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 259, in get_metrics_for_network
+    balanced_cycles += value['#balanced']
+KeyError: '#balanced'
+
+======================================================================
+FAIL: test_compute_edge_balance_allnegative_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 348, in test_compute_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'weight_distance': 2, 'as_expect[399 chars]: 0}}
+Diff is 646 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_compute_edge_balance_allnegative_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 348, in test_compute_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'weight_distance': 2, 'as_expect[131 chars]: 0}}
+- {}
++ {(1, 2): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 2},
++  (1, 4): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 7}}
+
+======================================================================
+FAIL: test_compute_edge_balance_small_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 292, in test_compute_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}} != {(1, 2): {'weight_distance': 9, 'as_expecte[216 chars]: 1}}
+- {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9},
++  (2, 3): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 3},
++  (3, 1): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 3}}
+
+======================================================================
+FAIL: test_compute_edge_balance_small_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 292, in test_compute_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}} != {(1, 2): {'weight_distance': 9, 'as_expecte[40 chars]: 1}}
+- {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9}}
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.464s
+
+FAILED (failures=4, errors=1)
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.EEEE...............E...............................................................
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_allnegative_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 347, in test_compute_vanderijt_edge_balance_allnegative_graph
+    computed = network_utils.compute_vanderijt_edge_balance(
+AttributeError: module 'network_utils' has no attribute 'compute_vanderijt_edge_balance'
+
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_allnegative_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 347, in test_compute_vanderijt_edge_balance_allnegative_graph
+    computed = network_utils.compute_vanderijt_edge_balance(
+AttributeError: module 'network_utils' has no attribute 'compute_vanderijt_edge_balance'
+
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_small_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 291, in test_compute_vanderijt_edge_balance_small_graph
+    computed = network_utils.compute_vanderijt_edge_balance(
+AttributeError: module 'network_utils' has no attribute 'compute_vanderijt_edge_balance'
+
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_small_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 291, in test_compute_vanderijt_edge_balance_small_graph
+    computed = network_utils.compute_vanderijt_edge_balance(
+AttributeError: module 'network_utils' has no attribute 'compute_vanderijt_edge_balance'
+
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 259, in get_metrics_for_network
+    balanced_cycles += value['#balanced']
+KeyError: '#balanced'
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.441s
+
+FAILED (errors=5)
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.FFFF...............E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 254, in get_metrics_for_network
+    edge_balance = compute_edge_balance(
+NameError: name 'compute_edge_balance' is not defined
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 349, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'as_expected_sign': False, '#cyc[399 chars]: 7}}
+Diff is 646 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 349, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'as_expected_sign': False, '#cyc[131 chars]: 7}}
+- {}
++ {(1, 2): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 2},
++  (1, 4): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 7}}
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_small_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 293, in test_compute_vanderijt_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'#nodes3': 1, '#balanced_node3': 1}} != {(1, 2): {'as_expected_sign': True, '#cycle[216 chars]: 3}}
+- {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9},
++  (2, 3): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 3},
++  (3, 1): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 3}}
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_small_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 293, in test_compute_vanderijt_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'#nodes3': 1, '#balanced_node3': 1}} != {(1, 2): {'as_expected_sign': True, '#cycle[40 chars]: 9}}
+- {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9}}
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.614s
+
+FAILED (failures=4, errors=1)
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.EEEE...............E...............................................................
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_allnegative_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 348, in test_compute_vanderijt_edge_balance_allnegative_graph
+    dg, no_isomorph_cycles=no_isomorph_cycles)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_allnegative_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 348, in test_compute_vanderijt_edge_balance_allnegative_graph
+    dg, no_isomorph_cycles=no_isomorph_cycles)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_small_graph_0_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 292, in test_compute_vanderijt_edge_balance_small_graph
+    dg, no_isomorph_cycles=no_isomorph_cycles)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+ERROR: test_compute_vanderijt_edge_balance_small_graph_1_no_isomorph_cycles (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/.local/lib/python3.5/site-packages/parameterized/parameterized.py", line 392, in standalone_func
+    return func(*(a + p.args), **p.kwargs)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 292, in test_compute_vanderijt_edge_balance_small_graph
+    dg, no_isomorph_cycles=no_isomorph_cycles)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 254, in get_metrics_for_network
+    edge_balance = compute_edge_balance(
+NameError: name 'compute_edge_balance' is not defined
+
+----------------------------------------------------------------------
+Ran 86 tests in 0.460s
+
+FAILED (errors=5)
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F...............E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 254, in get_metrics_for_network
+    edge_balance = compute_edge_balance(
+NameError: name 'compute_edge_balance' is not defined
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_small_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 272, in test_compute_vanderijt_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}} != {(1, 2): {'#cycle3': 1, 'as_expected_sign':[40 chars]: 9}}
+- {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9}}
+
+----------------------------------------------------------------------
+Ran 83 tests in 0.453s
+
+FAILED (failures=1, errors=1)
+Computed: {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F...............E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 254, in get_metrics_for_network
+    edge_balance = compute_edge_balance(
+NameError: name 'compute_edge_balance' is not defined
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_small_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 272, in test_compute_vanderijt_edge_balance_small_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(2, 1): {'#nodes3': 1, '#balanced_node3': 1}} != {(1, 2): {'#balanced': 1, 'as_expected_sign[40 chars]: 1}}
+- {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
++ {(1, 2): {'#balanced': 1,
++           '#cycle3': 1,
++           'as_expected_sign': True,
++           'weight_distance': 9}}
+
+----------------------------------------------------------------------
+Ran 83 tests in 0.447s
+
+FAILED (failures=1, errors=1)
+Computed: {(2, 1): {'#nodes3': 1, '#balanced_node3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 254, in get_metrics_for_network
+    edge_balance = compute_edge_balance(
+NameError: name 'compute_edge_balance' is not defined
+
+----------------------------------------------------------------------
+Ran 83 tests in 0.504s
+
+FAILED (errors=1)
+Computed: {(2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 254, in get_metrics_for_network
+    edge_balance = ompute_vanderijt_edge_balance(
+NameError: name 'ompute_vanderijt_edge_balance' is not defined
+
+----------------------------------------------------------------------
+Ran 83 tests in 0.440s
+
+FAILED (errors=1)
+Computed: {(2, 1): {'#nodes3': 1, '#balanced_node3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+----------------------------------------------------------------------
+Ran 83 tests in 0.439s
+
+FAILED (errors=1)
+Computed: {(2, 1): {'#nodes3': 1, '#balanced_node3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 289, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {} != {(1, 2): {'weight_distance': 2, '#balanced[131 chars]lse}}
+- {}
++ {(1, 2): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 2},
++  (1, 4): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 7}}
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.413s
+
+FAILED (failures=1, errors=1)
+COMPUTED:  {}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 289, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(1, 3): {'#nodes3': 2, '#balanced_node3': 0}} != {(1, 2): {'#balanced': 0, 'weight_distance': 2[127 chars]: 1}}
+- {(1, 3): {'#balanced_node3': 0, '#nodes3': 2}}
++ {(1, 2): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 2},
++  (1, 4): {'#balanced': 0,
++           '#cycle3': 1,
++           'as_expected_sign': False,
++           'weight_distance': 7}}
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.442s
+
+FAILED (failures=1, errors=1)
+COMPUTED:  {(1, 3): {'#nodes3': 2, '#balanced_node3': 0}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 285, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(1, 2): {'#balanced_node3': 1, '#nodes3': 1},[409 chars]: 1}} != {(1, 3): {'#balanced_node3': 0, '#nodes3': 2}}
+- {(1, 2): {'#balanced_node3': 1, '#nodes3': 1},
+-  (1, 3): {'#balanced_node3': 0, '#nodes3': 2},
+? ^                                            ^
+
++ {(1, 3): {'#balanced_node3': 0, '#nodes3': 2}}
+? ^                                            ^
+
+-  (1, 4): {'#balanced_node3': 1, '#nodes3': 1},
+-  (2, 1): {'#balanced_node3': 1, '#nodes3': 1},
+-  (2, 3): {'#balanced_node3': 1, '#nodes3': 1},
+-  (3, 1): {'#balanced_node3': 1, '#nodes3': 2},
+-  (3, 2): {'#balanced_node3': 1, '#nodes3': 1},
+-  (3, 4): {'#balanced_node3': 1, '#nodes3': 1},
+-  (4, 1): {'#balanced_node3': 0, '#nodes3': 1},
+-  (4, 3): {'#balanced_node3': 0, '#nodes3': 1}}
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.648s
+
+FAILED (failures=1, errors=1)
+COMPUTED:  {(1, 2): {'#balanced_node3': 1, '#nodes3': 1}, (3, 2): {'#balanced_node3': 1, '#nodes3': 1}, (1, 3): {'#balanced_node3': 0, '#nodes3': 2}, (2, 3): {'#balanced_node3': 1, '#nodes3': 1}, (1, 4): {'#balanced_node3': 1, '#nodes3': 1}, (4, 3): {'#balanced_node3': 0, '#nodes3': 1}, (4, 1): {'#balanced_node3': 0, '#nodes3': 1}, (3, 1): {'#balanced_node3': 1, '#nodes3': 2}, (3, 4): {'#balanced_node3': 1, '#nodes3': 1}, (2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 284, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(1, 2): {'#balanced_node3': 1, '#nodes3': 1},[409 chars]: 1}} != {(1, 3): {'#balanced_node3': 0, '#nodes3': 2}}
+- {(1, 2): {'#balanced_node3': 1, '#nodes3': 1},
+-  (1, 3): {'#balanced_node3': 0, '#nodes3': 2},
+? ^                                            ^
+
++ {(1, 3): {'#balanced_node3': 0, '#nodes3': 2}}
+? ^                                            ^
+
+-  (1, 4): {'#balanced_node3': 1, '#nodes3': 1},
+-  (2, 1): {'#balanced_node3': 1, '#nodes3': 1},
+-  (2, 3): {'#balanced_node3': 1, '#nodes3': 1},
+-  (3, 1): {'#balanced_node3': 1, '#nodes3': 2},
+-  (3, 2): {'#balanced_node3': 1, '#nodes3': 1},
+-  (3, 4): {'#balanced_node3': 1, '#nodes3': 1},
+-  (4, 1): {'#balanced_node3': 0, '#nodes3': 1},
+-  (4, 3): {'#balanced_node3': 0, '#nodes3': 1}}
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.454s
+
+FAILED (failures=1, errors=1)
+COMPUTED:  {(1, 2): {'#balanced_node3': 1, '#nodes3': 1}, (3, 2): {'#balanced_node3': 1, '#nodes3': 1}, (1, 3): {'#balanced_node3': 0, '#nodes3': 2}, (2, 3): {'#balanced_node3': 1, '#nodes3': 1}, (1, 4): {'#balanced_node3': 1, '#nodes3': 1}, (4, 3): {'#balanced_node3': 0, '#nodes3': 1}, (4, 1): {'#balanced_node3': 0, '#nodes3': 1}, (3, 1): {'#balanced_node3': 1, '#nodes3': 2}, (3, 4): {'#balanced_node3': 1, '#nodes3': 1}, (2, 1): {'#balanced_node3': 1, '#nodes3': 1}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+.F................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+======================================================================
+FAIL: test_compute_vanderijt_edge_balance_allnegative_graph (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 286, in test_compute_vanderijt_edge_balance_allnegative_graph
+    self.assertDictEqual(computed, expected)
+AssertionError: {(1, 2): {'#balanced_node3': 1, '#nodes3': 2},[501 chars]: 2}} != {(1, 3): {'#balanced_node3': 0, '#nodes3': 2}}
+Diff is 737 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.444s
+
+FAILED (failures=1, errors=1)
+COMPUTED:  {(1, 2): {'#balanced_node3': 1, '#nodes3': 2}, (3, 2): {'#balanced_node3': 1, '#nodes3': 2}, (1, 3): {'#balanced_node3': 0, '#nodes3': 2}, (3, 4): {'#balanced_node3': 1, '#nodes3': 2}, (3, 1): {'#balanced_node3': 1, '#nodes3': 2}, (1, 4): {'#balanced_node3': 1, '#nodes3': 2}, (2, 3): {'#balanced_node3': 1, '#nodes3': 2}, (2, 1): {'#balanced_node3': 2, '#nodes3': 2}, (4, 3): {'#balanced_node3': 0, '#nodes3': 2}, (4, 2): {'#balanced_node3': 1, '#nodes3': 2}, (4, 1): {'#balanced_node3': 1, '#nodes3': 2}, (2, 4): {'#balanced_node3': 2, '#nodes3': 2}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.435s
+
+FAILED (errors=1)
+COMPUTED:  {(1, 2): {'#balanced_node3': 1, '#nodes3': 2}, (3, 2): {'#balanced_node3': 1, '#nodes3': 2}, (1, 3): {'#balanced_node3': 0, '#nodes3': 2}, (3, 4): {'#balanced_node3': 1, '#nodes3': 2}, (3, 1): {'#balanced_node3': 1, '#nodes3': 2}, (1, 4): {'#balanced_node3': 1, '#nodes3': 2}, (2, 3): {'#balanced_node3': 1, '#nodes3': 2}, (2, 1): {'#balanced_node3': 2, '#nodes3': 2}, (4, 3): {'#balanced_node3': 0, '#nodes3': 2}, (4, 2): {'#balanced_node3': 1, '#nodes3': 2}, (4, 1): {'#balanced_node3': 1, '#nodes3': 2}, (2, 4): {'#balanced_node3': 2, '#nodes3': 2}}
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 255, in get_metrics_for_network
+    dgraph, no_isomorph_cycles=True)
+TypeError: compute_vanderijt_edge_balance() got an unexpected keyword argument 'no_isomorph_cycles'
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.460s
+
+FAILED (errors=1)
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................E...............................................................
+======================================================================
+ERROR: test_get_metrics_for_network (network_utils_test.MyTestClass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils_test.py", line 153, in test_get_metrics_for_network
+    computed = network_utils.get_metrics_for_network(dg)
+  File "/home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/network_utils.py", line 258, in get_metrics_for_network
+    balanced_cycles += value['#balanced']
+KeyError: '#balanced'
+
+----------------------------------------------------------------------
+Ran 84 tests in 0.566s
+
+FAILED (errors=1)
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 0.479s
+
+OK
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 0.447s
+
+OK
+#edges: 4
+#edges/#nodes: 1.0
+#gcc edges: 3
+#gcc neg edges: 1
+#gcc nodes: 3
+#gcc pos edges: 2
+#neg edges: 2
+#nodes: 4
+#pos edges: 2
+algebraic connectivity: 0.0
+average (und) clustering coefficient: 0.75
+average betweenness: 0.08333333333333333
+average closeness: 0.38888888888888884
+average degree: 2.0
+average eigenvector: 0.42223746816950586
+average harmonic: 1.25
+average in degree: 1.0
+average load: 0.08333333333333333
+average out degree: 1.0
+average w in degree: 0.0
+average w out degree: 0.0
+gcc algebraic connectivity: 3.0
+gcc diameter: 1
+unbalanced cycles 3 ratio: 1.0
+weights average: 0.0
+weights max: 1.0
+weights min: -1.0
+weights std: 1.0
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 0.503s
+
+OK
+../home/omid/Dropbox/PhD/Projects/Dynamic Sparse Balance Theory/dynamic_sparse_balance_theory/src/utils.py:161: RuntimeWarning: invalid value encountered in true_divide
+  return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+..................................................................................
+----------------------------------------------------------------------
+Ran 84 tests in 0.454s
+
+OK
