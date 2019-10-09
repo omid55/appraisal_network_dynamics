@@ -12,8 +12,7 @@ from parameterized import parameterized
 import pogs_jeopardy_log_lib as lib
 
 
-TESTING_LOG = '''
-    2298,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,20,\\N,4,pogs3.4,\\N,\\N
+TESTING_LOG = '''2298,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,20,\\N,4,pogs3.4,\\N,\\N
     2299,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,18,\\N,4,pogs3.2,\\N,\\N
     2300,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,17,\\N,4,pogs3.1,\\N,\\N
     2301,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,19,\\N,4,pogs3.3,\\N,\\N
@@ -80,7 +79,8 @@ TESTING_LOG = '''
     2362,TASK_ATTRIBUTE,{"attributeStringValue":"AskMachine:Best Sound Mixing_0.6"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-02 10:24:25,32,20,\\N,4,pogs3.4,\\N,AskedMachine
     2363,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"it says best sound mixing"||"type":"MESSAGE"},2019-05-02 10:24:32,32,20,\\N,4,pogs3.4,\\N,\\N
     2364,TASK_ATTRIBUTE,{"attributeStringValue":"Best Sound Mixing"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0__pogs3.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-02 10:24:39,32,17,\\N,4,pogs3.1,\\N,SubmitButtonField
-    '''
+    2365,TASK_ATTRIBUTE,{"attributeStringValue":"DIFFERENT TEAM MEMBER MISTAKABLY ADDED"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0__pogs3999.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-02 10:24:39,32,999,\\N,999,pogs3999.1,\\N,SubmitButtonField
+    2366,TASK_ATTRIBUTE,{"attributeStringValue":"DIFFERENT TEAM MEMBER MISTAKABLY ADDED 2"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0__pogs3999.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-02 10:24:39,32,999,\\N,999,pogs3999.1,\\N,SubmitButtonField'''
 TESTING_JEOPARDY_JSON = '''
     [
         {
@@ -198,12 +198,12 @@ class TeamLogProcessorLoadGameQuestionsTest(unittest.TestCase):
         self.assertEqual(
             self.loader.game_info.questions[5].level,
             lib.Level.HARD)
-    
+
 
 # =========================================================================
-# =================== _load_logs_and_members_in_team ======================
+# ======================= _load_this_team_event_logs ======================
 # =========================================================================
-class TeamLogProcessorLoadLogsMembersTeamTest(unittest.TestCase):
+class TeamLogProcessorLoadThisTeamEventLogTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):        
@@ -214,14 +214,79 @@ class TeamLogProcessorLoadLogsMembersTeamTest(unittest.TestCase):
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
                 team_id=1, logs_directory_path='tmp')
-            cls.loader._load_logs_and_members_in_team(
-                logs_file_path=TESTING_LOG_FILE_PATH,
-                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
 
     @classmethod
     def tearDownClass(cls):
         os.remove(TESTING_LOG_FILE_PATH)
         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
 
-    def test_load_logs_and_members_in_team_has_loaded_log_correctly(self):
-        pass
+    def test_load_this_team_event_logs_loads_team_logs_correctly(self):
+        self.loader._load_this_team_event_logs(
+            logs_file_path=TESTING_LOG_FILE_PATH,
+            team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        lines_num = len(TESTING_LOG.split('\n'))
+        self.assertEqual(len(self.loader.team_event_logs), lines_num - 2)
+
+
+# =========================================================================
+# ======================== _load_messages =================================
+# =========================================================================
+class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):        
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_messages()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+    def test_load_messages_has_loaded_log_correctly(self):
+        messages = self.loader.messages  # Just for the convenice.
+        self.assertEqual(len(messages), 6)
+        self.assertEqual(messages[0].shape, (0, 12))
+        self.assertEqual(messages[1].shape, (11, 12))
+        self.assertEqual(messages[2].shape, (0, 12))
+        self.assertEqual(messages[3].shape, (0, 12))
+        self.assertEqual(messages[4].shape, (0, 12))
+        self.assertEqual(messages[5].shape, (8, 12))
+
+
+# # =========================================================================
+# # ==================== _load_influence_matrices ===========================
+# # =========================================================================
+# class TeamLogProcessorLoadInfluenceMatrixTest(unittest.TestCase):
+
+#     @classmethod
+#     def setUpClass(cls):        
+#         with open(TESTING_LOG_FILE_PATH, 'w') as f:
+#             f.writelines(TESTING_LOG)
+#         with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+#             f.writelines(TESTING_TEAM_HAS_SUBJECT)
+#         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+#             cls.loader = lib.TeamLogProcessor(
+#                 team_id=1, logs_directory_path='tmp')
+#             cls.loader._load_this_team_event_logs(
+#                 logs_file_path=TESTING_LOG_FILE_PATH,
+#                 team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+#             cls.loader._load_influence_matrices()
+
+#     @classmethod
+#     def tearDownClass(cls):
+#         os.remove(TESTING_LOG_FILE_PATH)
+#         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+#     def test_load_influence_matrices_has_loaded_log_correctly(self):
+#         # self.loader.member_influences
+#         pass

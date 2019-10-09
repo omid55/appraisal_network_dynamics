@@ -81,6 +81,7 @@ class JeopardyInfoOptions(object):
     """Options about the executed game."""
     num_of_questions = attr.ib(default=45)
     num_of_agents = attr.ib(default=4)
+    num_of_team_members = attr.ib(default=4)
     num_of_influence_reports = attr.ib(default=9)
     correct_points = attr.ib(default=4)
     wrong_points = attr.ib(default=-1)
@@ -100,6 +101,8 @@ class TeamLogProcessor(object):
         Properties:
             team_id: The id of the existing team in this object.
             game_info: Jeopardy-like game information.
+            team_event_logs: All event logs for this team.
+            messages: The communication messages among members.
     """
     def __init__(self,
                  team_id: int,
@@ -115,33 +118,21 @@ class TeamLogProcessor(object):
         This function only calls all other unit tested functions and does not
         need testing.
         """
-        # self._load_game_questions(
-        #     file_path=logs_directory_path + '/jeopardy.json')
-        self._load_logs_and_members_in_team(
+        self._load_game_questions(
+            file_path=logs_directory_path + '/jeopardy.json')
+        self._load_this_team_event_logs(
             logs_file_path=logs_directory_path + 'event_log.csv',
             team_has_subject_file_path=logs_directory_path
                 + 'team_has_subject.csv')
-        self._old_load_all(logs_directory_path, self.team_id)
+        self._load_messages(
+            logs_file_path=logs_directory_path + 'event_log.csv',
+            team_has_subject_file_path=logs_directory_path
+                + 'team_has_subject.csv')
+        self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
-    def _load_game_questions(self, file_path: Text) -> None:
-        """Loads every question, choices and the right answer.
-        """
-        with open(file_path, 'r') as f:
-            question_list = json.load(f)
-            self.game_info.num_of_questions = len(question_list)
-            for question in question_list:
-                self.game_info.questions.append(
-                    JeopardyQuestion(
-                        id=question['ID'],
-                        question_content=question['question'],
-                        answer=question['Answer'],
-                        choices=question['value'],
-                        category=Category.parse(question['Category']),
-                        level=Level.parse(question['Level'])))
-
-    def _load_logs_and_members_in_team(self,
-                                       logs_file_path: Text,
-                                       team_has_subject_file_path:Text) -> None:
+    def _load_this_team_event_logs(self,
+                                   logs_file_path:Text,
+                                   team_has_subject_file_path: Text) -> None:
         event_log = pd.read_csv(
             logs_file_path,
             sep=',',
@@ -161,9 +152,29 @@ class TeamLogProcessor(object):
             event_log['sender_subject_id'])
         event_log_with_team = pd.merge(
             event_log, team_subjects, on='sender_subject_id', how='left')
-        event_log_task_attribute = event_log_with_team[
+        self.team_event_logs = event_log_with_team[
             (event_log_with_team['team_id'] == self.team_id)]
-        indices = [0] + list(np.where(event_log_task_attribute.extra_data == 'SubmitButtonField')[0])
+
+    def _load_game_questions(self, file_path: Text) -> None:
+        """Loads every question, choices and the right answer.
+        """
+        with open(file_path, 'r') as f:
+            question_list = json.load(f)
+            self.game_info.num_of_questions = len(question_list)
+            for question in question_list:
+                self.game_info.questions.append(
+                    JeopardyQuestion(
+                        id=question['ID'],
+                        question_content=question['question'],
+                        answer=question['Answer'],
+                        choices=question['value'],
+                        category=Category.parse(question['Category']),
+                        level=Level.parse(question['Level'])))
+
+    def _load_messages(self) -> None:
+        """Loads the communication messages for the current team."""
+        indices = [0] + list(
+            np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
         begin_index = 0
         end_index = 1
         def extract_message(message_contnet):
@@ -171,7 +182,7 @@ class TeamLogProcessor(object):
         self.messages = []
         while end_index < len(indices):
             if indices[end_index] - indices[begin_index] > 4:
-                df = event_log_task_attribute.iloc[
+                df = self.team_event_logs.iloc[
                     indices[begin_index] + 1: indices[end_index]]
                 df = df[df.event_type == 'COMMUNICATION_MESSAGE']
                 df.event_content = df.event_content.apply(extract_message)
@@ -179,6 +190,41 @@ class TeamLogProcessor(object):
                 self.messages.append(df)
             begin_index = end_index
             end_index += 1
+
+    def _load_influence_matrices(self) -> None:
+        pass
+#         team_size = self.game_info.num_of_team_members   # For convenience.
+#         self.agent_ratings = list()
+#         self.member_influences = list()
+#         mInfluences = [0 for i in range(team_size)]
+#         aRatings = [0 for i in range(team_size)]
+#         count = 0
+#         influenceMatrices = self.team_event_logs[(self.team_event_logs['extra_data'] == "InfluenceMatrix")]  
+#         influenceMatrixWithoutUndefined = influenceMatrices[~influenceMatrices['stringValue'].str.contains("undefined")]
+#         finalInfluences = influenceMatrixWithoutUndefined.groupby(['questionScore', 'sender'], as_index=False, sort=False).last()
+#         for i in range(len(finalInfluences)):
+#             count +=1 
+#             aR = list()
+#             mI = list() 
+#             idx = self.teamArray.index(finalInfluences.iloc[i]['sender'])
+#             for j in range(0, team_size):
+#                 temp = finalInfluences.iloc[i]['stringValue']
+# #                 Fill missing values
+#                 xy = re.findall(r'Ratings(.*?) Member', temp)[0].split("+")[j].split("=")[1]
+#                 if(xy==''):
+#                     xy = '0.5'
+#                 yz= temp.replace('"', '')[temp.index("Influences ")+10:].split("+")[j].split("=")[1]
+#                 if(yz == ''):
+#                     yz = '25'
+#                 aR.append(float(xy))
+#                 mI.append(int(round(float(yz))))
+#             aRatings[idx]=aR
+#             mInfluences[idx]=mI 
+#             if(count % team_size == 0):
+#                 self.member_influences.append(mInfluences)
+#                 mInfluences = [0 for i in range(team_size)]
+#                 self.agent_ratings.append(aRatings)
+#                 aRatings = [0 for i in range(team_size)]
 
     def _old_load_all(self, directory, teamId):
             #Constants
@@ -339,12 +385,12 @@ class TeamLogProcessor(object):
                 self.agentRatings.append(aRatings)
                 aRatings = [0 for i in range(self.teamSize)]
         
-        # Hyperparameters for expected performance (Humans and Agents) - TODO
-        self.alphas = [1,1,1,1,1,1,1,1]
-        self.betas = np.ones(8, dtype = int)
+        # # Hyperparameters for expected performance (Humans and Agents) - TODO
+        # self.alphas = [1,1,1,1,1,1,1,1]
+        # self.betas = np.ones(8, dtype = int)
 
-        #vector c
-        self.centralities = [[] for _ in range(self.numQuestions)]
+        # #vector c
+        # self.centralities = [[] for _ in range(self.numQuestions)]
 
         self.actionTaken = list()
         for i in range(0,self.numQuestions):
@@ -353,4 +399,4 @@ class TeamLogProcessor(object):
             elif int(float(self.questionNumbers[i])) in self.machineAskedQuestions:
                 self.actionTaken.append(self.teamSize + np.where(self.machineUsed[i] == True)[0][0])
             else:
-                self.actionTaken.append(self.options[i].index(self.groupSubmission.groupAnswer[i])) 
+                self.actionTaken.append(self.options[i].index(self.groupSubmission.groupAnswer[i]))
