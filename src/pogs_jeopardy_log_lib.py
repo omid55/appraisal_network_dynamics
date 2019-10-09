@@ -124,10 +124,7 @@ class TeamLogProcessor(object):
             logs_file_path=logs_directory_path + 'event_log.csv',
             team_has_subject_file_path=logs_directory_path
                 + 'team_has_subject.csv')
-        self._load_messages(
-            logs_file_path=logs_directory_path + 'event_log.csv',
-            team_has_subject_file_path=logs_directory_path
-                + 'team_has_subject.csv')
+        self._load_messages()
         self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
     def _load_this_team_event_logs(self,
