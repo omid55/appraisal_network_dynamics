@@ -27,6 +27,10 @@ class NotFoundFileError(Error):
     """Error class when a file is not found."""
 
 
+class EventLogsNotLoadedError(Error):
+    """Error class when event logs haven't been loaded in the constructor."""
+
+
 @unique
 class Category(Enum):
     SCIENCE_AND_TECHNOLOGY = 1
@@ -67,7 +71,7 @@ class Level(Enum):
 
 @attr.s
 class JeopardyQuestion(object):
-    """Jeopardy-like question including category, choices, right answer, etc."""
+    """Jeopardy-like question including category, choices, right answer, etc"""
     id = attr.ib(type=int)
     question_content = attr.ib(type=str)
     answer = attr.ib(type=str)
@@ -91,7 +95,7 @@ class JeopardyInfoOptions(object):
 
 class TeamLogProcessor(object):
     """Processes the logs of one team who played POGS Jeopardy game.
-    
+
         Usage:
             loader = TeamLogProcessor(
                 team_id=1,
@@ -169,7 +173,21 @@ class TeamLogProcessor(object):
                         level=Level.parse(question['Level'])))
 
     def _load_messages(self) -> None:
-        """Loads the communication messages for the current team."""
+        """Loads the communication messages for the current team.
+
+        Args:
+            None.
+
+        Returns:
+            None.
+
+        Raises:
+            EventLogsNotLoadedError: If the constructor has not been loaded the
+                event logs data yet.
+        """
+        if len(self.team_event_logs) == 0:
+            raise EventLogsNotLoadedError(
+                'Please first run constructor of TeamLogProcessor.')
         indices = [0] + list(
             np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
         begin_index = 0
@@ -187,6 +205,35 @@ class TeamLogProcessor(object):
                 self.messages.append(df)
             begin_index = end_index
             end_index += 1
+
+    def _load_team_answers(self) -> None:
+        """Loads teams' answers for every question before and after communication.
+
+        Args:
+            None.
+
+        Returns:
+            None.
+
+        Raises:
+            EventLogsNotLoadedError: If the constructor has not been loaded the
+                event logs data yet.
+        """
+        if len(self.team_event_logs) == 0:
+            raise EventLogsNotLoadedError(
+                'Please first run constructor of TeamLogProcessor.')
+        def extract_answer(message_contnet):
+            if 'attributeDoubleValue' in message_contnet:
+                return int(float(
+                    message_contnet.split('"attributeDoubleValue":')[1].split(
+                        '||')[0]))
+        tasks = self.team_event_logs[
+            self.team_event_logs.event_type == 'TASK_ATTRIBUTE']
+        answers = tasks.event_content.apply(extract_answer)
+        answers = answers[answers > 0]
+        self.order_of_asked_questions = answers.drop_duplicates().to_numpy()
+        # TODO: Also extract before and after answers per member.
+
 
     def _load_influence_matrices(self) -> None:
         pass
@@ -250,7 +297,9 @@ class TeamLogProcessor(object):
         eventLogWithTeam = pd.merge(elNoMessage, teamSubjects, on='sender_subject_id', how='left')
         eventLogTaskAttribute = eventLogWithTeam[(eventLogWithTeam['event_type'] == "TASK_ATTRIBUTE") & (eventLogWithTeam['teamId'] == teamId)]
         #Extract data from event_content column
-        newEventContent = pd.DataFrame(index=np.arange(0, len(eventLogTaskAttribute)), columns=("id","stringValue", "questionNumber","questionScore","attributeName"))
+        newEventContent = pd.DataFrame(
+            index=np.arange(0, len(eventLogTaskAttribute)),
+            columns=("id","stringValue", "questionNumber","questionScore","attributeName"))
         self.questionNumbers = list()
 
         for i in range(len(eventLogTaskAttribute)):

@@ -19,6 +19,7 @@ import os
 import re
 import textblob
 from xml.sax import saxutils as su
+from os.path import expanduser
 
 from typing import List
 from typing import Tuple
@@ -68,13 +69,13 @@ class EmotionDetector(object):
         Raises:
             None.
         """
-        anew_pkl_filepath = '/home/omid/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl'
+        anew_pkl_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         if os.path.exists(anew_pkl_filepath):
             # loads the preprocessed anew dicts file.
             f = open(anew_pkl_filepath, 'rb')
             self._anew_dicts = pk.load(f)
         else:
-            anew_dictionary_filepath = '/home/omid/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv'
+            anew_dictionary_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew = pd.read_csv(anew_dictionary_filepath)
             self._anew_dicts = {'valence': {}, 'arousal': {}, 'dominance': {}}
             for i in range(len(anew)):

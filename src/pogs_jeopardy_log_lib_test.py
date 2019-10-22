@@ -8,6 +8,7 @@ import mock
 import os
 import unittest
 from parameterized import parameterized
+from numpy import testing as np_testing
 
 import pogs_jeopardy_log_lib as lib
 
@@ -150,7 +151,7 @@ TESTING_TEAM_HAS_SUBJECT_FILE_PATH = '/tmp/team_has_subject.csv'
 class TeamLogProcessorLoadGameQuestionsTest(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls):        
+    def setUpClass(cls):
         # with open(TESTING_LOG_FILE_PATH, 'w') as f:
         #     f.writelines(TESTING_LOG)
         with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
@@ -193,7 +194,7 @@ class TeamLogProcessorLoadGameQuestionsTest(unittest.TestCase):
         self.assertEqual(
             self.loader.game_info.questions[4].category,
             lib.Category.LITERATURE_AND_MEDIA)
-    
+
     def test_load_game_questions_has_correct_level(self):
         self.assertEqual(
             self.loader.game_info.questions[5].level,
@@ -206,7 +207,7 @@ class TeamLogProcessorLoadGameQuestionsTest(unittest.TestCase):
 class TeamLogProcessorLoadThisTeamEventLogTest(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls):        
+    def setUpClass(cls):
         with open(TESTING_LOG_FILE_PATH, 'w') as f:
             f.writelines(TESTING_LOG)
         with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
@@ -220,7 +221,7 @@ class TeamLogProcessorLoadThisTeamEventLogTest(unittest.TestCase):
         os.remove(TESTING_LOG_FILE_PATH)
         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
 
-    def test_load_this_team_event_logs_loads_team_logs_correctly(self):
+    def test_load_this_team_event_logs_loads_team_logs(self):
         self.loader._load_this_team_event_logs(
             logs_file_path=TESTING_LOG_FILE_PATH,
             team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
@@ -234,7 +235,7 @@ class TeamLogProcessorLoadThisTeamEventLogTest(unittest.TestCase):
 class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
 
     @classmethod
-    def setUpClass(cls):        
+    def setUpClass(cls):
         with open(TESTING_LOG_FILE_PATH, 'w') as f:
             f.writelines(TESTING_LOG)
         with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
@@ -252,7 +253,7 @@ class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
         os.remove(TESTING_LOG_FILE_PATH)
         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
 
-    def test_load_messages_has_loaded_log_correctly(self):
+    def test_load_messages_has_loaded_log(self):
         messages = self.loader.messages  # Just for the convenice.
         self.assertEqual(len(messages), 6)
         self.assertEqual(messages[0].shape, (0, 12))
@@ -263,13 +264,46 @@ class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
         self.assertEqual(messages[5].shape, (8, 12))
 
 
+# =========================================================================
+# ==================== _load_team_answers ===========================
+# =========================================================================
+class LoadTeamAnswersTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_team_answers()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+    def test_load_team_answers_loaded_the_order_of_questions_correclty(self):
+        expected = np.array([1, 43, 26, 41, 4, 42])
+        computed = self.loader.order_of_asked_questions
+        np_testing.assert_array_equal(expected, computed)
+
+    def test_load_team_answers(self):
+        pass
+
+
 # # =========================================================================
 # # ==================== _load_influence_matrices ===========================
 # # =========================================================================
 # class TeamLogProcessorLoadInfluenceMatrixTest(unittest.TestCase):
 
 #     @classmethod
-#     def setUpClass(cls):        
+#     def setUpClass(cls):
 #         with open(TESTING_LOG_FILE_PATH, 'w') as f:
 #             f.writelines(TESTING_LOG)
 #         with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
@@ -287,6 +321,6 @@ class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
 #         os.remove(TESTING_LOG_FILE_PATH)
 #         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
 
-#     def test_load_influence_matrices_has_loaded_log_correctly(self):
+#     def test_load_influence_matrices_has_loaded_log(self):
 #         # self.loader.member_influences
 #         pass
