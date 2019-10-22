@@ -17,6 +17,7 @@ from enum import Enum, unique
 import numpy as np
 import pandas as pd
 from typing import Text
+import copy
 
 
 class Error(Exception):
@@ -125,7 +126,8 @@ class TeamLogProcessor(object):
             team_has_subject_file_path=logs_directory_path
                 + 'team_has_subject.csv')
         self._load_messages()
-        self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
+        self._load_answers_chosen()
+        #self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
     def _load_this_team_event_logs(self,
                                    logs_file_path:Text,
@@ -174,8 +176,8 @@ class TeamLogProcessor(object):
             np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
         begin_index = 0
         end_index = 1
-        def extract_message(message_contnet):
-            return message_contnet.split('"message":"')[1].split('"')[0]
+        def extract_message(message_content):
+            return message_content.split('"message":"')[1].split('"')[0]
         self.messages = []
         while end_index < len(indices):
             if indices[end_index] - indices[begin_index] > 4:
@@ -187,6 +189,75 @@ class TeamLogProcessor(object):
                 self.messages.append(df)
             begin_index = end_index
             end_index += 1
+
+    def _set_team_members(self, individual_answers_chosen):
+        self.members = []
+        for index, row in individual_answers_chosen.iterrows():
+            if ((row["sender_subject_id"]) not in self.members):
+                self.members.append(row["sender_subject_id"])
+
+    def _get_last_individual_answers(self, individual_answers_chosen):
+        last_answers = {}
+        for index, row in individual_answers_chosen.iterrows():
+            answer = row["event_content"].split(',')[0].replace('"', '')
+            last_answers[row["sender_subject_id"]] = answer
+        return last_answers
+
+    def _get_last_group_answers(self, group_answers_chosen, last_answers):
+        for index, row in group_answers_chosen.iterrows():
+            answer = row["event_content"].split(',')[0].replace('"', '')
+            last_answers[row["sender_subject_id"]] = answer
+        return last_answers
+
+    def _load_answers_chosen(self) -> None:
+        """Loads the answer choices of each person for their initial and final answer"""
+        indices = [0] + list(
+            np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
+        begin_index = 0
+        end_index = 1
+
+        def extract_answer_and_question(event_content):
+            event_content_string = event_content[1:-1]
+            event_content_array = event_content_string.split('||')
+            answer_info = event_content_array[0].split(':')
+            answer = answer_info[1]
+            question_info = event_content_array[1].split(':')
+            question_number = question_info[1]
+            return answer + "," + question_number
+
+        individual_answers_chosen = []
+        group_answers_chosen = []
+
+        while end_index < len(indices):
+            if indices[end_index] - indices[begin_index] > 4:
+                df = self.team_event_logs.iloc[
+                    indices[begin_index] + 1: indices[end_index]]
+                df = df[df.extra_data == 'IndividualResponse']
+                df.event_content = df.event_content.apply(extract_answer_and_question)
+                individual_answers_chosen.append(df)
+
+                df = self.team_event_logs.iloc[
+                    indices[begin_index] + 1: indices[end_index]]
+                df = df[df.extra_data == 'GroupRadioResponse']
+                df.event_content = df.event_content.apply(extract_answer_and_question)
+                df = df[df.event_content != '']
+                group_answers_chosen.append(df)
+
+            begin_index = end_index
+            end_index += 1
+
+        self.individual_answers_chosen = {}
+        self.group_answers_chosen = {}
+        self._set_team_members(individual_answers_chosen[0])
+        for index in range(len(individual_answers_chosen)):
+            event_content = str(individual_answers_chosen[index].event_content)
+            question_number = int(float(event_content.split("\n")[0].split(",")[1]))
+
+            last_answers = self._get_last_individual_answers(individual_answers_chosen[index])
+            self.individual_answers_chosen[question_number] = last_answers
+            last_group_answers = copy.deepcopy(last_answers)
+            last_group_answers = self._get_last_group_answers(group_answers_chosen[index], last_group_answers)
+            self.group_answers_chosen[question_number] = last_group_answers
 
     def _load_influence_matrices(self) -> None:
         pass
