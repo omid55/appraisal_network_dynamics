@@ -304,6 +304,54 @@ class TeamLogProcessorLoadAnswersChosenTest(unittest.TestCase):
         self.assertEqual(individual_responses[42] == {17: 'Best Sound Mixing', 18: 'Best Original Score', 19: 'Best Sound Mixing', 20: 'Best Sound Mixing'}, True)
         self.assertEqual(group_responses[42] == {19: 'Best Sound Mixing', 17: 'Best Sound Mixing', 20: 'Best Sound Mixing', 18: 'Best Sound Mixing'}, True)
 
+
+# =========================================================================
+# ======================== _load_machine_usage_info =======================
+# =========================================================================
+class TeamLogProcessorMachineUsageTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_JEOPARDY_JSON)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_machine_usage_info()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+    def test_size_of_machine_usage_info(self):
+        self.assertEqual(len(self.loader.machine_usage_info), 6)
+
+    def test_keys_of_machine_usage_info(self):
+        keys = [1, 4, 26, 41, 42, 43]
+        self.assertEqual(all(key in keys for key in self.loader.machine_usage_info.keys()), True)
+        self.assertEqual(all(key in self.loader.machine_usage_info.keys() for key in keys), True)
+
+    def test_machine_was_not_used_for_question_26(self):
+        self.assertEqual(self.loader.machine_usage_info[26].used, False)
+        self.assertEqual(self.loader.machine_usage_info[26].user, -1)
+        self.assertEqual(self.loader.machine_usage_info[26].answer_given, "")
+        self.assertEqual(self.loader.machine_usage_info[26].probability, -1)
+
+    def test_machine_info_for_question_42(self):
+        self.assertEqual(self.loader.machine_usage_info[42].used, True)
+        self.assertEqual(self.loader.machine_usage_info[42].user, 20)
+        self.assertEqual(self.loader.machine_usage_info[42].answer_given, "Best Sound Mixing")
+        self.assertEqual(self.loader.machine_usage_info[42].probability, 0.6)
+
+
 # # =========================================================================
 # # ==================== _load_influence_matrices ===========================
 # # =========================================================================

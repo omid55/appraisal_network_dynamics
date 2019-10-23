@@ -89,6 +89,14 @@ class JeopardyInfoOptions(object):
     using_agent_points = attr.ib(default=-1)
     questions = attr.ib(factory=list)
 
+@attr.s
+class MachineInfo():
+    """Info about a machine's usage per question"""
+    used = attr.ib(default=False)
+    probability = attr.ib(default=-1)
+    user = attr.ib(default=-1)
+    answer_given = attr.ib(default="")
+
 
 class TeamLogProcessor(object):
     """Processes the logs of one team who played POGS Jeopardy game.
@@ -127,6 +135,7 @@ class TeamLogProcessor(object):
                 + 'team_has_subject.csv')
         self._load_messages()
         self._load_answers_chosen()
+        self._load_machine_usage_info()
         #self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
     def _load_this_team_event_logs(self,
@@ -258,6 +267,67 @@ class TeamLogProcessor(object):
             last_group_answers = copy.deepcopy(last_answers)
             last_group_answers = self._get_last_group_answers(group_answers_chosen[index], last_group_answers)
             self.group_answers_chosen[question_number] = last_group_answers
+
+    def _load_machine_usage_info(self) -> None:
+        """Loads whether the machine was used for every question."""
+        indices = [0] + list(
+            np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
+        begin_index = 0
+        end_index = 1
+        def extract_machine_info(event_content):
+            event_content_string = event_content[1:-1]
+            event_content_array = event_content_string.split('||')
+            machine_info = event_content_array[0].replace('"', '').split(':')
+            answer = machine_info[2].split("_")[0]
+            probability = float(machine_info[2].split("_")[1])
+            question_info = event_content_array[1].split(':')
+            question_number = int(float(question_info[1]))
+
+            return probability, answer, question_number
+
+        def get_info_as_list(event_content):
+            event_content = event_content[event_content.find("(") + 1:-1]
+            event_content_list = event_content.split(",")
+            probability = float(event_content_list[0])
+            answer = event_content_list[1].strip()
+            question_number = int(event_content_list[2])
+            return [probability, answer, question_number]
+
+        def extract_question_number(event_content):
+            event_content_string = event_content[1:-1]
+            event_content_array = event_content_string.split('||')
+            question_info = event_content_array[1].split(':')
+            question_number = question_info[1]
+            return question_number
+
+        self.machine_usage_info = {}
+        while end_index < len(indices):
+            if indices[end_index] - indices[begin_index] > 4:
+                df = self.team_event_logs.iloc[
+                    indices[begin_index] + 1: indices[end_index]]
+                df = df[df.extra_data == 'AskedMachine']
+                #CHECK IF DF IS EMPTY
+
+                if (not df.empty):
+                    df.event_content = df.event_content.apply(extract_machine_info)
+                    info = get_info_as_list(df.event_content.to_string())
+                    user = int(df.iloc[0]["sender_subject_id"])
+                    machine_info = MachineInfo(
+                        used=True,
+                        probability=info[0],
+                        user=user,
+                        answer_given=info[1])
+                    self.machine_usage_info[info[2]] = machine_info
+                else:
+                    df = self.team_event_logs.iloc[
+                    indices[begin_index] + 1: indices[end_index]]
+                    df = df[df.extra_data == 'IndividualResponse']
+                    df.event_content = df.event_content.apply(extract_question_number)
+                    question_number = int(float(df.iloc[0]["event_content"]))
+                    self.machine_usage_info[question_number] = MachineInfo()
+
+            begin_index = end_index
+            end_index += 1
 
     def _load_influence_matrices(self) -> None:
         pass
