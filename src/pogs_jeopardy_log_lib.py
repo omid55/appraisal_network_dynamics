@@ -155,6 +155,9 @@ class TeamLogProcessor(object):
             event_log, team_subjects, on='sender_subject_id', how='left')
         self.team_event_logs = event_log_with_team[
             (event_log_with_team['team_id'] == self.team_id)]
+        if len(self.team_event_logs) == 0:
+            raise EventLogsNotLoadedError(
+                'Logs for team_id={} was not found.'.format(self.team_id))
 
     def _load_game_questions(self, file_path: Text) -> None:
         """Loads every question, choices and the right answer.
@@ -325,7 +328,7 @@ class TeamLogProcessor(object):
         self.correctAnswers = list()
         self.options = list()
         
-        for i in range(0, self.numQuestions):
+        for i in range(len(self.questionNumbers)):
             self.correctAnswers.append(d[int(float(self.questionNumbers[i]))-1]['Answer'])
             self.options.append(d[int(float(self.questionNumbers[i]))-1]['value'])
         
@@ -337,10 +340,10 @@ class TeamLogProcessor(object):
         individualAnswersPerQuestion = submissions.groupby(["questionNumber","sender_subject_id"], as_index=False, sort=False).tail(1)
         
         self.groupSubmission = pd.DataFrame(index=np.arange(0, len(self.questionNumbers)), columns=("questionNumber","groupAnswer"))
-        for i in range(0, self.numQuestions):
+        for i in range(len(self.questionNumbers)):
             ans = ""
             consensusReached = True
-            for j in range(0,len(individualAnswersPerQuestion)):                    
+            for j in range(len(individualAnswersPerQuestion)):
                 if (individualAnswersPerQuestion.iloc[j].loc["questionNumber"] == self.questionNumbers[i]):
                     if not ans:
                         ans = individualAnswersPerQuestion.iloc[j].loc["stringValue"]
@@ -379,7 +382,7 @@ class TeamLogProcessor(object):
         
         # Extracting Machine Usage Information
         self.machineUsed = np.array([False, False, False, False] * self.numQuestions).reshape((self.numQuestions, 4))             
-        for i in range(self.numQuestions):
+        for i in range(len(self.questionNumbers)):
             if int(float(self.questionNumbers[i])) in self.machineAskedQuestions:
                 indxM = self.machineAskedQuestions.index(int(float(self.questionNumbers[i])))            
                 k = self.teamArray.index(self.machineAsked['sender'].iloc[indxM])
@@ -387,7 +390,7 @@ class TeamLogProcessor(object):
         
         self.teamScore = list()           
         self.teamScore.append(0)
-        for i in range(0,self.numQuestions):
+        for i in range(len(self.questionNumbers)):
             if self.groupSubmission.groupAnswer[i]!=self.correctAnswers[i]:
                 self.teamScore[i]+=self.z
             else:
@@ -439,7 +442,7 @@ class TeamLogProcessor(object):
         # self.centralities = [[] for _ in range(self.numQuestions)]
 
         self.actionTaken = list()
-        for i in range(0,self.numQuestions):
+        for i in range(len(self.questionNumbers)):
             if self.groupSubmission.groupAnswer[i] == "Consensus Not Reached":
                 self.actionTaken.append(-1)
             elif int(float(self.questionNumbers[i])) in self.machineAskedQuestions:
