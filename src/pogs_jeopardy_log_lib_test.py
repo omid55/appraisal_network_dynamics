@@ -61,10 +61,10 @@ TESTING_LOG = '''2298,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type
     2343,TASK_ATTRIBUTE,{"attributeStringValue":"Helium"||"attributeDoubleValue":4.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":5||"loggableAttribute":true},2019-05-02 10:18:42,32,19,\\N,4,pogs3.3,\\N,IndividualResponse
     2344,TASK_ATTRIBUTE,{"attributeStringValue":"Helium"||"attributeDoubleValue":4.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":5||"loggableAttribute":true},2019-05-02 10:18:45,32,17,\\N,4,pogs3.1,\\N,IndividualResponse
     2345,TASK_ATTRIBUTE,{"attributeStringValue":"Helium"||"attributeDoubleValue":4.0||"attributeName":"jeopardyAnswer0__pogs3.2"||"attributeIntegerValue":10||"loggableAttribute":true},2019-05-02 10:19:41,32,18,\\N,4,pogs3.2,\\N,SubmitButtonField
-    2346,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2:0.3+pogs3.4=0.1+pogs3.3=0.3+pogs3.1=0.3 Member Influences pogs3.2=40+pogs3.4=0+pogs3.3=40+pogs3.1=20"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.4"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:06,32,20,\\N,4,pogs3.4,\\N,InfluenceMatrix
-    2347,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2:0+pogs3.4=0+pogs3.3=0+pogs3.1=0 Member Influences pogs3.2=1+pogs3.4=1+pogs3.3=1+pogs3.1=97"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.1"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:08,32,17,\\N,4,pogs3.1,\\N,InfluenceMatrix
-    2348,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2:0+pogs3.4=0+pogs3.3=0+pogs3.1=0 Member Influences pogs3.2=1+pogs3.4=1+pogs3.3=1+pogs3.1=97"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.1"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:09,32,17,\\N,4,pogs3.1,\\N,InfluenceMatrix
-    2349,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2:0+pogs3.4=0+pogs3.3=0+pogs3.1=0 Member Influences pogs3.2=0+pogs3.4=100+pogs3.3=0+pogs3.1=0"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.3"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:09,32,19,\\N,4,pogs3.3,\\N,InfluenceMatrix
+    2346,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2=0.3+pogs3.4=0.1+pogs3.3=0.3+pogs3.1=0.3 Member Influences pogs3.2=40+pogs3.4=0+pogs3.3=40+pogs3.1=20"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.4"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:06,32,20,\\N,4,pogs3.4,\\N,InfluenceMatrix
+    2347,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2=0+pogs3.4=0+pogs3.3=0+pogs3.1=0 Member Influences pogs3.2=1+pogs3.4=1+pogs3.3=1+pogs3.1=97"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.1"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:08,32,17,\\N,4,pogs3.1,\\N,InfluenceMatrix
+    2348,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2=0+pogs3.4=0+pogs3.3=0+pogs3.1=0 Member Influences pogs3.2=1+pogs3.4=1+pogs3.3=1+pogs3.1=97"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.1"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:09,32,17,\\N,4,pogs3.1,\\N,InfluenceMatrix
+    2349,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2=0+pogs3.4=0+pogs3.3=0+pogs3.1=0 Member Influences pogs3.2=0+pogs3.4=100+pogs3.3=0+pogs3.1=0"||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.3"||"attributeIntegerValue":1||"loggableAttribute":true},2019-05-02 10:23:09,32,19,\\N,4,pogs3.3,\\N,InfluenceMatrix
     2350,TASK_ATTRIBUTE,{"attributeStringValue":"Best Sound Mixing"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":5||"loggableAttribute":true},2019-05-02 10:23:17,32,20,\\N,4,pogs3.4,\\N,IndividualResponse
     2351,TASK_ATTRIBUTE,{"attributeStringValue":"Best Sound Mixing"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":5||"loggableAttribute":true},2019-05-02 10:23:18,32,19,\\N,4,pogs3.3,\\N,IndividualResponse
     2352,TASK_ATTRIBUTE,{"attributeStringValue":"Best Sound Mixing"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":5||"loggableAttribute":true},2019-05-02 10:23:21,32,17,\\N,4,pogs3.1,\\N,IndividualResponse
@@ -140,9 +140,36 @@ TESTING_TEAM_HAS_SUBJECT = '''
     27,1,19
     28,1,17
     '''
+TESTING_SUBJECT = '''
+1,s1,s1,1,\n
+2,s2,s2,1,\n
+3,s3,s3,1,\n
+4,s4,s4,1,\n
+5,pogs1.1,pogs1.1,2,\n
+6,pogs1.2,pogs1.2,2,\n
+7,pogs1.3,pogs1.3,2,\n
+8,pogs1.4,pogs1.4,2,\n
+9,pogs2.1,pogs2.1,3,\n
+10,pogs2.2,pogs2.2,3,\n
+11,pogs2.3,pogs2.3,3,\n
+12,pogs2.4,pogs2.4,3,\n
+13,pogs2.5,pogs2.5,3,\n
+14,pogs2.6,pogs2.6,3,\n
+15,pogs2.7,pogs2.7,3,\n
+16,pogs2.8,pogs2.8,3,\n
+17,pogs3.1,pogs3.1,4,\n
+18,pogs3.2,pogs3.2,4,\n
+19,pogs3.3,pogs3.3,4,\n
+20,pogs3.4,pogs3.4,4,\n
+21,pogs4.1,pogs4.1,5,\n
+22,pogs4.2,pogs4.2,5,\n
+23,pogs4.3,pogs4.3,5,\n
+24,pogs4.4,pogs4.4,5,\n
+'''
 TESTING_LOG_FILE_PATH = '/tmp/event_log.csv'
 TESTING_JEOPARDY_FILE_PATH = '/tmp/jeopardy.json'
 TESTING_TEAM_HAS_SUBJECT_FILE_PATH = '/tmp/team_has_subject.csv'
+TESTING_SUBJECT_PATH = '/tmp/subject.csv'
 
 
 # =========================================================================
@@ -262,6 +289,193 @@ class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
         self.assertEqual(messages[3].shape, (0, 12))
         self.assertEqual(messages[4].shape, (0, 12))
         self.assertEqual(messages[5].shape, (8, 12))
+
+# =========================================================================
+# ======================== _load_answers_chosen ===========================
+# =========================================================================
+class TeamLogProcessorLoadAnswersChosenTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):        
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_JEOPARDY_JSON)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_answers_chosen()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        os.remove(TESTING_JEOPARDY_FILE_PATH)
+
+    def test_load_answers_chosen_has_loaded_correctly(self):
+        individual_responses = self.loader.individual_answers_chosen
+        group_responses = self.loader.group_answers_chosen
+        self.assertEqual(len(individual_responses), 6)
+        self.assertEqual(len(group_responses), 6)
+
+        keys = [1, 4, 26, 41, 42, 43]
+        self.assertEqual(all(key in keys for key in individual_responses.keys()), True)
+        self.assertEqual(all(key in individual_responses.keys() for key in keys), True)
+        self.assertEqual(all(key in keys for key in group_responses.keys()), True)
+        self.assertEqual(all(key in group_responses.keys() for key in keys), True)
+        self.assertEqual(individual_responses[41] == {17: 'Chicken Little', 18: 'Chicken Little', 19: 'Chicken Little', 20: 'Chicken Little'}, True)
+        self.assertEqual(group_responses[41] == {20: 'Chicken Little', 19: 'Chicken Little', 18: 'Chicken Little', 17: 'Chicken Little'}, True)
+        self.assertEqual(individual_responses[42] == {17: 'Best Sound Mixing', 18: 'Best Original Score', 19: 'Best Sound Mixing', 20: 'Best Sound Mixing'}, True)
+        self.assertEqual(group_responses[42] == {19: 'Best Sound Mixing', 17: 'Best Sound Mixing', 20: 'Best Sound Mixing', 18: 'Best Sound Mixing'}, True)
+
+
+# =========================================================================
+# ======================== _load_machine_usage_info =======================
+# =========================================================================
+class TeamLogProcessorMachineUsageTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_JEOPARDY_JSON)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_machine_usage_info()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+    def test_size_of_machine_usage_info(self):
+        self.assertEqual(len(self.loader.machine_usage_info), 6)
+
+    def test_keys_of_machine_usage_info(self):
+        keys = [1, 4, 26, 41, 42, 43]
+        self.assertEqual(all(key in keys for key in self.loader.machine_usage_info.keys()), True)
+        self.assertEqual(all(key in self.loader.machine_usage_info.keys() for key in keys), True)
+
+    def test_machine_was_not_used_for_question_26(self):
+        self.assertEqual(self.loader.machine_usage_info[26].used, False)
+        self.assertEqual(self.loader.machine_usage_info[26].user, -1)
+        self.assertEqual(self.loader.machine_usage_info[26].answer_given, "")
+        self.assertEqual(self.loader.machine_usage_info[26].probability, -1)
+
+    def test_machine_info_for_question_42(self):
+        self.assertEqual(self.loader.machine_usage_info[42].used, True)
+        self.assertEqual(self.loader.machine_usage_info[42].user, 20)
+        self.assertEqual(self.loader.machine_usage_info[42].answer_given, "Best Sound Mixing")
+        self.assertEqual(self.loader.machine_usage_info[42].probability, 0.6)
+
+
+# =========================================================================
+# ======================== _load_ratings ==================================
+# =========================================================================
+class TeamLogProcessorLoadRatingsTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_JEOPARDY_JSON)
+        with open(TESTING_SUBJECT_PATH, 'w') as f:
+            f.writelines(TESTING_SUBJECT)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader.logs_directory_path='/tmp/'
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_ratings()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+    def test_size_of_agent_and_member_ratings(self):
+        self.assertEqual(len(self.loader.agent_ratings), 1)
+
+    def test_contents_of_agent_ratings(self):
+        correct_agent_ratings = {0: [{20: {18: 0.3, 20: 0.1, 19: 0.3, 17: 0.3}}, {17: {18: 0.0, 20: 0.0, 19: 0.0, 17: 0.0}}, {19: {18: 0.0, 20: 0.0, 19: 0.0, 17: 0.0}}, {18: {20: 0, 17: 0, 19: 0, 18: 0}}]}
+        self.assertEqual(self.loader.agent_ratings == correct_agent_ratings, True)
+
+    def test_contents_of_member_ratings(self):
+        correct_member_ratings = {0: [{20: {18: 40.0, 20: 0.0, 19: 40.0, 17: 20.0}}, {17: {18: 1.0, 20: 1.0, 19: 1.0, 17: 97.0}}, {19: {18: 0.0, 20: 100.0, 19: 0.0, 17: 0.0}}, {18: {20: 25, 17: 25, 19: 25, 18: 25}}]}
+        self.assertEqual(self.loader.member_ratings == correct_member_ratings, True)
+
+# =========================================================================
+# ======================== _load_accumulated_score ========================
+# =========================================================================
+class TeamLogProcessorScoreTest(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_JEOPARDY_JSON)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=1, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._load_answers_chosen()
+            cls.loader._load_machine_usage_info()
+            cls.loader._load_accumulated_score()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+
+    def test_size_of_score(self):
+        self.assertEqual(len(self.loader.score), 6)
+
+    def test_score_has_correct_keys(self):
+        keys = [1, 4, 26, 41, 42, 43]
+        print("self.loader.score = ", self.loader.score)
+        self.assertEqual(all(key in keys for key in self.loader.score.keys()), True)
+        self.assertEqual(all(key in self.loader.score.keys() for key in keys), True)
+
+    def test_score_has_correct_values(self):
+        self.assertEqual(self.loader.score[1] == 4, True)
+        self.assertEqual(self.loader.score[43] == -1, True)
+        self.assertEqual(self.loader.score[26] == -1, True)
+        self.assertEqual(self.loader.score[41] == -1, True)
+        self.assertEqual(self.loader.score[4] == 4, True)
+        self.assertEqual(self.loader.score[42] == -2, True)
+
+    # Accumulated score has an extra index at 0 as the starting point
+    def test_size_of_accumulated_score(self):
+        self.assertEqual(len(self.loader.accumulated_score), 7)
+
+    def test_accumulated_score_has_correct_values(self):
+        self.assertEqual(self.loader.accumulated_score[1] == 4, True)
+        self.assertEqual(self.loader.accumulated_score[2] == 3, True)
+        self.assertEqual(self.loader.accumulated_score[3] == 2, True)
+        self.assertEqual(self.loader.accumulated_score[4] == 1, True)
+        self.assertEqual(self.loader.accumulated_score[5] == 5, True)
+        self.assertEqual(self.loader.accumulated_score[6] == 3, True)
 
 
 # =========================================================================
