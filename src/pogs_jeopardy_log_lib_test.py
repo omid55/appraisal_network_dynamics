@@ -477,40 +477,6 @@ class TeamLogProcessorScoreTest(unittest.TestCase):
         self.assertEqual(self.loader.accumulated_score[5] == 5, True)
         self.assertEqual(self.loader.accumulated_score[6] == 3, True)
 
-
-# =========================================================================
-# ==================== _load_team_answers ===========================
-# =========================================================================
-class LoadTeamAnswersTest(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        with open(TESTING_LOG_FILE_PATH, 'w') as f:
-            f.writelines(TESTING_LOG)
-        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
-            f.writelines(TESTING_TEAM_HAS_SUBJECT)
-        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
-            cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
-            cls.loader._load_this_team_event_logs(
-                logs_file_path=TESTING_LOG_FILE_PATH,
-                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
-            cls.loader._load_team_answers()
-
-    @classmethod
-    def tearDownClass(cls):
-        os.remove(TESTING_LOG_FILE_PATH)
-        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
-
-    def test_load_team_answers_loaded_the_order_of_questions_correclty(self):
-        expected = np.array([1, 43, 26, 41, 4, 42])
-        computed = self.loader.order_of_asked_questions
-        np_testing.assert_array_equal(expected, computed)
-
-    def test_load_team_answers(self):
-        pass
-
-
 # # =========================================================================
 # # ==================== _load_influence_matrices ===========================
 # # =========================================================================
