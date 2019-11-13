@@ -141,9 +141,14 @@ class TeamLogProcessor(object):
         self._load_messages()
         self._load_answers_chosen()
         self._load_machine_usage_info()
+
+        self._preload_data(logs_directory_path)
+        self._define_team_member_order(logs_directory_path)
         self._load_ratings()
+
         self._load_accumulated_score()
-        #self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
+        #self._load_the_rest(logs_directory_path, self.team_id)
+        self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
     def _load_this_team_event_logs(self,
                                    logs_file_path:Text,
@@ -336,7 +341,7 @@ class TeamLogProcessor(object):
 
                 if (not df.empty):
                     df.event_content = df.event_content.apply(extract_machine_info)
-                    info = get_info_as_list(df.event_content.to_string())
+                    info = get_info_as_list(df.event_content.to_string().split('\n')[0])
                     user = int(df.iloc[0]["sender_subject_id"])
                     machine_info = MachineInfo(
                         used=True,
@@ -375,146 +380,146 @@ class TeamLogProcessor(object):
         item = row.iloc[0][0]
         self.team_member_mapping[sender] = item
 
+    def _preload_data(self, directory) -> None:
+        # Preloading of the data
+        self.event_log = pd.read_csv(directory+"event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
+        self.team_subjects = pd.read_csv(directory+"team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
+        event_log_no_message =  self.event_log[(self.event_log['event_type'] == "TASK_ATTRIBUTE")]
+        event_log_no_message["sender_subject_id"] = pd.to_numeric(event_log_no_message["sender_subject_id"])
+
+        event_log_with_team = pd.merge(event_log_no_message, self.team_subjects, on='sender_subject_id', how='left')
+        event_log_task_attribute = event_log_with_team[(event_log_with_team['event_type'] == "TASK_ATTRIBUTE") & (event_log_with_team['teamId'] == self.team_id)]
+        #Extract data from event_content column
+        new_event_content = pd.DataFrame(
+            index=np.arange(0, len(event_log_task_attribute)),
+            columns=("id","stringValue", "questionNumber","questionScore","attributeName"))
+        self.questionNumbers = list()
+
+        for i in range(len(event_log_task_attribute)):
+            new_event_content.id[i] = event_log_task_attribute.iloc[i]["id"]
+            new_event_content.stringValue[i] = event_log_task_attribute.iloc[i]["event_content"].split("||")[0].split(":")[1].replace('"', '')
+            new_event_content.questionNumber[i] = event_log_task_attribute.iloc[i]["event_content"].split("||")[1].split(":")[1]
+            if new_event_content.questionNumber[i] not in self.questionNumbers:
+                self.questionNumbers.append(new_event_content.questionNumber[i])
+            new_event_content.questionScore[i] = event_log_task_attribute.iloc[i]["event_content"].split("||")[3].split(":")[1]
+            new_event_content.attributeName[i] =event_log_task_attribute.iloc[i]["event_content"].split("||")[2].split(":")[1]
+
+        self.questionNumbers = self.questionNumbers[1 :]
+        self.event_log_with_all_data = pd.merge(event_log_task_attribute,new_event_content,on='id', how ='left')
+
+
+    def _define_team_member_order(self, directory) -> None:
+        # Define teammember order
+        subjects = pd.read_csv(directory+"subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
+        team_with_subject_details = pd.merge(self.team_subjects, subjects, on='sender_subject_id', how='left')
+        self.team_member = team_with_subject_details[(team_with_subject_details['teamId'] == self.team_id)]['displayName']
+        self.team_size = len(self.team_member)
+        self.team_array = list()
+
+        for i in range(self.team_size):
+            self.team_array.append(self.team_member.iloc[i])
+
+    def _extract_and_fill_missing_values(self, temp, aR, mI, aR_from_data, mI_from_data):
+        for j in range(0, self.team_size):
+            agent_from_data = True
+            member_from_data = True
+            # Fill missing values
+            xy = re.findall(r'Ratings(.*?) Member', temp)[0].split("+")[j].split("=")[1]
+            if(xy==''):
+                xy = '0.0'
+                agent_from_data = False
+            yz= temp.replace('"', '')[temp.index("Influences ")+10:].split("+")[j].split("=")[1]
+            if(yz == ''):
+                yz = '25'
+                member_from_data = False
+            aR.append(float(xy))
+            mI.append(int(round(float(yz))))
+            aR_from_data.append(agent_from_data)
+            mI_from_data.append(member_from_data)
+
+    def _add_values_for_missing_line(self, count, missing_members, a_ratings,
+        m_influences, a_ratings_from_data, m_influences_from_data):
+        for member in missing_members:
+            aR = list()
+            mI = list()
+            aR_from_data = list()
+            mI_from_data = list()
+            idx = self.team_array.index(member)
+            for j in range(0, self.team_size):
+                aR.append(0.0)
+                mI.append(25)
+                aR_from_data.append(False)
+                mI_from_data.append(False)
+            a_ratings[idx] = aR
+            m_influences[idx] = mI
+            a_ratings_from_data[idx] = aR_from_data
+            m_influences_from_data[idx] = mI_from_data
+            count += 1
+        return count
+
     def _load_ratings(self) -> None:
-        """Loads the agent and member ratings."""
-        indices = [0] + list(
-            np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
-        begin_index = 0
-        end_index = 1
+        self.agent_ratings = list()
+        self.member_influences = list()
+        self.agent_ratings_from_data = list()
+        self.member_influences_from_data = list()
+        m_influences = [0 for i in range(self.team_size)]
+        a_ratings = [0 for i in range(self.team_size)]
+        m_influences_from_data = [False for i in range(self.team_size)]
+        a_ratings_from_data = [False for i in range(self.team_size)]
+        count = 0
+        influence_matrices = self.event_log_with_all_data[(self.event_log_with_all_data['extra_data'] == "InfluenceMatrix")]
+        influence_matrix_without_undefined = influence_matrices[~influence_matrices['stringValue'].str.contains("undefined")]
+        final_influences = influence_matrix_without_undefined.groupby(['questionScore', 'sender'], as_index=False, sort=False).last()
 
-        def parse_event_content(event_content, team_member_id):
-            agent_dict = {}
-            member_dict = {}
-            agent_dict_from_data = {}
-            member_dict_from_data = {}
+        processed_members = []
+        current_question_score = None
 
-            event_content = event_content.replace("pogs3.2:", "pogs3.2=")
+        # Loop that extracts values and fills in missing ones for all
+        # InfluenceMatrix entries
+        for i in range(len(final_influences)):
+            count +=1
+            aR = list()
+            mI = list()
+            aR_from_data = list()
+            mI_from_data = list()
+            idx = self.team_array.index(final_influences.iloc[i]['sender'])
+            processed_members.append(final_influences.iloc[i]['sender'])
+            current_question_score = int(final_influences.iloc[i]['questionScore'])
 
-            if "=+" in event_content:
-                event_content = event_content.replace("=+", "=25(filled)+")
-            if '="' in event_content:
-                event_content = event_content.replace('="', '=25(filled)"')
-            if '= ' in event_content:
-                event_content = event_content.replace('= ', '=0 (filled)')
-            if 'undefined' in event_content:
-                event_content = event_content.replace('undefined', '0(filled)')
+            a_ratings[idx]=aR
+            m_influences[idx]=mI
+            a_ratings_from_data[idx] = aR_from_data
+            m_influences_from_data[idx] = mI_from_data
+            temp = final_influences.iloc[i]['stringValue']
+            self._extract_and_fill_missing_values(temp, aR, mI, aR_from_data, mI_from_data)
 
-            event_content_array = event_content.replace("{", "").replace("}", "").split(" ")
-            agent_line = event_content_array[2]
-            member_line = event_content_array[5].split("||")[0].replace('"', "")
+            # Need to check if there is a next influence matrix line or
+            # if the next line belongs to a different round
+            # If so, check if we missed a team member's answers (missing line)
+            # and fill in values
+            if (i + 2 > len(final_influences) or
+                int(final_influences.iloc[i + 1]['questionScore']) != current_question_score):
+                missing_members = np.setdiff1d(self.team_array, processed_members)
 
-            members = []
-            for k, v in (item.split("=") for item in agent_line.split("+")):
-                members.append(k)
+                count = self._add_values_for_missing_line(count, missing_members,
+                a_ratings, m_influences, a_ratings_from_data, m_influences_from_data)
+                processed_members = []
 
-            # Fix the case where we didn't see all members earlier, so add to the mapping
-            for k in members:
-                if k not in self.team_member_mapping.keys():
-                    self._add_to_team_member_mapping(k)
+            # If we saw everyone's answers, then add their responses to the
+            # influence matrix data structure along with whether the answers
+            # were from data or not.
+            if (count == self.team_size):
+                self.member_influences.append(m_influences)
+                self.agent_ratings.append(a_ratings)
+                self.member_influences_from_data.append(m_influences_from_data)
+                self.agent_ratings_from_data.append(a_ratings_from_data)
 
+                m_influences = [0 for i in range(self.team_size)]
+                a_ratings = [0 for i in range(self.team_size)]
+                m_influences_from_data = [False for i in range(self.team_size)]
+                a_ratings_from_data = [False for i in range(self.team_size)]
 
-            for str in agent_line.split("+"):
-                val = True
-                if ("(filled)" in str):
-                    val = False
-                str_array = str.split("=")
-                agent_dict_from_data[self.team_member_mapping[str_array[0]]] = val
-
-            for str in member_line.split("+"):
-                val = True
-                if ("(filled)" in str):
-                    val = False
-                str_array = str.split("=")
-                member_dict_from_data[self.team_member_mapping[str_array[0]]] = val
-
-            event_content = event_content.replace("(filled)", "")
-            event_content_array = event_content.replace("{", "").replace("}", "").split(" ")
-            agent_line = event_content_array[2]
-            member_line = event_content_array[5].split("||")[0].replace('"', "")
-
-            personal_agent_ratings_dict = dict((self.team_member_mapping[k], float(v)) for k, v in (item.split("=") for item in agent_line.split("+")))
-            personal_member_ratings_dict = dict((self.team_member_mapping[k], float(v)) for k, v in (item.split("=") for item in member_line.split("+")))
-            agent_dict[team_member_id] = personal_agent_ratings_dict
-            member_dict[team_member_id] = personal_member_ratings_dict
-
-            return agent_dict, member_dict, agent_dict_from_data, member_dict_from_data, team_member_id
-
-        self.agent_ratings = {}
-        self.member_ratings = {}
-        self.agent_ratings_from_data = {}
-        self.member_ratings_from_data = {}
-        ratings_index = 0
-        while end_index < len(indices):
-            if indices[end_index] - indices[begin_index] > 4:
-                df = self.team_event_logs.iloc[
-                    indices[begin_index] + 1: indices[end_index]]
-                df = df[df.extra_data == 'InfluenceMatrix']
-
-                if (not df.empty):
-                    if (len(df.index) >=4):
-                        try:
-                            self.team_member_mapping
-                        except AttributeError:
-                            self._create_team_member_mapping(df)
-                        agent_dict_list = []
-                        member_dict_list = []
-                        agent_dict_from_data_list = []
-                        member_dict_from_data_list = []
-                        team_member_ids = []
-                        for index in range(len(df)):
-                            agent_dict, member_dict, agent_dict_from_data, member_dict_from_data, team_member_id = \
-                                parse_event_content(str(df.event_content.iloc[index]), int(str(df.sender_subject_id.iloc[index])))
-
-                            team_member_ids.append(team_member_id)
-
-                            # Handle duplicates
-                            if agent_dict not in agent_dict_list:
-                                agent_dict_list.append(agent_dict)
-                            if member_dict not in member_dict_list:
-                                member_dict_list.append(member_dict)
-                            if agent_dict_from_data not in agent_dict_from_data_list:
-                                agent_dict_from_data_list.append(agent_dict)
-                            if member_dict_from_data not in agent_dict_from_data_list:
-                                agent_dict_from_data_list.append(member_dict)
-
-                        print("agent_dict_list = ", agent_dict_list)
-
-                        # If we're missing an entry, add one with default values of 0 for agent and 25 for members and record that we filled in
-                        for k in self.team_member_mapping.keys():
-                            v = self.team_member_mapping[k]
-                            if v not in team_member_ids:
-                                #agent_dict_list[]
-
-                                fake_agent_values = {}
-                                for id in self.team_member_mapping.values():
-                                    fake_agent_values[id] = 0
-                                personal_fake_agent_values = {}
-                                personal_fake_agent_values[v] = fake_agent_values
-                                agent_dict_list.append(personal_fake_agent_values)
-
-                                agent_dict_from_data[v] = False
-
-                                fake_member_values = {}
-                                for id in self.team_member_mapping.values():
-                                    fake_member_values[id] = 25
-                                personal_fake_member_values = {}
-                                personal_fake_member_values[v] = fake_member_values
-                                member_dict_list.append(personal_fake_member_values)
-
-                                member_dict_from_data[v] = False
-
-                        self.agent_ratings[ratings_index] = agent_dict_list
-                        self.member_ratings[ratings_index] = member_dict_list
-                        self.agent_ratings_from_data[ratings_index] = agent_dict_from_data_list
-                        self.member_ratings_from_data[ratings_index] = member_dict_from_data_list
-
-                        ratings_index = ratings_index + 1
-                    else:
-                        print("invalid for index = " + str(begin_index))
-                        return
-
-            begin_index = end_index
-            end_index += 1
+                count = 0
 
     def _load_accumulated_score(self) -> None:
         """Loads the accumulated score per question"""
@@ -552,6 +557,38 @@ class TeamLogProcessor(object):
             self.score[i] = score_earned
             self.accumulated_score[index] = self.accumulated_score[index - 1] + score_earned
             index = index + 1
+
+    def _load_the_rest(self, directory, team_id) -> None:
+        event_log = pd.read_csv(directory+"event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
+        team_subjects = pd.read_csv(directory+"team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
+        el_no_message =  event_log[(event_log['event_type'] == "TASK_ATTRIBUTE")]
+        event_log_with_team = pd.merge(el_no_message, team_subjects, on='sender_subject_id', how='left')
+        event_log_task_attribute = event_log_with_team[(event_log_with_team['event_type'] == "TASK_ATTRIBUTE") & (event_log_with_team['teamId'] == team_id)]
+        new_event_content = pd.DataFrame(
+            index=np.arange(0, len(event_log_task_attribute)),
+            columns=("id","stringValue", "questionNumber","questionScore","attributeName"))
+        event_log_with_all_data = pd.merge(event_log_task_attribute,new_event_content,on='id', how ='left')
+
+        subjects = pd.read_csv(directory+"subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
+        team_with_subject_details = pd.merge(team_subjects, subjects, on='sender_subject_id', how='left')
+        team_member = team_with_subject_details[(team_with_subject_details['teamId'] == team_id)]['displayName']
+
+        pre_experiment_data = event_log_with_all_data[event_log_with_all_data['extra_data'] == "RadioField"]
+
+        print("pre_experiment_data = ", pre_experiment_data)
+        print("team_member = ", team_member)
+        self.pre_experiment_rating = list()
+        for i in range(0,4):
+            self.pre_experiment_rating.append(0)
+            if len(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer0\"")])>0:
+                self.pre_experiment_rating[-1]+=(float(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer0\"")]['stringValue'].iloc[0][0:1]))
+            if len(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer1\"")]) >0:
+                self.pre_experiment_rating[-1]+=(float(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer1\"")]['stringValue'].iloc[0][0:1]))
+            if len(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer2\"")])>0:
+                self.pre_experiment_rating[-1]+=(float(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer2\"")]['stringValue'].iloc[0][0:1]))
+            self.pre_experiment_rating[-1]/=15
+
+        print(self.pre_experiment_rating)
 
 
     def _load_influence_matrices(self) -> None:
