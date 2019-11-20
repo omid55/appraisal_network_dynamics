@@ -147,8 +147,8 @@ class TeamLogProcessor(object):
         self._load_ratings()
 
         self._load_accumulated_score()
-        # self._load_the_rest(logs_directory_path, self.team_id)
-        # self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
+        self._load_survey()
+        self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
     def _load_this_team_event_logs(self,
                                    logs_file_path:Text,
@@ -561,36 +561,61 @@ class TeamLogProcessor(object):
             self.accumulated_score[index] = self.accumulated_score[index - 1] + score_earned
             index = index + 1
 
-    # def _load_the_rest(self, directory, team_id) -> None:
-    #     event_log = pd.read_csv(directory+"event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
-    #     team_subjects = pd.read_csv(directory+"team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
-    #     el_no_message =  event_log[(event_log['event_type'] == "TASK_ATTRIBUTE")]
-    #     event_log_with_team = pd.merge(el_no_message, team_subjects, on='sender_subject_id', how='left')
-    #     event_log_task_attribute = event_log_with_team[(event_log_with_team['event_type'] == "TASK_ATTRIBUTE") & (event_log_with_team['teamId'] == team_id)]
-    #     new_event_content = pd.DataFrame(
-    #         index=np.arange(0, len(event_log_task_attribute)),
-    #         columns=("id","stringValue", "questionNumber","questionScore","attributeName"))
-    #     event_log_with_all_data = pd.merge(event_log_task_attribute,new_event_content,on='id', how ='left')
+    def _load_survey(self) -> None:
+        pre_experiment_data = self.event_log_with_all_data[self.event_log_with_all_data['extra_data'] == "RadioField"]
 
-    #     subjects = pd.read_csv(directory+"subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
-    #     team_with_subject_details = pd.merge(team_subjects, subjects, on='sender_subject_id', how='left')
-    #     team_member = team_with_subject_details[(team_with_subject_details['teamId'] == team_id)]['displayName']
+        self.pre_experiment_rating = []
+        for i in range(len(self.team_array)):
+            survey_dict = { 0: -1, 1: -1, 2: -1}
+            for row in range (len(pre_experiment_data) - 1, -1, -1):
+                if (pre_experiment_data.iloc[row]['sender'] == self.team_member.iloc[i]):
+                    current_frame = pre_experiment_data.iloc[row]
+                    if (current_frame['attributeName'] == "\"surveyAnswer0\"" and
+                        survey_dict[0] == -1):
+                        survey_dict[0] = float(current_frame['stringValue'][0:1])
+                    elif(current_frame['attributeName'] == "\"surveyAnswer1\"" and
+                        survey_dict[1] == -1):
+                        survey_dict[1] = float(current_frame['stringValue'][0:1])
+                    elif(current_frame['attributeName'] == "\"surveyAnswer2\"" and
+                        survey_dict[2] == -1):
+                        survey_dict[2] = float(current_frame['stringValue'][0:1])
+            self.pre_experiment_rating.append(survey_dict)
 
-    #     pre_experiment_data = event_log_with_all_data[event_log_with_all_data['extra_data'] == "RadioField"]
 
-    #     print("pre_experiment_data = ", pre_experiment_data)
-    #     print("team_member = ", team_member)
-    #     self.pre_experiment_rating = list()
-    #     for i in range(0,4):
-    #         self.pre_experiment_rating.append(0)
-    #         if len(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer0\"")])>0:
-    #             self.pre_experiment_rating[-1]+=(float(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer0\"")]['stringValue'].iloc[0][0:1]))
-    #         if len(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer1\"")]) >0:
-    #             self.pre_experiment_rating[-1]+=(float(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer1\"")]['stringValue'].iloc[0][0:1]))
-    #         if len(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer2\"")])>0:
-    #             self.pre_experiment_rating[-1]+=(float(pre_experiment_data[(pre_experiment_data['sender'] == team_member.iloc[i]) & (pre_experiment_data['attributeName'] == "\"surveyAnswer2\"")]['stringValue'].iloc[0][0:1]))
-    #         self.pre_experiment_rating[-1]/=15
-    #     print(self.pre_experiment_rating)
+    def _load_influence_matrices(self) -> None:
+        pass
+#         team_size = self.game_info.num_of_team_members   # For convenience.
+#         self.agent_ratings = list()
+#         self.member_influences = list()
+#         mInfluences = [0 for i in range(team_size)]
+#         aRatings = [0 for i in range(team_size)]
+#         count = 0
+#         influenceMatrices = self.team_event_logs[(self.team_event_logs['extra_data'] == "InfluenceMatrix")]  
+#         influenceMatrixWithoutUndefined = influenceMatrices[~influenceMatrices['stringValue'].str.contains("undefined")]
+#         finalInfluences = influenceMatrixWithoutUndefined.groupby(['questionScore', 'sender'], as_index=False, sort=False).last()
+#         for i in range(len(finalInfluences)):
+#             count +=1 
+#             aR = list()
+#             mI = list() 
+#             idx = self.teamArray.index(finalInfluences.iloc[i]['sender'])
+#             for j in range(0, team_size):
+#                 temp = finalInfluences.iloc[i]['stringValue']
+# #                 Fill missing values
+#                 xy = re.findall(r'Ratings(.*?) Member', temp)[0].split("+")[j].split("=")[1]
+#                 if(xy==''):
+#                     xy = '0.5'
+#                 yz= temp.replace('"', '')[temp.index("Influences ")+10:].split("+")[j].split("=")[1]
+#                 if(yz == ''):
+#                     yz = '25'
+#                 aR.append(float(xy))
+#                 mI.append(int(round(float(yz))))
+#             aRatings[idx]=aR
+#             mInfluences[idx]=mI 
+#             if(count % team_size == 0):
+#                 self.member_influences.append(mInfluences)
+#                 mInfluences = [0 for i in range(team_size)]
+#                 self.agent_ratings.append(aRatings)
+#                 aRatings = [0 for i in range(team_size)]
 
     def _old_load_all(self, directory, teamId):
             #Constants

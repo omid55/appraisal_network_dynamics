@@ -83,7 +83,26 @@ TESTING_LOG = '''2298,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type
     2365,TASK_ATTRIBUTE,{"attributeStringValue":"DIFFERENT TEAM MEMBER MISTAKABLY ADDED"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0__pogs3999.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-02 10:24:39,32,999,\\N,999,pogs3999.1,\\N,SubmitButtonField
     2366,TASK_ATTRIBUTE,{"attributeStringValue":"DIFFERENT TEAM MEMBER MISTAKABLY ADDED 2"||"attributeDoubleValue":42.0||"attributeName":"jeopardyAnswer0__pogs3999.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-02 10:24:39,32,999,\\N,999,pogs3999.1,\\N,SubmitButtonField'''
 
-INFLUENCE_TESTING_LOG = '''
+TESTING_INFLUENCE_LOG = '''
+    2279,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:23,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2280,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:24,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2281,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:24,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2282,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:25,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2283,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:25,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2284,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:27,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2285,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:28,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2286,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:30,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2287,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:31,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2288,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:32,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2289,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:32,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2290,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:42,31,17,\\N,4,pogs3.1,\\N,RadioField
+    2291,TASK_ATTRIBUTE,{"attributeStringValue":"5 - Very Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:42,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2292,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:42,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2293,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:43,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2294,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:43,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2295,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:44,31,17,\\N,4,pogs3.1,\\N,RadioField
+    2296,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:48,31,17,\\N,4,pogs3.1,\\N,RadioField
+    2297,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:51,28,18,\\N,4,pogs3.2,\\N,RadioField
     2298,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,20,\\N,4,pogs3.4,\\N,\\N
     2299,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,18,\\N,4,pogs3.2,\\N,\\N
     2300,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,17,\\N,4,pogs3.1,\\N,\\N
@@ -331,6 +350,132 @@ INFLUENCE_TESTING_LOG = '''
     2542,TASK_ATTRIBUTE,{"attributeStringValue":"Agent Ratings pogs3.2=+pogs3.4=+pogs3.3=1+pogs3.1=1 Member Influences pogs3.2=+pogs3.4=+pogs3.3=+pogs3.1="||"attributeDoubleValue":0.0||"attributeName":"jeopardyAnswer0__pogs3.1"||"attributeIntegerValue":4||"loggableAttribute":true},5/2/19 10:47,32,17,\\N,4,pogs3.2,\\N,InfluenceMatrix
     '''
 
+TESTING_PRESURVEY_LOG_1 = '''
+    2279,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:23,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2280,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:24,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2281,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:24,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2282,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:25,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2283,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:25,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2284,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:27,30,20,\\N,4,pogs3.4,\\N,RadioField
+    2285,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:28,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2286,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:30,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2287,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:31,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2288,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:32,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2289,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:32,29,19,\\N,4,pogs3.3,\\N,RadioField
+    2290,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:42,31,17,\\N,4,pogs3.1,\\N,RadioField
+    2291,TASK_ATTRIBUTE,{"attributeStringValue":"5 - Very Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:42,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2292,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:42,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2293,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:43,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2294,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:43,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2295,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:44,31,17,\\N,4,pogs3.1,\\N,RadioField
+    2296,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:48,31,17,\\N,4,pogs3.1,\\N,RadioField
+    2297,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-02 10:11:51,28,18,\\N,4,pogs3.2,\\N,RadioField
+    2298,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,20,\\N,4,pogs3.4,\\N,\\N
+    2299,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,18,\\N,4,pogs3.2,\\N,\\N
+    2300,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,17,\\N,4,pogs3.1,\\N,\\N
+    2301,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-02 10:12:09,32,19,\\N,4,pogs3.3,\\N,\\N
+    2302,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-02 10:12:15,32,17,\\N,4,pogs3.1,\\N,IndividualResponse
+    2303,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-02 10:12:16,32,20,\\N,4,pogs3.4,\\N,IndividualResponse
+    2304,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-02 10:12:18,32,19,\\N,4,pogs3.3,\\N,IndividualResponse
+    2305,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-02 10:12:31,32,18,\\N,4,pogs3.2,\\N,IndividualResponse
+    2306,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0__pogs3.4"||"attributeIntegerValue":5||"loggableAttribute":true},2019-05-02 10:13:28,32,20,\\N,4,pogs3.4,\\N,SubmitButtonField
+    '''
+
+TESTING_PRESURVEY_LOG_2 = '''
+    3464,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:18,43,26,\\N,5,pogs4.2.1,\\N,RadioField
+    3465,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:20,46,25,\\N,5,pogs4.1.1,\\N,RadioField
+    3466,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:20,44,27,\\N,5,pogs4.3.1,\\N,RadioField
+    3467,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:20,45,28,\\N,5,pogs4.4.1,\\N,RadioField
+    3468,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:21,46,25,\\N,5,pogs4.1.1,\\N,RadioField
+    3469,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:21,43,26,\\N,5,pogs4.2.1,\\N,RadioField
+    3470,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:22,44,27,\\N,5,pogs4.3.1,\\N,RadioField
+    3471,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:23,43,26,\\N,5,pogs4.2.1,\\N,RadioField
+    3472,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:23,46,25,\\N,5,pogs4.1.1,\\N,RadioField
+    3473,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:25,45,28,\\N,5,pogs4.4.1,\\N,RadioField
+    3474,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:25,44,27,\\N,5,pogs4.3.1,\\N,RadioField
+    3475,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:27,45,28,\\N,5,pogs4.4.1,\\N,RadioField
+    3476,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:16:30,44,27,\\N,5,pogs4.3.1,\\N,RadioField
+    3477,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:17:05,47,26,\\N,5,pogs4.2.1,\\N,\\N
+    3478,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:17:06,47,27,\\N,5,pogs4.3.1,\\N,\\N
+    3479,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:17:06,47,25,\\N,5,pogs4.1.1,\\N,\\N
+    3480,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:17:06,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3481,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:17:08,47,25,\\N,5,pogs4.1.1,\\N,IndividualResponse
+    3482,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:17:08,47,26,\\N,5,pogs4.2.1,\\N,IndividualResponse
+    3483,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:17:09,47,27,\\N,5,pogs4.3.1,\\N,IndividualResponse
+    3484,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:17:29,47,28,\\N,5,pogs4.4.1,\\N,IndividualResponse
+    3485,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"radio i think"||"type":"MESSAGE"},2019-05-13 10:17:39,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3486,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"yea radio seems like the move"||"type":"MESSAGE"},2019-05-13 10:18:06,47,27,\\N,5,pogs4.3.1,\\N,\\N
+    3487,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0__pogs4.2.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:18:24,47,26,\\N,5,pogs4.2.1,\\N,SubmitButtonField
+    3488,TASK_ATTRIBUTE,{"attributeStringValue":"Hamlet"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:18:37,47,26,\\N,5,pogs4.2.1,\\N,IndividualResponse
+    3489,TASK_ATTRIBUTE,{"attributeStringValue":"The Tempest"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:18:37,47,25,\\N,5,pogs4.1.1,\\N,IndividualResponse
+    3490,TASK_ATTRIBUTE,{"attributeStringValue":"The Merchant of Venice"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:18:41,47,26,\\N,5,pogs4.2.1,\\N,IndividualResponse
+    3491,TASK_ATTRIBUTE,{"attributeStringValue":"The Tempest"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:18:42,47,27,\\N,5,pogs4.3.1,\\N,IndividualResponse
+    3492,TASK_ATTRIBUTE,{"attributeStringValue":"The Merchant of Venice"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:18:42,47,28,\\N,5,pogs4.4.1,\\N,IndividualResponse
+    3493,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"anyone know for sure?"||"type":"MESSAGE"},2019-05-13 10:19:05,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3494,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"not me"||"type":"MESSAGE"},2019-05-13 10:19:09,47,26,\\N,5,pogs4.2.1,\\N,\\N
+    3495,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"no idea"||"type":"MESSAGE"},2019-05-13 10:19:09,47,25,\\N,5,pogs4.1.1,\\N,\\N
+    3496,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"nope"||"type":"MESSAGE"},2019-05-13 10:19:12,47,27,\\N,5,pogs4.3.1,\\N,\\N
+    3497,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"i think its mercant of venice cuz the tempest is about women and men"||"type":"MESSAGE"},2019-05-13 10:19:36,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3498,TASK_ATTRIBUTE,{"attributeStringValue":"The Merchant of Venice"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:19:41,47,25,\\N,5,pogs4.1.1,\\N,GroupRadioResponse
+    3499,TASK_ATTRIBUTE,{"attributeStringValue":"The Merchant of Venice"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:19:43,47,27,\\N,5,pogs4.3.1,\\N,GroupRadioResponse
+    3500,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"sounds good to me"||"type":"MESSAGE"},2019-05-13 10:19:48,47,26,\\N,5,pogs4.2.1,\\N,\\N
+    3501,TASK_ATTRIBUTE,{"attributeStringValue":"The Merchant of Venice"||"attributeDoubleValue":43.0||"attributeName":"jeopardyAnswer0__pogs4.2.1"||"attributeIntegerValue":3||"loggableAttribute":true},2019-05-13 10:19:53,47,26,\\N,5,pogs4.2.1,\\N,SubmitButtonField
+'''
+TESTING_PRESURVEY_LOG_3 = '''
+    3634,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:26,50,30,\\N,6,pogs5.2,\\N,RadioField
+    3635,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:27,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3636,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"why not"||"type":"MESSAGE"},2019-05-13 10:38:30,47,26,\\N,5,pogs4.2.1,\\N,\\N
+    3637,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"think of all the notable english authors"||"type":"MESSAGE"},2019-05-13 10:38:30,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3638,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:31,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3639,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:33,50,30,\\N,6,pogs5.2,\\N,RadioField
+    3640,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:33,51,31,\\N,6,pogs5.3,\\N,RadioField
+    3641,TASK_ATTRIBUTE,{"attributeStringValue":"1- Not at all"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:34,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3642,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:34,50,30,\\N,6,pogs5.2,\\N,RadioField
+    3643,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:34,49,29,\\N,6,pogs5.1,\\N,RadioField
+    3644,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:35,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3645,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:36,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3646,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer0"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:37,51,31,\\N,6,pogs5.3,\\N,RadioField
+    3647,TASK_ATTRIBUTE,{"attributeStringValue":"4 - Fairly Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:37,49,29,\\N,6,pogs5.1,\\N,RadioField
+    3648,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:37,50,30,\\N,6,pogs5.2,\\N,RadioField
+    3649,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"idk any french ones"||"type":"MESSAGE"},2019-05-13 10:38:38,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3650,TASK_ATTRIBUTE,{"attributeStringValue":"5 - Very Well"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:39,49,29,\\N,6,pogs5.1,\\N,RadioField
+    3651,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:39,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3652,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer1"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:41,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3653,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:42,51,31,\\N,6,pogs5.3,\\N,RadioField
+    3654,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"same"||"type":"MESSAGE"},2019-05-13 10:38:48,47,25,\\N,5,pogs4.1.1,\\N,\\N
+    3655,TASK_ATTRIBUTE,{"attributeStringValue":"France"||"attributeDoubleValue":44.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":7||"loggableAttribute":true},2019-05-13 10:38:50,47,28,\\N,5,pogs4.4.1,\\N,GroupRadioResponse
+    3656,TASK_ATTRIBUTE,{"attributeStringValue":"France"||"attributeDoubleValue":44.0||"attributeName":"jeopardyAnswer0__pogs4.3.1"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:38:58,47,27,\\N,5,pogs4.3.1,\\N,SubmitButtonField
+    3657,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:38:59,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3658,TASK_ATTRIBUTE,{"attributeStringValue":"3 - Somewhat"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:39:00,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3659,TASK_ATTRIBUTE,{"attributeStringValue":"2 - Slightly"||"attributeDoubleValue":0.0||"attributeName":"surveyAnswer2"||"attributeIntegerValue":-1||"loggableAttribute":true},2019-05-13 10:39:02,48,32,\\N,6,pogs5.4,\\N,RadioField
+    3660,TASK_ATTRIBUTE,{"attributeStringValue":"Horus"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:07,47,25,\\N,5,pogs4.1.1,\\N,IndividualResponse
+    3661,TASK_ATTRIBUTE,{"attributeStringValue":"Horus"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:09,47,28,\\N,5,pogs4.4.1,\\N,IndividualResponse
+    3662,TASK_ATTRIBUTE,{"attributeStringValue":"Horus"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:10,47,26,\\N,5,pogs4.2.1,\\N,IndividualResponse
+    3663,TASK_ATTRIBUTE,{"attributeStringValue":"Anubis"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:10,47,28,\\N,5,pogs4.4.1,\\N,IndividualResponse
+    3664,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:39:12,52,31,\\N,6,pogs5.3,\\N,\\N
+    3665,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:39:12,52,30,\\N,6,pogs5.2,\\N,\\N
+    3666,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:39:12,52,32,\\N,6,pogs5.4,\\N,\\N
+    3667,COMMUNICATION_MESSAGE,{"channel":null||"message":""||"type":"JOINED"},2019-05-13 10:39:12,52,29,\\N,6,pogs5.1,\\N,\\N
+    3668,TASK_ATTRIBUTE,{"attributeStringValue":"Horus"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:15,47,27,\\N,5,pogs4.3.1,\\N,IndividualResponse
+    3669,TASK_ATTRIBUTE,{"attributeStringValue":"Horus"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:19,47,28,\\N,5,pogs4.4.1,\\N,IndividualResponse
+    3670,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:39:20,52,30,\\N,6,pogs5.2,\\N,IndividualResponse
+    3671,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:39:21,52,32,\\N,6,pogs5.4,\\N,IndividualResponse
+    3672,TASK_ATTRIBUTE,{"attributeStringValue":"Anubis"||"attributeDoubleValue":30.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":11||"loggableAttribute":true},2019-05-13 10:39:27,47,28,\\N,5,pogs4.4.1,\\N,GroupRadioResponse
+    3673,TASK_ATTRIBUTE,{"attributeStringValue":"Sound Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:39:29,52,31,\\N,6,pogs5.3,\\N,IndividualResponse
+    3674,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:39:31,52,29,\\N,6,pogs5.1,\\N,IndividualResponse
+    3675,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"well i was wrong my b"||"type":"MESSAGE"},2019-05-13 10:39:35,47,28,\\N,5,pogs4.4.1,\\N,\\N
+    3676,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0"||"attributeIntegerValue":0||"loggableAttribute":true},2019-05-13 10:40:13,52,31,\\N,6,pogs5.3,\\N,GroupRadioResponse
+    3677,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"agree on radio waves? "||"type":"MESSAGE"},2019-05-13 10:40:15,52,29,\\N,6,pogs5.1,\\N,\\N
+    3678,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"Do yall actually know egypt or did we all just put horus"||"type":"MESSAGE"},2019-05-13 10:40:18,47,27,\\N,5,pogs4.3.1,\\N,\\N
+    3679,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"yes"||"type":"MESSAGE"},2019-05-13 10:40:18,52,30,\\N,6,pogs5.2,\\N,\\N
+    3680,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"yess"||"type":"MESSAGE"},2019-05-13 10:40:18,52,32,\\N,6,pogs5.4,\\N,\\N
+    3681,COMMUNICATION_MESSAGE,{"channel":"group"||"message":""||"type":"MESSAGE"},2019-05-13 10:40:19,52,32,\\N,6,pogs5.4,\\N,\\N
+    3682,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"yeah"||"type":"MESSAGE"},2019-05-13 10:40:19,52,31,\\N,6,pogs5.3,\\N,\\N
+    3683,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"i guessed"||"type":"MESSAGE"},2019-05-13 10:40:23,47,25,\\N,5,pogs4.1.1,\\N,\\N
+    3684,COMMUNICATION_MESSAGE,{"channel":"group"||"message":"just guessed"||"type":"MESSAGE"},2019-05-13 10:40:29,47,26,\\N,5,pogs4.2.1,\\N,\\N
+    3685,TASK_ATTRIBUTE,{"attributeStringValue":"Radio Waves"||"attributeDoubleValue":1.0||"attributeName":"jeopardyAnswer0__pogs5.1"||"attributeIntegerValue":4||"loggableAttribute":true},2019-05-13 10:40:30,52,29,\\N,6,pogs5.1,\\N,SubmitButtonField
+'''
+
 TESTING_JEOPARDY_JSON = '''
     [
         {
@@ -384,11 +529,20 @@ TESTING_JEOPARDY_JSON = '''
     ]
     '''
 TESTING_TEAM_HAS_SUBJECT = '''
-    25,1,18
-    26,1,20
-    27,1,19
-    28,1,17
+    25,7,18
+    26,7,20
+    27,7,19
+    28,7,17
+    37,10,28
+    38,10,25
+    39,10,26
+    40,10,27
+    41,11,31
+    42,11,30
+    43,11,29
+    44,11,32
     '''
+
 TESTING_SUBJECT = '''
 1,s1,s1,1,\n
 2,s2,s2,1,\n
@@ -414,6 +568,14 @@ TESTING_SUBJECT = '''
 22,pogs4.2,pogs4.2,5,\n
 23,pogs4.3,pogs4.3,5,\n
 24,pogs4.4,pogs4.4,5,\n
+25,pogs4.1.1,pogs4.1.1,5,\n
+26,pogs4.2.1,pogs4.2.1,5,\n
+27,pogs4.3.1,pogs4.3.1,5,\n
+28,pogs4.4.1,pogs4.4.1,5,\n
+29,pogs5.1,pogs5.1,6,\n
+30,pogs5.2,pogs5.2,6,\n
+31,pogs5.3,pogs5.3,6,\n
+32,pogs5.4,pogs5.4,6,\n
 '''
 TESTING_LOG_FILE_PATH = '/tmp/event_log.csv'
 TESTING_JEOPARDY_FILE_PATH = '/tmp/jeopardy.json'
@@ -434,7 +596,7 @@ class TeamLogProcessorLoadGameQuestionsTest(unittest.TestCase):
             f.writelines(TESTING_JEOPARDY_JSON)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
             cls.loader._load_game_questions(TESTING_JEOPARDY_FILE_PATH)
 
     @classmethod
@@ -490,7 +652,7 @@ class TeamLogProcessorLoadThisTeamEventLogTest(unittest.TestCase):
             f.writelines(TESTING_TEAM_HAS_SUBJECT)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
 
     @classmethod
     def tearDownClass(cls):
@@ -518,7 +680,7 @@ class TeamLogProcessorLoadMessagesTest(unittest.TestCase):
             f.writelines(TESTING_TEAM_HAS_SUBJECT)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
             cls.loader._load_this_team_event_logs(
                 logs_file_path=TESTING_LOG_FILE_PATH,
                 team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
@@ -553,7 +715,7 @@ class TeamLogProcessorLoadAnswersChosenTest(unittest.TestCase):
             f.writelines(TESTING_JEOPARDY_JSON)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
             cls.loader._load_this_team_event_logs(
                 logs_file_path=TESTING_LOG_FILE_PATH,
                 team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
@@ -605,7 +767,7 @@ class TeamLogProcessorMachineUsageTest(unittest.TestCase):
             f.writelines(TESTING_JEOPARDY_JSON)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
             cls.loader._load_this_team_event_logs(
                 logs_file_path=TESTING_LOG_FILE_PATH,
                 team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
@@ -646,7 +808,7 @@ class TeamLogProcessorLoadRatingsTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         with open(TESTING_LOG_FILE_PATH, 'w') as f:
-            f.writelines(INFLUENCE_TESTING_LOG)
+            f.writelines(TESTING_INFLUENCE_LOG)
         with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
             f.writelines(TESTING_TEAM_HAS_SUBJECT)
         with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
@@ -655,7 +817,7 @@ class TeamLogProcessorLoadRatingsTest(unittest.TestCase):
             f.writelines(TESTING_SUBJECT)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
             cls.loader.logs_directory_path='/tmp/'
             cls.loader._load_this_team_event_logs(
                 logs_file_path=TESTING_LOG_FILE_PATH,
@@ -668,6 +830,8 @@ class TeamLogProcessorLoadRatingsTest(unittest.TestCase):
     def tearDownClass(cls):
         os.remove(TESTING_LOG_FILE_PATH)
         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        os.remove(TESTING_JEOPARDY_FILE_PATH)
+        os.remove(TESTING_SUBJECT_PATH)
 
     def test_team_array(self):
         correct_team_array = ['pogs3.2', 'pogs3.4', 'pogs3.3', 'pogs3.1']
@@ -760,7 +924,7 @@ class TeamLogProcessorScoreTest(unittest.TestCase):
             f.writelines(TESTING_JEOPARDY_JSON)
         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
             cls.loader = lib.TeamLogProcessor(
-                team_id=1, logs_directory_path='tmp')
+                team_id=7, logs_directory_path='tmp')
             cls.loader._load_this_team_event_logs(
                 logs_file_path=TESTING_LOG_FILE_PATH,
                 team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
@@ -772,6 +936,7 @@ class TeamLogProcessorScoreTest(unittest.TestCase):
     def tearDownClass(cls):
         os.remove(TESTING_LOG_FILE_PATH)
         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        os.remove(TESTING_JEOPARDY_FILE_PATH)
 
     def test_size_of_score(self):
         self.assertEqual(len(self.loader.score), 6)
@@ -801,30 +966,133 @@ class TeamLogProcessorScoreTest(unittest.TestCase):
         self.assertEqual(self.loader.accumulated_score[5] == 5, True)
         self.assertEqual(self.loader.accumulated_score[6] == 3, True)
 
-# # =========================================================================
-# # ==================== _load_influence_matrices ===========================
-# # =========================================================================
-# class TeamLogProcessorLoadInfluenceMatrixTest(unittest.TestCase):
 
-#     @classmethod
-#     def setUpClass(cls):
-#         with open(TESTING_LOG_FILE_PATH, 'w') as f:
-#             f.writelines(TESTING_LOG)
-#         with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
-#             f.writelines(TESTING_TEAM_HAS_SUBJECT)
-#         with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
-#             cls.loader = lib.TeamLogProcessor(
-#                 team_id=1, logs_directory_path='tmp')
-#             cls.loader._load_this_team_event_logs(
-#                 logs_file_path=TESTING_LOG_FILE_PATH,
-#                 team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
-#             cls.loader._load_influence_matrices()
+# =========================================================================
+# ======================== _load_survey ===================================
+# =========================================================================
+class TeamLogProcessorSurveyTestForTeam7(unittest.TestCase):
 
-#     @classmethod
-#     def tearDownClass(cls):
-#         os.remove(TESTING_LOG_FILE_PATH)
-#         os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_PRESURVEY_LOG_1)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_SUBJECT_PATH, 'w') as f:
+            f.writelines(TESTING_SUBJECT)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=7, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._preload_data(directory='/tmp/')
+            cls.loader._define_team_member_order(directory='/tmp/')
+            cls.loader._load_survey()
 
-#     def test_load_influence_matrices_has_loaded_log(self):
-#         # self.loader.member_influences
-#         pass
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        os.remove(TESTING_SUBJECT_PATH)
+
+    def test_survey_answers_are_correct_for_team_7(self):
+        correct_survey_answers = [{0: 3.0, 1: 2.0, 2: 2.0},
+                                  {0: 3.0, 1: 1.0, 2: 2.0},
+                                  {0: 2.0, 1: 4.0, 2: 4.0},
+                                  {0: 4.0, 1: 4.0, 2: 4.0}]
+        self.assertDictEqual(self.loader.pre_experiment_rating[0],
+            correct_survey_answers[0])
+        self.assertDictEqual(self.loader.pre_experiment_rating[1],
+            correct_survey_answers[1])
+        self.assertDictEqual(self.loader.pre_experiment_rating[2],
+            correct_survey_answers[2])
+        self.assertDictEqual(self.loader.pre_experiment_rating[3],
+            correct_survey_answers[3])
+
+# =========================================================================
+# ======================== _load_survey ===================================
+# =========================================================================
+class TeamLogProcessorSurveyTestForTeam10(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_PRESURVEY_LOG_2)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_SUBJECT_PATH, 'w') as f:
+            f.writelines(TESTING_SUBJECT)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=10, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._preload_data(directory='/tmp/')
+            cls.loader._define_team_member_order(directory='/tmp/')
+            cls.loader._load_survey()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        os.remove(TESTING_SUBJECT_PATH)
+
+    def test_survey_answers_are_correct_for_team_10(self):
+        correct_survey_answers = [{0: 3.0, 1: 1.0, 2: 3.0},
+                                  {0: 3.0, 1: 4.0, 2: 3.0},
+                                  {0: 4.0, 1: 2.0, 2: 1.0},
+                                  {0: 3.0, 1: 2.0, 2: 2.0}]
+        self.assertDictEqual(self.loader.pre_experiment_rating[0],
+            correct_survey_answers[0])
+        self.assertDictEqual(self.loader.pre_experiment_rating[1],
+            correct_survey_answers[1])
+        self.assertDictEqual(self.loader.pre_experiment_rating[2],
+            correct_survey_answers[2])
+        self.assertDictEqual(self.loader.pre_experiment_rating[3],
+            correct_survey_answers[3])
+
+# =========================================================================
+# ======================== _load_survey ===================================
+# =========================================================================
+class TeamLogProcessorSurveyTestForTeam11(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_PRESURVEY_LOG_3)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_SUBJECT_PATH, 'w') as f:
+            f.writelines(TESTING_SUBJECT)
+        with mock.patch.object(lib.TeamLogProcessor, '_load_all_files'):
+            cls.loader = lib.TeamLogProcessor(
+                team_id=11, logs_directory_path='tmp')
+            cls.loader._load_this_team_event_logs(
+                logs_file_path=TESTING_LOG_FILE_PATH,
+                team_has_subject_file_path=TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+            cls.loader._preload_data(directory='/tmp/')
+            cls.loader._define_team_member_order(directory='/tmp/')
+            cls.loader._load_survey()
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_TEAM_HAS_SUBJECT_FILE_PATH)
+        os.remove(TESTING_SUBJECT_PATH)
+
+    def test_survey_answers_are_correct_for_team_11(self):
+        print(self.loader.team_array)
+        correct_survey_answers = [{0: 2.0, 1: 2.0, 2: 2.0},
+                                  {0: 4.0, 1: 3.0, 2: 3.0},
+                                  {0: 4.0, 1: 4.0, 2: 5.0},
+                                  {0: 2.0, 1: 2.0, 2: 2.0}]
+        self.assertDictEqual(self.loader.pre_experiment_rating[0],
+            correct_survey_answers[0])
+        self.assertDictEqual(self.loader.pre_experiment_rating[1],
+            correct_survey_answers[1])
+        self.assertDictEqual(self.loader.pre_experiment_rating[2],
+            correct_survey_answers[2])
+        self.assertDictEqual(self.loader.pre_experiment_rating[3],
+            correct_survey_answers[3])
