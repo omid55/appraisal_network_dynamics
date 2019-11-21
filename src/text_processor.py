@@ -15,6 +15,7 @@ import pandas as pd
 import pickle as pk
 import numpy as np
 import string
+import csv
 import os
 import re
 import textblob
@@ -28,6 +29,7 @@ from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
 from nltk.stem.porter import PorterStemmer
 
+import pogs_jeopardy_log_lib as lib
 
 def get_my_stem(word: str) -> str:
     """Gets the stem of a word.
@@ -47,6 +49,33 @@ def get_my_stem(word: str) -> str:
     except:
         return word
 
+class SlangToFormalTranslator(object):
+    def __init__(self, messages):
+        self._load_slang_file()
+        self.messages = messages
+
+    def _load_slang_file(self):
+        slang_file = open("slang.txt", "r")
+        self.slang_dict = {}
+        count = 0
+        for row in slang_file:
+            count += 1
+            strings = row.split("=")
+            self.slang_dict[str(strings[0])] = str(strings[1].replace("\n", ""))
+        slang_file.close()
+
+    def _translate_string(self, event_content):
+        event_content_array = event_content.split(" ")
+        j = 0
+        for word in event_content_array:
+            if word.upper() in self.slang_dict.keys():
+                event_content_array[j] = self.slang_dict[word.upper()]
+            j += 1
+        return " ".join(event_content_array)
+
+    def _translate_messages(self):
+        for i in range(len(self.messages)):
+            self.messages[i].event_content = self.messages[i].event_content.apply(self._translate_string)
 
 class EmotionDetector(object):
     def __init__(self):
@@ -69,13 +98,15 @@ class EmotionDetector(object):
         Raises:
             None.
         """
-        anew_pkl_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        #anew_pkl_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        anew_pkl_filepath = expanduser('/home/koasato/Documents/research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         if os.path.exists(anew_pkl_filepath):
             # loads the preprocessed anew dicts file.
             f = open(anew_pkl_filepath, 'rb')
             self._anew_dicts = pk.load(f)
         else:
-            anew_dictionary_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            #anew_dictionary_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            anew_dictionary_filepath = expanduser('/home/koasato/Documents/research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew = pd.read_csv(anew_dictionary_filepath)
             self._anew_dicts = {'valence': {}, 'arousal': {}, 'dominance': {}}
             for i in range(len(anew)):
@@ -181,6 +212,16 @@ class SentimentAnalyzer(object):
         return blob.sentiment.polarity
         # for sentence in blob.sentences:
         #     print(sentence.sentiment.polarity)
+
+class TextPreprocessor(object):
+    def __init__(self, translate_slang=False):
+        self.translate_slang = translate_slang
+
+    def _load_messages_for_team(self, id=10):
+        team_log_processor = lib.TeamLogProcessor(team_id=id,
+            logs_directory_path='/home/koasato/Documents/research/Jeopardy/')
+        self.messages = team_log_processor.messages
+
 
 
 # """find out if a sentence is not english"""
