@@ -14,7 +14,6 @@ from parameterized import parameterized
 import text_processor
 
 
-
 # =========================================================================
 # ==================== has_numbers ========================================
 # =========================================================================
@@ -28,6 +27,8 @@ def test_has_numbers(self, text, expected):
 # *****************************************************************************
 # *********************** EmotionDetector class *****************************
 # *****************************************************************************
+
+
 class EmotionDetectorTest(unittest.TestCase):
     # =========================================================================
     # =========================== compute_mean_emotion ========================
@@ -76,24 +77,29 @@ class SentimentAnalyzerTest(unittest.TestCase):
 # *****************************************************************************
 # *********************** SlangToFormalTranslator class ***********************
 # *****************************************************************************
+
+
 class SlangToFormalTranslatorTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.text_preprocessor = text_processor.TextPreprocessor()
         self.text_preprocessor._load_messages_for_team(id=10)
-        self.translator = text_processor.SlangToFormalTranslator(self.text_preprocessor.messages)
+        self.translator = text_processor.SlangToFormalTranslator(
+            self.text_preprocessor.messages)
 
     # =========================================================================
     # =========================== _load_slang_file ============================
     # =========================================================================
     def test_slang_file_contents_length(self):
-        self.assertEqual(len(self.translator.slang_dict), 71)
+        self.assertEqual(len(self.translator.slang_dict), 72)
 
     def test_slang_file_contents(self):
-        self.assertEqual(self.translator.slang_dict['AFAIK'], 'As Far As I Know')
+        self.assertEqual(
+            self.translator.slang_dict['AFAIK'], 'As Far As I Know')
         self.assertEqual(self.translator.slang_dict['B4N'], 'Bye For Now')
         self.assertEqual(self.translator.slang_dict['GN'], 'Good Night')
-        self.assertEqual(self.translator.slang_dict['LTNS'], 'Long Time No See')
+        self.assertEqual(
+            self.translator.slang_dict['LTNS'], 'Long Time No See')
         self.assertEqual(self.translator.slang_dict['7K'], 'Sick:-D Laughter')
 
     # =========================================================================
@@ -122,10 +128,10 @@ class SlangToFormalTranslatorTest(unittest.TestCase):
         self.translator._translate_messages()
 
         self.assertListEqual(correct_translated_messages_for_question_0,
-            list(self.translator.messages[0].event_content.values[:]))
+                             list(self.translator.messages[0].event_content.values[:]))
         self.assertListEqual(correct_translated_messages_for_question_2,
-            list(self.translator.messages[2].event_content.values[:]))
+                             list(self.translator.messages[2].event_content.values[:]))
         self.assertListEqual(correct_translated_messages_for_question_27,
-            list(self.translator.messages[27].event_content.values[:]))
+                             list(self.translator.messages[27].event_content.values[:]))
         self.assertListEqual(correct_translated_messages_for_question_43,
-            list(self.translator.messages[43].event_content.values[:]))
+                             list(self.translator.messages[43].event_content.values[:]))
