@@ -83,7 +83,8 @@ class SlangToFormalTranslatorTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.text_preprocessor = text_processor.TextPreprocessor()
-        self.text_preprocessor._load_messages_for_team(id=10)
+        self.text_preprocessor._load_messages_for_team(
+            id=10, logs_directory_path='/home/koasato/Documents/research/Jeopardy/')
         self.translator = text_processor.SlangToFormalTranslator(
             self.text_preprocessor.messages)
 
@@ -91,7 +92,7 @@ class SlangToFormalTranslatorTest(unittest.TestCase):
     # =========================== _load_slang_file ============================
     # =========================================================================
     def test_slang_file_contents_length(self):
-        self.assertEqual(len(self.translator.slang_dict), 72)
+        self.assertEqual(len(self.translator.slang_dict), 73)
 
     def test_slang_file_contents(self):
         self.assertEqual(

@@ -7,6 +7,7 @@ A3=Anytime, Anywhere, Anyplace
 BAK=Back At Keyboard
 BBL=Be Back Later
 BBS=Be Back Soon
+BC=Because
 BFN=Bye For Now
 BRB=Be Right Back
 BRT=Be Right There

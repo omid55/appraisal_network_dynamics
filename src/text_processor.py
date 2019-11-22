@@ -103,7 +103,7 @@ class EmotionDetector(object):
         Raises:
             None.
         """
-        #anew_pkl_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        # anew_pkl_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         anew_pkl_filepath = expanduser(
             '/home/koasato/Documents/research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         if os.path.exists(anew_pkl_filepath):
@@ -111,7 +111,7 @@ class EmotionDetector(object):
             f = open(anew_pkl_filepath, 'rb')
             self._anew_dicts = pk.load(f)
         else:
-            #anew_dictionary_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            # anew_dictionary_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew_dictionary_filepath = expanduser(
                 '/home/koasato/Documents/research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew = pd.read_csv(anew_dictionary_filepath)
@@ -222,10 +222,7 @@ class SentimentAnalyzer(object):
 
 
 class TextPreprocessor(object):
-    def __init__(self):
-        self._load_messages_for_team()
-
-    def _load_messages_for_team(self, id=10):
+    def _load_messages_for_team(self, id, logs_directory_path):
         """Loads the messages for a specific team
 
         Args:
@@ -238,30 +235,70 @@ class TextPreprocessor(object):
             None.
         """
         team_log_processor = lib.TeamLogProcessor(team_id=id,
-                                                  logs_directory_path='/home/koasato/Documents/research/Jeopardy/')
+                                                  logs_directory_path=logs_directory_path)
+        self.team_members = team_log_processor.members
         self.messages = team_log_processor.messages
 
-    def _get_messages_as_list(self):
-        """Aggregates all the messages in a sequential list from the Dataframe
+    def _get_messages_as_sequential_list(self):
+        """Aggregates all the messages in a sequential list in the form:
+        [ user_id, message ]
 
         Args:
             None.
 
         Returns:
-            List of messages as strings
+            List of messages where each message is a list as described above.
 
         Raises:
             None.
         """
         messages = []
         for index in range(len(self.messages)):
-            messages_per_question = list(
+            messages_of_question = list(
                 self.messages[index].event_content.values[:])
-            for message in messages_per_question:
-                messages.append(message)
+            senders_of_message_per_question = list(
+                self.messages[index].sender_subject_id.values[:])
+            for i in range(len(messages_of_question)):
+                messages.append(
+                    [senders_of_message_per_question[i],
+                     messages_of_question[i]])
         return messages
 
-    def _compute_emotion(self):
+    def _get_messages_as_aggregated_dict(self):
+        """Aggregates all the messages in an aggregated list per user for every 
+        5 questions, all naively concatenated with " / "
+
+        Args:
+            None.
+
+        Returns:
+            Dict of aggregated messages for every 5 questions
+
+        Raises:
+            None.
+        """
+        aggregated_messages = {}
+        message_group = {}
+        for index in range(len(self.messages)):
+            if ((index // 5) in message_group.keys()):
+                message_group[index // 5] = message_group[
+                    index // 5].append(self.messages[index])
+            else:
+                message_group[index // 5] = self.messages[index]
+
+        for index in range(len(message_group)):
+            message_dict = {}
+            for id in self.team_members:
+                message_dict[id] = ""
+
+            for message_index, row in message_group[index].iterrows():
+                message_dict[int(row.sender_subject_id)
+                             ] = message_dict[int(row.sender_subject_id)
+                                              ] + " / " + row.event_content
+            aggregated_messages[index] = message_dict
+        return aggregated_messages
+
+    def _compute_emotion(self, messages):
         """Computes emotion values for all messages
 
         Args:
@@ -275,12 +312,19 @@ class TextPreprocessor(object):
         """
         emotion_detector = EmotionDetector()
         results = []
-        for message in self.message_list:
-            results.append(emotion_detector.compute_mean_emotion(message))
+        if (isinstance(messages, list)):
+            for message in messages:
+                results.append(
+                    [message[0], emotion_detector.compute_mean_emotion(message[1])])
+        elif (isinstance(messages, dict)):
+            for key in messages.keys():
+                for subkey in messages[key]:
+                    results.append(
+                        [subkey, emotion_detector.compute_mean_emotion(messages[key][subkey])])
 
         return results
 
-    def _compute_sentiment(self):
+    def _compute_sentiment(self, messages):
         """Computes emotion values for all messages
 
         Args:
@@ -296,16 +340,26 @@ class TextPreprocessor(object):
         results = []
         text_blob_results = []
 
-        for message in self.message_list:
-            results.append(sentiment_analyzer.compute_sentiment(message))
-            text_blob_results.append(
-                sentiment_analyzer.compute_sentiment_with_textblob(message))
+        if (isinstance(messages, list)):
+            for message in messages:
+                results.append(
+                    [message[0], sentiment_analyzer.compute_sentiment(message[1])])
+                text_blob_results.append(
+                    [message[0], sentiment_analyzer.compute_sentiment_with_textblob(
+                        message[1])])
+        elif (isinstance(messages, dict)):
+            for key in messages.keys():
+                for subkey in messages[key]:
+                    results.append(
+                        [subkey, sentiment_analyzer.compute_sentiment(
+                            messages[key][subkey])])
+                    text_blob_results.append(
+                        [subkey, sentiment_analyzer.compute_sentiment_with_textblob(
+                            messages[key][subkey])])
 
-        for i in range(len(self.message_list)):
-            print(self.message_list[i] + "  " + str(text_blob_results[i]))
         return results, text_blob_results
 
-    def _preprocess(self, translate_slang):
+    def _preprocess(self, translate_slang, team_id):
         """Preprocesses the message data for a team
 
         Args:
@@ -318,17 +372,27 @@ class TextPreprocessor(object):
         Raises:
             None.
         """
+
+        self._load_messages_for_team(
+            team_id, logs_directory_path='/home/koasato/Documents/research/Jeopardy/')
         if translate_slang:
             self.slang_translator = SlangToFormalTranslator(self.messages)
             self.slang_translator._translate_messages()
-        self.message_list = self._get_messages_as_list()
+        message_list = self._get_messages_as_sequential_list()
+        aggregated_message_list = self._get_messages_as_aggregated_dict()
 
-        self.emotion_results = self._compute_emotion()
-        self.sentiment_results, self.sentiment_text_blob_results = self._compute_sentiment()
+        self.emotion_results = self._compute_emotion(message_list)
+        self.sentiment_results, self.sentiment_text_blob_results = self._compute_sentiment(
+            message_list)
+
+        self.aggregated_emotion_results = self._compute_emotion(
+            aggregated_message_list)
+        self.aggregatedsentiment_results, self.sentiment_text_blob_results = self._compute_sentiment(
+            aggregated_message_list)
 
 
-tp = TextPreprocessor()
-tp._preprocess(translate_slang=True)
+# tp = TextPreprocessor()
+# tp._preprocess(translate_slang=True, team_id=10)
 
 
 # """find out if a sentence is not english"""
