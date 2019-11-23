@@ -10,13 +10,17 @@
 
 from __future__ import division, print_function, absolute_import, unicode_literals
 
+import attr
 import enum
 import numpy as np
 import pandas as pd
 import networkx as nx
+from typing import List
 from typing import Text
 from typing import Tuple
 from datetime import timedelta
+
+import text_processor
 import utils
 
 
@@ -24,79 +28,191 @@ class Error(Exception):
     """Base Error class for this module."""
 
 
+@attr.s
+class ColumnNameOptions(object):
+    """Column name options for messages dataframe."""
+
+    # Name of the text column.
+    text_column_name = attr.ib(default='event_content')
+
+    # Name of the time column.
+    time_column_name = attr.ib(default='timestamp')
+
+    # Name of the sender column.
+    sender_column_name = attr.ib(default='sender_subject_id')
+
+
 class WeightType(enum.Enum):
     NONE = 1
-    NUMBER_OF_MESSAGES = 2
-    REPLY_DURATION = 3
-    SENTIMENT = 4
-    # EMOTION = 5
+    REPLY_DURATION = 2
+    SENTIMENT = 3
+    EMOTION = 4
+
 
 class AggregationType(enum.Enum):
-    SUM = 1
-    AVERAGE = 2
-    LAST = 3
-    MAX = 4
-    MIN = 5
+    BINARY = 1
+    SUM = 2
+    AVERAGE = 3
+    LAST = 4
+    MAX = 5
+    MIN = 6
 
-def _compute_weight(time1, time2, text: Text) -> float:
-    return 1.0
+    @staticmethod
+    def _my_exists(input_list: List) -> int:
+        if len(input_list) > 0:
+            return 1
+        return 0
+
+    @staticmethod
+    def _my_last(input_list: List) -> float:
+        if len(input_list) == 0:
+            raise ValueError('List input for aggregator last was empty.')
+        return input_list[-1]
+
+    def get_function(self):
+        """Gets the python understandable function to be used on list of values.
+
+        Args:
+            None.
+
+        Returns:
+            A python function.
+
+        Raises:
+            None.
+        """
+        enum2function = {
+            'AggregationType.BINARY': AggregationType._my_exists,
+            'AggregationType.SUM': sum,
+            'AggregationType.AVERAGE': np.mean,
+            'AggregationType.LAST': AggregationType._my_last,
+            'AggregationType.MAX': max,
+            'AggregationType.MIN': min}
+        return enum2function[str(self)]
 
 
-def _apply_function_on_all_edges(
-    dgraph: nx.DiGraph, aggregation_type: AggregationType) -> nx.DiGraph:
-    new_dgraph = dgraph.copy()
-    for edge in dgraph.edges():
-        value = dgraph[edge[0]][edge[1]]['weight']
-        if aggregation_type == AggregationType.SUM:
-            func = sum
-        new_dgraph[edge[0]][edge[1]]['weight'] = func(value)
-    return new_dgraph
+class NetworkExtraction(object):
+    def __init__(self):
+        self.sentiment_analyzer = text_processor.SentimentAnalyzer()
+        self.emotion_analyzer = text_processor.EmotionDetector()
 
+    def _compute_weight(self,
+                        time1: pd.Timestamp,
+                        time2: pd.Timestamp,
+                        weight_type: WeightType,
+                        content: Text = '',
+                        gamma: float = 0) -> float:
+        """Computes the weight of the edge from a message based on time or content.
 
-def extract_network(communication_data: pd.DataFrame,
-                    text_column_name: Text,
-                    time_column_name: Text,
-                    sender_column_name: Text,
-                    time_window: Tuple = [1, 10],
-                    weight_type: WeightType = WeightType.NONE,
-                    aggregation_type: AggregationType = AggregationType.SUM
-                    ) -> nx.DiGraph:
-    """Extracts the network structure of members in broadcast log.
+        """
+        if weight_type == WeightType.NONE:
+            return 1.0
+        elif weight_type == WeightType.REPLY_DURATION:
+            duration = (time2 - time1).total_seconds()
+            if duration < 0:
+                raise ValueError(
+                    'Second time cannot be smaller than the first one.')
+            return np.exp(-gamma * duration)
+        elif weight_type == WeightType.SENTIMENT:
+            return self.sentiment_analyzer.compute_sentiment(content)
+        else:
+            raise ValueError('Wrong weight type was sent.')
 
-    Args:
+    def _apply_function_on_all_edges(self,
+                                     dgraph: nx.DiGraph,
+                                     aggregation_type: AggregationType
+                                     ) -> nx.DiGraph:
+        """Applies a function on graph edges with list of values as their weights.
 
-    Returns:
+        Args:
+            dgraph: Directed graph with a list of float weight vals on its edges.
 
-    Raises:
-    """
-    utils.check_required_columns(
-        communication_data, [
-            text_column_name, time_column_name, sender_column_name])
-    dgraph = nx.DiGraph()
-    if isinstance(communication_data.iloc[0][time_column_name], str):
-        communication_data[time_column_name] = (
-            pd.to_datetime(communication_data[time_column_name]))
-    for _, row in communication_data.iterrows():
-        pivot_time = row[time_column_name]
-        pivot = row[sender_column_name]
-        response_df = communication_data[
-            (communication_data[time_column_name] - pivot_time).between(
-                timedelta(seconds=time_window[0]),
-                timedelta(seconds=time_window[1]))]
-        for _, response_row in response_df.iterrows():
-            responder = response_row[sender_column_name]
-            response_time = response_row[time_column_name]
-            response_text = response_row[text_column_name]
-            if not dgraph.has_edge(responder, pivot):
-                dgraph.add_edge(
-                    responder, pivot, weight=[
-                        _compute_weight(
-                            pivot_time, response_time, response_text)])
-            elif weight_type != WeightType.NONE:
-                weight = dgraph[responder][pivot]['weight']
-                dgraph[responder][pivot]['weight'] = weight + [
-                    _compute_weight(
-                        pivot_time, response_time, response_text)]
-    dgraph = _apply_function_on_all_edges(
-        dgraph=dgraph, aggregation_type=aggregation_type)
-    return dgraph
+            aggregation_type: Type of aggregation to be applied on values.
+
+        Returns:
+            A new directed graph with weights to be float values.
+
+        Raises:
+            ValueError: If the list was empty when aggregator is last.
+        """
+        new_dgraph = dgraph.copy()
+        for edge in dgraph.edges():
+            weight_list = dgraph[edge[0]][edge[1]]['weight']
+            func = aggregation_type.get_function()
+            new_dgraph[edge[0]][edge[1]]['weight'] = func(weight_list)
+        return new_dgraph
+
+    def extract_network_from_broadcast(
+        self,
+        communication_data: pd.DataFrame,
+        time_window: Tuple = [1, 10],
+        weight_type: WeightType = WeightType.NONE,
+        aggregation_type: AggregationType = AggregationType.SUM,
+        column_names: ColumnNameOptions = ColumnNameOptions(),
+        gamma: float = 0.0) -> nx.DiGraph:
+        """Extracts the network structure of members in a broadcast setting's log.
+
+        Args:
+            communication_data: Dataframe of a broadcast log.
+
+            time_window: The time window in seconds to be considered a reply.
+
+            weight_type: Type of weight to be considered for the network. 
+
+            aggregation_type: Type of aggregation on edges' weights.
+
+            column_names: The column names options needed in communication_data.
+
+            gamma: The coefficient for exponential weight based on duration.
+
+        Returns:
+            A directed graph structure among members in a broadcast log data.
+
+        Raises:
+            ValueError: If the column names do not exist in the communication data.
+        """
+        # Opens the settings for the convenience.
+        # ------------------------------------------------
+        text_column_name = column_names.text_column_name
+        time_column_name = column_names.time_column_name
+        sender_column_name = column_names.sender_column_name
+        # ------------------------------------------------
+        utils.check_required_columns(
+            communication_data, [
+                text_column_name, time_column_name, sender_column_name])
+        dgraph = nx.DiGraph()
+        if isinstance(communication_data.iloc[0][time_column_name], str):
+            communication_data[time_column_name] = (
+                pd.to_datetime(communication_data[time_column_name]))
+        for j in communication_data.index:
+            pivot_time = communication_data.at[j, time_column_name]
+            pivot = communication_data.at[j, sender_column_name]
+            response_df = communication_data[
+                (communication_data[time_column_name] - pivot_time).between(
+                    timedelta(seconds=time_window[0]),
+                    timedelta(seconds=time_window[1]))]
+            for i in response_df.index:
+                responder = response_df.at[i, sender_column_name]
+                response_time = response_df.at[i, time_column_name]
+                response_text = response_df.at[i, text_column_name]
+                if not dgraph.has_edge(responder, pivot):
+                    dgraph.add_edge(
+                        responder, pivot, weight=[
+                            self._compute_weight(
+                                time1=pivot_time,
+                                time2=response_time,
+                                weight_type=weight_type,
+                                content=response_text,
+                                gamma=gamma)])
+                else:
+                    weight = dgraph[responder][pivot]['weight']
+                    dgraph[responder][pivot]['weight'] = weight + [
+                        self._compute_weight(
+                            time1=pivot_time,
+                            time2=response_time,
+                            weight_type=weight_type,
+                            content=response_text,
+                            gamma=gamma)]
+        dgraph = self._apply_function_on_all_edges(
+            dgraph=dgraph, aggregation_type=aggregation_type)
+        return dgraph

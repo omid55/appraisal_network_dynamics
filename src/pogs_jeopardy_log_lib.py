@@ -125,6 +125,12 @@ class TeamLogProcessor(object):
         self.game_info = game_info
         self._load_all_files(logs_directory_path)
 
+    def __getattr__(self, item):
+        try:
+            return self[item]
+        except KeyError:
+            raise AttributeError(item)
+
     def _load_all_files(self, logs_directory_path: Text) -> None:
         """Load all files pipeline.
 
