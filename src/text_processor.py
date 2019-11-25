@@ -52,9 +52,8 @@ def get_my_stem(word: str) -> str:
 
 
 class SlangToFormalTranslator(object):
-    def __init__(self, messages):
+    def __init__(self):
         self._load_slang_file()
-        self.messages = messages
 
     def _load_slang_file(self):
         slang_file = open("slang.txt", "r")
@@ -76,10 +75,13 @@ class SlangToFormalTranslator(object):
             j += 1
         return " ".join(event_content_array)
 
-    def _translate_messages(self):
-        for i in range(len(self.messages)):
-            self.messages[i].event_content = self.messages[i].event_content.apply(
-                self._translate_string)
+    def translate_messages(self, messages: pd.DataFrame) -> pd.DataFrame:
+        """Translates ..."""
+        new_messages = messages.copy()
+        for i in range(len(new_messages)):
+            new_messages.iloc[i]['event_content'].apply(
+                self._translate_string, inplace=True)
+        return new_messages
 
 
 class EmotionDetector(object):
@@ -103,17 +105,19 @@ class EmotionDetector(object):
         Raises:
             None.
         """
-        # anew_pkl_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         anew_pkl_filepath = expanduser(
-            '/home/koasato/Documents/research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+            '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        # anew_pkl_filepath = expanduser(
+        #     '~/Documents/research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         if os.path.exists(anew_pkl_filepath):
             # loads the preprocessed anew dicts file.
             f = open(anew_pkl_filepath, 'rb')
             self._anew_dicts = pk.load(f)
         else:
-            # anew_dictionary_filepath = expanduser('~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew_dictionary_filepath = expanduser(
-                '/home/koasato/Documents/research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+                '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            # anew_dictionary_filepath = expanduser(
+            #     '~/Documents/research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew = pd.read_csv(anew_dictionary_filepath)
             self._anew_dicts = {'valence': {}, 'arousal': {}, 'dominance': {}}
             for i in range(len(anew)):
@@ -374,10 +378,14 @@ class TextPreprocessor(object):
         """
 
         self._load_messages_for_team(
-            team_id, logs_directory_path='/home/koasato/Documents/research/Jeopardy/')
+            team_id,
+            logs_directory_path=expanduser(
+                '~/Datasets/Jeopardy/'))
+                # '~/Documents/research/Jeopardy/'))
         if translate_slang:
-            self.slang_translator = SlangToFormalTranslator(self.messages)
-            self.slang_translator._translate_messages()
+            self.slang_translator = SlangToFormalTranslator()
+            self.messages = self.slang_translator.translate_messages(
+                self.messages)
         message_list = self._get_messages_as_sequential_list()
         aggregated_message_list = self._get_messages_as_aggregated_dict()
 

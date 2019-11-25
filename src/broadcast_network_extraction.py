@@ -43,6 +43,19 @@ class ColumnNameOptions(object):
 
 
 class WeightType(enum.Enum):
+    """Type of weights to be computed for the network edges.
+    
+    NONE: means no edge weight is needed (existence of edge or not matter).
+
+    REPLY_DURATION: weight is computed based on the duration of reply. The
+      faster the reply has been received higher the weight is. However, there is
+      a window applied to withdraw very quick or very late replies. Very quick
+      replies might be just coincidental.
+
+    SENTIMENT: weight of each edge is computed using a sentiment analysis model.
+
+    EMOTION: weight of each edge is computed using emotion dictionary.
+    """
     NONE = 1
     REPLY_DURATION = 2
     SENTIMENT = 3
@@ -76,7 +89,7 @@ class AggregationType(enum.Enum):
             None.
 
         Returns:
-            A python function.
+            A python builtin or self written function.
 
         Raises:
             None.
@@ -102,8 +115,24 @@ class NetworkExtraction(object):
                         weight_type: WeightType,
                         content: Text = '',
                         gamma: float = 0) -> float:
-        """Computes the weight of the edge from a message based on time or content.
+        """Computes the weight of the edge from a message based on time/content.
 
+        Args:
+            time1: The time of message by sender.
+
+            time2: The time of message by responder which should be after time1.
+
+            weight_type: The type of edge weight we want.
+
+            content: The text content of the message.
+
+            gamma: The coefficient for reply duration computation. 
+
+        Returns:
+            Edge weight value.
+
+        Raises:
+            ValueError: If time2 was after time1.
         """
         if weight_type == WeightType.NONE:
             return 1.0

@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import unittest
 import os
+from os.path import expanduser
 from parameterized import parameterized
 
 import text_processor
@@ -25,9 +26,8 @@ def test_has_numbers(self, text, expected):
     self.assertEqual(expected, computed)
 
 # *****************************************************************************
-# *********************** EmotionDetector class *****************************
+# *********************** EmotionDetector class *******************************
 # *****************************************************************************
-
 
 class EmotionDetectorTest(unittest.TestCase):
     # =========================================================================
@@ -78,22 +78,15 @@ class SentimentAnalyzerTest(unittest.TestCase):
 # *********************** SlangToFormalTranslator class ***********************
 # *****************************************************************************
 
-
 class SlangToFormalTranslatorTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.text_preprocessor = text_processor.TextPreprocessor()
-        self.text_preprocessor._load_messages_for_team(
-            id=10, logs_directory_path='/home/koasato/Documents/research/Jeopardy/')
-        self.translator = text_processor.SlangToFormalTranslator(
-            self.text_preprocessor.messages)
+        text_preprocessor = text_processor.TextPreprocessor()
+        self.translator = text_processor.SlangToFormalTranslator()
 
     # =========================================================================
     # =========================== _load_slang_file ============================
     # =========================================================================
-    def test_slang_file_contents_length(self):
-        self.assertEqual(len(self.translator.slang_dict), 73)
-
     def test_slang_file_contents(self):
         self.assertEqual(
             self.translator.slang_dict['AFAIK'], 'As Far As I Know')
@@ -126,7 +119,7 @@ class SlangToFormalTranslatorTest(unittest.TestCase):
             'i feel like its iceland Because i think france currently doesnt have a true democracy no?',
             'I Agree']
 
-        self.translator._translate_messages()
+        self.translator.translate_messages()
 
         self.assertListEqual(correct_translated_messages_for_question_0,
                              list(self.translator.messages[0].event_content.values[:]))

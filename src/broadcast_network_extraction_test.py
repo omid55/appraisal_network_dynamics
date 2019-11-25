@@ -107,6 +107,17 @@ class ComputeWeight(unittest.TestCase):
         expected_weight = np.exp(-1)
         self.assertEqual(expected_weight, computed_weight)
 
+    def test_compute_weight_sentiment(self):
+        computed_weight = self.extractor._compute_weight(
+            time1=pd.Timestamp(
+                year=2019, month=1, day=1, hour=9, minute=0, second=0),
+            time2=pd.Timestamp(
+                year=2019, month=1, day=1, hour=9, minute=0, second=10),
+            weight_type=bne.WeightType.SENTIMENT,
+            content='hello my friend. How has your day been?')
+        expected_weight = 0.4939
+        self.assertEqual(expected_weight, computed_weight)
+
 class BroadcastNetworkExtractionTest(unittest.TestCase):
     # =========================================================================
     # ================= extract_network_from_broadcast ========================
@@ -114,7 +125,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data = pd.DataFrame({
-        'event_content': ['hi', 'hello', 'what\'s up?', 'nothing', 'hey!!!'],
+        'event_content': ['hi there', 'hello my friend', 'what\'s up buddy?', 'nothing', 'hey prick!!!'],
         'timestamp': ['2019-05-21 10:17:36',
                       '2019-05-21 10:17:37',
                       '2019-05-21 10:18:05',
@@ -186,5 +197,5 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             aggregation_type=bne.AggregationType.AVERAGE)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
-        expected_graph.add_edge(122, 123, weight=0.0)
+        expected_graph.add_edge(122, 123, weight=0.24695)
         utils.assert_graph_equals(computed_graph, expected_graph)
