@@ -13,6 +13,7 @@ from os.path import expanduser
 from parameterized import parameterized
 
 import text_processor
+import pogs_jeopardy_log_lib as lib
 
 
 # =========================================================================
@@ -28,6 +29,7 @@ def test_has_numbers(self, text, expected):
 # *****************************************************************************
 # *********************** EmotionDetector class *******************************
 # *****************************************************************************
+
 
 class EmotionDetectorTest(unittest.TestCase):
     # =========================================================================
@@ -78,10 +80,15 @@ class SentimentAnalyzerTest(unittest.TestCase):
 # *********************** SlangToFormalTranslator class ***********************
 # *****************************************************************************
 
+
 class SlangToFormalTranslatorTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        text_preprocessor = text_processor.TextPreprocessor()
+        self.text_preprocessor = text_processor.TextPreprocessor()
+        team_log_processor = lib.TeamLogProcessor(
+            team_id=10, logs_directory_path='/Users/koasato/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/')
+        team_log_processor._load_messages()
+        self.messages = team_log_processor.messages
         self.translator = text_processor.SlangToFormalTranslator()
 
     # =========================================================================
@@ -101,7 +108,8 @@ class SlangToFormalTranslatorTest(unittest.TestCase):
     # =========================================================================
     def test_translate_messages(self):
         correct_translated_messages_for_question_0 = [
-            'radio i think', 'yea radio seems like the move']
+            'radio i think',
+            'yea radio seems like the move']
         correct_translated_messages_for_question_2 = [
             "I'm like 65% sure its not lincoln",
             "no clue",
@@ -119,13 +127,16 @@ class SlangToFormalTranslatorTest(unittest.TestCase):
             'i feel like its iceland Because i think france currently doesnt have a true democracy no?',
             'I Agree']
 
-        self.translator.translate_messages()
+        translated_messages = []
+        for i in range(len(self.messages)):
+            translated_messages.append(self.translator.translate_messages(
+                self.messages[i]))
 
         self.assertListEqual(correct_translated_messages_for_question_0,
-                             list(self.translator.messages[0].event_content.values[:]))
+                             list(translated_messages[0].event_content.values[:]))
         self.assertListEqual(correct_translated_messages_for_question_2,
-                             list(self.translator.messages[2].event_content.values[:]))
+                             list(translated_messages[2].event_content.values[:]))
         self.assertListEqual(correct_translated_messages_for_question_27,
-                             list(self.translator.messages[27].event_content.values[:]))
+                             list(translated_messages[27].event_content.values[:]))
         self.assertListEqual(correct_translated_messages_for_question_43,
-                             list(self.translator.messages[43].event_content.values[:]))
+                             list(translated_messages[43].event_content.values[:]))

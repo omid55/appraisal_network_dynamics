@@ -11,13 +11,14 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
 
+import attr
+import csv
+import numpy as np
+import os
 import pandas as pd
 import pickle as pk
-import numpy as np
-import string
-import csv
-import os
 import re
+import string
 import textblob
 from xml.sax import saxutils as su
 from os.path import expanduser
@@ -30,6 +31,14 @@ from stop_words import get_stop_words
 from nltk.stem.porter import PorterStemmer
 
 import pogs_jeopardy_log_lib as lib
+
+
+@attr.s
+class ColumnNameOptions(object):
+    """Column name options for messages dataframe."""
+
+    # Name of the message column.
+    message_column_name = attr.ib(default='event_content')
 
 
 def get_my_stem(word: str) -> str:
@@ -66,21 +75,24 @@ class SlangToFormalTranslator(object):
                 strings[1].replace("\n", ""))
         slang_file.close()
 
-    def _translate_string(self, event_content):
-        event_content_array = event_content.split(" ")
+    def _translate_string(self, message):
+        message_array = message.split(" ")
         j = 0
-        for word in event_content_array:
+        for word in message_array:
             if word.upper() in self.slang_dict.keys():
-                event_content_array[j] = self.slang_dict[word.upper()]
+                message_array[j] = self.slang_dict[word.upper()]
             j += 1
-        return " ".join(event_content_array)
+        return " ".join(message_array)
 
-    def translate_messages(self, messages: pd.DataFrame) -> pd.DataFrame:
+    def translate_messages(self, messages: pd.DataFrame,
+                           column_name: ColumnNameOptions = ColumnNameOptions()) -> pd.DataFrame:
         """Translates ..."""
+
+        message_column_name = column_name.message_column_name
         new_messages = messages.copy()
-        for i in range(len(new_messages)):
-            new_messages.iloc[i]['event_content'].apply(
-                self._translate_string, inplace=True)
+        for index, row in new_messages.iterrows():
+            new_messages.loc[index, message_column_name] = self._translate_string(
+                new_messages.loc[index, message_column_name])
         return new_messages
 
 
@@ -105,19 +117,19 @@ class EmotionDetector(object):
         Raises:
             None.
         """
-        anew_pkl_filepath = expanduser(
-            '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         # anew_pkl_filepath = expanduser(
-        #     '~/Documents/research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        #     '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        anew_pkl_filepath = expanduser(
+            '~/Documents/koa/College/UCSB/2019-2020/Research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         if os.path.exists(anew_pkl_filepath):
             # loads the preprocessed anew dicts file.
             f = open(anew_pkl_filepath, 'rb')
             self._anew_dicts = pk.load(f)
         else:
-            anew_dictionary_filepath = expanduser(
-                '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             # anew_dictionary_filepath = expanduser(
-            #     '~/Documents/research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            #     '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            anew_dictionary_filepath = expanduser(
+                '~/Documents/koa/College/UCSB/2019-2020/Research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew = pd.read_csv(anew_dictionary_filepath)
             self._anew_dicts = {'valence': {}, 'arousal': {}, 'dominance': {}}
             for i in range(len(anew)):
@@ -226,23 +238,6 @@ class SentimentAnalyzer(object):
 
 
 class TextPreprocessor(object):
-    def _load_messages_for_team(self, id, logs_directory_path):
-        """Loads the messages for a specific team
-
-        Args:
-            id: the team_id of the team to load the logs for.
-
-        Returns:
-            None.
-
-        Raises:
-            None.
-        """
-        team_log_processor = lib.TeamLogProcessor(team_id=id,
-                                                  logs_directory_path=logs_directory_path)
-        self.team_members = team_log_processor.members
-        self.messages = team_log_processor.messages
-
     def _get_messages_as_sequential_list(self):
         """Aggregates all the messages in a sequential list in the form:
         [ user_id, message ]
@@ -380,8 +375,8 @@ class TextPreprocessor(object):
         self._load_messages_for_team(
             team_id,
             logs_directory_path=expanduser(
-                '~/Datasets/Jeopardy/'))
-                # '~/Documents/research/Jeopardy/'))
+                # '~/Datasets/Jeopardy/'))
+                '~/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/'))
         if translate_slang:
             self.slang_translator = SlangToFormalTranslator()
             self.messages = self.slang_translator.translate_messages(
