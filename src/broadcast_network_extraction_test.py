@@ -125,7 +125,12 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data = pd.DataFrame({
-        'event_content': ['hi there', 'hello my friend', 'what\'s up buddy?', 'nothing', 'hey prick!!!'],
+        'event_content': [
+            'hi there',
+            'hello my friend',
+            'what\'s up buddy?',
+            'nothing',
+            'hey prick!!!'],
         'timestamp': ['2019-05-21 10:17:36',
                       '2019-05-21 10:17:37',
                       '2019-05-21 10:18:05',
@@ -139,8 +144,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             communication_data=self.data,
             time_window=[1, 20],
             weight_type=bne.WeightType.NONE,
-            aggregation_type=bne.AggregationType.BINARY
-        )
+            aggregation_type=bne.AggregationType.BINARY)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
         expected_graph.add_edge(122, 123, weight=1)
@@ -151,8 +155,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             communication_data=self.data,
             time_window=[1, 20],
             weight_type=bne.WeightType.NONE,
-            aggregation_type=bne.AggregationType.SUM
-        )
+            aggregation_type=bne.AggregationType.SUM)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
         expected_graph.add_edge(122, 123, weight=2.0)
@@ -166,14 +169,12 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             time_window=[1, 20],
             weight_type=bne.WeightType.REPLY_DURATION,
             aggregation_type=bne.AggregationType.SUM,
-            gamma=0,
-        )
+            gamma=0)
         computed_graph2 = self.extractor.extract_network_from_broadcast(
             communication_data=self.data,
             time_window=[1, 20],
             weight_type=bne.WeightType.NONE,
-            aggregation_type=bne.AggregationType.SUM,
-        )
+            aggregation_type=bne.AggregationType.SUM)
         utils.assert_graph_equals(computed_graph1, computed_graph2)
 
     def test_extract_network_from_broadcast_average_reply_duration_weight(self):
@@ -182,8 +183,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             time_window=[1, 20],
             weight_type=bne.WeightType.REPLY_DURATION,
             aggregation_type=bne.AggregationType.AVERAGE,
-            gamma=0.15,
-        )
+            gamma=0.15)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
         expected_graph.add_edge(122, 123, weight=0.5130034323233221)
@@ -198,4 +198,40 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
         expected_graph.add_edge(122, 123, weight=0.24695)
+        utils.assert_graph_equals(computed_graph, expected_graph)
+
+    def test_extract_network_from_broadcast_average_emotion_valence_weight(
+        self):
+        computed_graph = self.extractor.extract_network_from_broadcast(
+            communication_data=self.data,
+            time_window=[1, 20],
+            weight_type=bne.WeightType.EMOTION_VALENCE,
+            aggregation_type=bne.AggregationType.AVERAGE)
+        expected_graph = nx.DiGraph()
+        expected_graph.add_nodes_from([122, 123])
+        expected_graph.add_edge(122, 123, weight=3.87)
+        utils.assert_graph_equals(computed_graph, expected_graph)
+    
+    def test_extract_network_from_broadcast_average_emotion_arousal_weight(
+        self):
+        computed_graph = self.extractor.extract_network_from_broadcast(
+            communication_data=self.data,
+            time_window=[1, 20],
+            weight_type=bne.WeightType.EMOTION_AROUSAL,
+            aggregation_type=bne.AggregationType.AVERAGE)
+        expected_graph = nx.DiGraph()
+        expected_graph.add_nodes_from([122, 123])
+        expected_graph.add_edge(122, 123, weight=2.87)
+        utils.assert_graph_equals(computed_graph, expected_graph)
+
+    def test_extract_network_from_broadcast_average_emotion_dominance_weight(
+        self):
+        computed_graph = self.extractor.extract_network_from_broadcast(
+            communication_data=self.data,
+            time_window=[1, 20],
+            weight_type=bne.WeightType.EMOTION_DOMINANCE,
+            aggregation_type=bne.AggregationType.AVERAGE)
+        expected_graph = nx.DiGraph()
+        expected_graph.add_nodes_from([122, 123])
+        expected_graph.add_edge(122, 123, weight=3.37)
         utils.assert_graph_equals(computed_graph, expected_graph)

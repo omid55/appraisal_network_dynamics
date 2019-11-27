@@ -7,6 +7,7 @@ from __future__ import absolute_import
 
 import numpy as np
 import pandas as pd
+import pandas.testing as pd_testing
 import unittest
 import os
 from os.path import expanduser
@@ -77,66 +78,71 @@ class SentimentAnalyzerTest(unittest.TestCase):
         self.assertEqual(expected, computed)
 
 # *****************************************************************************
-# *********************** SlangToFormalTranslator class ***********************
+# *********************** FormalEnglishTranslator class ***********************
 # *****************************************************************************
-
-
-class SlangToFormalTranslatorTest(unittest.TestCase):
+class FormalEnglishTranslatorTest(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        self.text_preprocessor = text_processor.TextPreprocessor()
-        team_log_processor = lib.TeamLogProcessor(
-            team_id=10, logs_directory_path='/Users/koasato/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/')
-        team_log_processor._load_messages()
-        self.messages = team_log_processor.messages
-        self.translator = text_processor.SlangToFormalTranslator()
+        self.translator = text_processor.FormalEnglishTranslator()
 
     # =========================================================================
-    # =========================== _load_slang_file ============================
+    # ===================== _load_slang_dictionary ============================
     # =========================================================================
-    def test_slang_file_contents(self):
+    def test_load_slang_dictionary(self):
         self.assertEqual(
-            self.translator.slang_dict['AFAIK'], 'As Far As I Know')
-        self.assertEqual(self.translator.slang_dict['B4N'], 'Bye For Now')
-        self.assertEqual(self.translator.slang_dict['GN'], 'Good Night')
-        self.assertEqual(
-            self.translator.slang_dict['LTNS'], 'Long Time No See')
-        self.assertEqual(self.translator.slang_dict['7K'], 'Sick:-D Laughter')
+            self.translator.slang_dict['afaik'], 'as far as i know')
+        self.assertEqual(self.translator.slang_dict['b4n'], 'bye for now')
+        self.assertEqual(self.translator.slang_dict['gn'], 'good night')
+        self.assertEqual(self.translator.slang_dict['ltns'], 'long time no see')
+        self.assertEqual(self.translator.slang_dict['7k'], 'sick:-d laughter')
 
     # =========================================================================
-    # =========================== _translate_string ===========================
+    # =========================== _get_formal_text ============================
     # =========================================================================
+    @parameterized.expand([
+        ['sup bro?', 'what is up brother ?', False],
+        ['sup frined?', 'what is up friend ?', True]
+        ])
+    def test_get_formal_text(self, content, expected, fix_spelling):
+        content = 'sup bro?'
+        expected = 'what is up brother ?'
+        computed = self.translator._get_formal_text(
+            content=content, fix_spelling=False)
+        self.assertEqual(expected, computed)
+
+    # =========================================================================
+    # ========================= translate_messages ============================
+    # =========================================================================
+    def test_translate_messages_raises_when_not_existing_column(self):
+        data = pd.DataFrame({
+            'message_content': [
+                'sup man?',
+                'hello my freind'],
+            'sender_subject_id': [123, 122]})
+        with self.assertRaises(ValueError):
+            self.translator.translate_messages(
+                messages=data,
+                message_column_name='not_existing_column_name')
+
     def test_translate_messages(self):
-        correct_translated_messages_for_question_0 = [
-            'radio i think',
-            'yea radio seems like the move']
-        correct_translated_messages_for_question_2 = [
-            "I'm like 65% sure its not lincoln",
-            "no clue",
-            "also cant see others answers",
-            "I Don't Know",
-            "yes",
-            "i put taft",
-            "anyone know what year taft was pres",
-            "for no reason in particular"]
-        correct_translated_messages_for_question_27 = []
-        correct_translated_messages_for_question_43 = [
-            'kinda guessed',
-            'Its for sure not britain',
-            "my gut says iceland'",
-            'i feel like its iceland Because i think france currently doesnt have a true democracy no?',
-            'I Agree']
-
-        translated_messages = []
-        for i in range(len(self.messages)):
-            translated_messages.append(self.translator.translate_messages(
-                self.messages[i]))
-
-        self.assertListEqual(correct_translated_messages_for_question_0,
-                             list(translated_messages[0].event_content.values[:]))
-        self.assertListEqual(correct_translated_messages_for_question_2,
-                             list(translated_messages[2].event_content.values[:]))
-        self.assertListEqual(correct_translated_messages_for_question_27,
-                             list(translated_messages[27].event_content.values[:]))
-        self.assertListEqual(correct_translated_messages_for_question_43,
-                             list(translated_messages[43].event_content.values[:]))
+        data = pd.DataFrame({
+            'message_content': [
+                'sup man?',
+                'hello my freind',
+                'what\'s up buddy?',
+                'nothing',
+                'wut wsa that!!'],
+            'sender_subject_id': [123, 122, 123, 122, 124]})
+        expected = pd.DataFrame({
+            'message_content': [
+                'what is up man ?',
+                'hello my friend',
+                'what\'s up buddy ?',
+                'nothing',
+                'what was that ! !'],
+            'sender_subject_id': [123, 122, 123, 122, 124]})
+        computed = self.translator.translate_messages(
+            messages=data,
+            fix_spelling=True,
+            message_column_name='message_content')
+        pd_testing.assert_frame_equal(expected, computed)

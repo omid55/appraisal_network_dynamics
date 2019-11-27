@@ -54,12 +54,18 @@ class WeightType(enum.Enum):
 
     SENTIMENT: weight of each edge is computed using a sentiment analysis model.
 
-    EMOTION: weight of each edge is computed using emotion dictionary.
+    EMOTION_VALENCE: weight of each edge is based on valence (ranging from pleasant to unpleasant).
+    
+    EMOTION_AROUSAL: weight of each edge is based on arousal (ranging from calm to excited).
+
+    EMOTION_DOMINANCE: weight of each edge is based on dominance (level of the control).
     """
     NONE = 1
     REPLY_DURATION = 2
     SENTIMENT = 3
-    EMOTION = 4
+    EMOTION_VALENCE = 4
+    EMOTION_AROUSAL = 5
+    EMOTION_DOMINANCE = 6
 
 
 class AggregationType(enum.Enum):
@@ -144,6 +150,12 @@ class NetworkExtraction(object):
             return np.exp(-gamma * duration)
         elif weight_type == WeightType.SENTIMENT:
             return self.sentiment_analyzer.compute_sentiment(content)
+        elif weight_type == WeightType.EMOTION_VALENCE:
+            return self.emotion_analyzer.compute_mean_emotion(content)[1]
+        elif weight_type == WeightType.EMOTION_AROUSAL:
+            return self.emotion_analyzer.compute_mean_emotion(content)[2]
+        elif weight_type == WeightType.EMOTION_DOMINANCE:
+            return self.emotion_analyzer.compute_mean_emotion(content)[3]
         else:
             raise ValueError('Wrong weight type was sent.')
 

@@ -11,8 +11,8 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
 
-import attr
 import csv
+import enchant
 import numpy as np
 import os
 import pandas as pd
@@ -24,21 +24,16 @@ from xml.sax import saxutils as su
 from os.path import expanduser
 
 from typing import List
+from typing import Text
 from typing import Tuple
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.tokenize import RegexpTokenizer
+from nltk.tokenize import TweetTokenizer
 from stop_words import get_stop_words
 from nltk.stem.porter import PorterStemmer
 
 import pogs_jeopardy_log_lib as lib
-
-
-@attr.s
-class ColumnNameOptions(object):
-    """Column name options for messages dataframe."""
-
-    # Name of the message column.
-    message_column_name = attr.ib(default='event_content')
+import utils
 
 
 def get_my_stem(word: str) -> str:
@@ -58,42 +53,6 @@ def get_my_stem(word: str) -> str:
         return p_stemmer.stem(word)
     except:
         return word
-
-
-class SlangToFormalTranslator(object):
-    def __init__(self):
-        self._load_slang_file()
-
-    def _load_slang_file(self):
-        slang_file = open("slang.txt", "r")
-        self.slang_dict = {}
-        count = 0
-        for row in slang_file:
-            count += 1
-            strings = row.split("=")
-            self.slang_dict[str(strings[0])] = str(
-                strings[1].replace("\n", ""))
-        slang_file.close()
-
-    def _translate_string(self, message):
-        message_array = message.split(" ")
-        j = 0
-        for word in message_array:
-            if word.upper() in self.slang_dict.keys():
-                message_array[j] = self.slang_dict[word.upper()]
-            j += 1
-        return " ".join(message_array)
-
-    def translate_messages(self, messages: pd.DataFrame,
-                           column_name: ColumnNameOptions = ColumnNameOptions()) -> pd.DataFrame:
-        """Translates ..."""
-
-        message_column_name = column_name.message_column_name
-        new_messages = messages.copy()
-        for index, row in new_messages.iterrows():
-            new_messages.loc[index, message_column_name] = self._translate_string(
-                new_messages.loc[index, message_column_name])
-        return new_messages
 
 
 class EmotionDetector(object):
@@ -117,19 +76,19 @@ class EmotionDetector(object):
         Raises:
             None.
         """
-        # anew_pkl_filepath = expanduser(
-        #     '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         anew_pkl_filepath = expanduser(
-            '~/Documents/koa/College/UCSB/2019-2020/Research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+            '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
+        # anew_pkl_filepath = expanduser(
+        #     '~/Documents/koa/College/UCSB/2019-2020/Research/appraisal_network_dynamics/bagofwords/anew_dicts.pkl')
         if os.path.exists(anew_pkl_filepath):
             # loads the preprocessed anew dicts file.
             f = open(anew_pkl_filepath, 'rb')
             self._anew_dicts = pk.load(f)
         else:
-            # anew_dictionary_filepath = expanduser(
-            #     '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew_dictionary_filepath = expanduser(
-                '~/Documents/koa/College/UCSB/2019-2020/Research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+                '~/Dropbox/PhD/Projects/Appraisal Network Estimation/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
+            # anew_dictionary_filepath = expanduser(
+            #     '~/Documents/koa/College/UCSB/2019-2020/Research/appraisal_network_dynamics/bagofwords/ANEW_stemmed.csv')
             anew = pd.read_csv(anew_dictionary_filepath)
             self._anew_dicts = {'valence': {}, 'arousal': {}, 'dominance': {}}
             for i in range(len(anew)):
@@ -254,7 +213,7 @@ class TextPreprocessor(object):
         messages = []
         for index in range(len(self.messages)):
             messages_of_question = list(
-                self.messages[index].event_content.values[:])
+                self.messages[index].content.values[:])
             senders_of_message_per_question = list(
                 self.messages[index].sender_subject_id.values[:])
             for i in range(len(messages_of_question)):
@@ -293,7 +252,7 @@ class TextPreprocessor(object):
             for message_index, row in message_group[index].iterrows():
                 message_dict[int(row.sender_subject_id)
                              ] = message_dict[int(row.sender_subject_id)
-                                              ] + " / " + row.event_content
+                                              ] + " / " + row.content
             aggregated_messages[index] = message_dict
         return aggregated_messages
 
@@ -375,8 +334,8 @@ class TextPreprocessor(object):
         self._load_messages_for_team(
             team_id,
             logs_directory_path=expanduser(
-                # '~/Datasets/Jeopardy/'))
-                '~/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/'))
+                '~/Datasets/Jeopardy/'))
+                # '~/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/'))
         if translate_slang:
             self.slang_translator = SlangToFormalTranslator()
             self.messages = self.slang_translator.translate_messages(
@@ -394,36 +353,83 @@ class TextPreprocessor(object):
             aggregated_message_list)
 
 
-# tp = TextPreprocessor()
-# tp._preprocess(translate_slang=True, team_id=10)
+class FormalEnglishTranslator(object):
+    """Changes slang or wrong text to formal and correct English.
 
+        Usage:
+            fixer = FormalEnglishTranslator()
+            dataframe = fixer.translate_messages(dataframe)
 
-# """find out if a sentence is not english"""
-# def my_lang_check(word):
-#     lang = enchant.Dict("en_US")
-#     if word in ['lol', 'ok', 'okey', 'idk', 'sory', 'thx', 'tnx', 'tanx', 'thanx', 'hah', 'heh', 'hurtin', 'ic',
-#     'chillin', 'sux', 'nah', 'faggot', 'haha', 'nothin', 'np', 'me2', 'tv', 'lookin', 'yo', 'hmm', 'loveit', 'nutz']:
-#         return True
-#     return lang.check(word) or lang.check(word.capitalize())
+        Properties:
+            slang_dict: Maps slang text to formal English sentences.
+    """
+    def __init__(
+        self, slang_dictionary_filepath: Text = 'bagofwords/slang.txt'):
+        self._load_slang_dictionary(
+            slang_dictionary_filepath=slang_dictionary_filepath)
+        self._lang = enchant.Dict("en_US")
 
+    def _load_slang_dictionary(
+        self, slang_dictionary_filepath: Text) -> None:
+        self.slang_dict = {}
+        with open(slang_dictionary_filepath, 'r') as slang_file:    
+            count = 0
+            for row in slang_file:
+                count += 1
+                strings = row.split('=')
+                self.slang_dict[str(strings[0]).lower()] = str(
+                    strings[1].replace('\n', '')).lower()
 
-# def is_english(sentence):
-#     non_english = 0
-#     lang = enchant.Dict("en_US")
-#     translator = str.maketrans(string.punctuation, ' '*len(string.punctuation))
-#     sentence = sentence.lower().translate(translator).strip()
-#     sentence = ' '.join(sentence.split())
-#     words = sentence.split()
-#     digits = 0
-#     for word in words:
-#         if word:
-#             if word.isdigit():
-#                 digits += 1
-#                 continue
-#             if not my_lang_check(word):
-#                 non_english += 1
-#     if not len(words) - digits:
-#         return True
-#     non_english_ratio = float(non_english) / (len(words) - digits)
-# #     print(non_english_ratio)
-#     return non_english_ratio < 0.8
+    def _get_formal_text(self,
+                         content: Text,
+                         fix_spelling: bool = False) -> Text:
+        """Gets the formal and correct version of the input text.
+        
+        Args:
+            content: Content of message with slang and wrong English.
+
+            fix_spelling: Whether to fix spelling with the closest English word.
+
+        Returns:
+            Content of the message after fixing slang or wrong text.
+
+        Raises:
+            None.
+        """
+        # if not slang_dict:
+        #     self._load_slang_dictionary()
+        tokenizer = TweetTokenizer()
+        tokens = tokenizer.tokenize(content.lower())
+        for j, word in enumerate(tokens):
+            if word in self.slang_dict.keys():
+                tokens[j] = self.slang_dict[word]
+        formal_content = ' '.join(tokens)
+        if fix_spelling:
+            tokens = tokenizer.tokenize(formal_content)
+            for j, token in enumerate(tokens):
+                # has_any_letter = bool(re.search('[a-zA-Z]', token))
+                has_any_letter = bool(re.search('[a-z]', token))
+                if not self._lang.check(token) and has_any_letter:
+                    tokens[j] = self._lang.suggest(token)[0]
+            formal_content = ' '.join(tokens)
+        return formal_content
+
+    def translate_messages(self,
+                           messages: pd.DataFrame,
+                           fix_spelling: bool = False,
+                           message_column_name: Text = 'event_content',
+                           ) -> pd.DataFrame:
+        """Translates ...
+        
+        Args:
+
+        Returns:
+
+        Raises:
+            ValueError: If the message column name does not exist.
+        """
+        utils.check_required_columns(messages, [message_column_name])
+        new_messages = messages.copy()
+        new_messages[message_column_name] = messages[message_column_name].apply(
+            self._get_formal_text, fix_spelling=fix_spelling)
+        return new_messages
