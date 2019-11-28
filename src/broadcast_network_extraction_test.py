@@ -139,6 +139,19 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
         'sender_subject_id': [123, 122, 123, 122, 124]})
         cls.extractor = bne.NetworkExtraction()
 
+    def test_extract_network_from_broadcast_raises_when_wrong_time_window(self):
+        with self.assertRaises(ValueError):
+            self.extractor.extract_network_from_broadcast(
+                communication_data=self.data,
+                time_window=[9, 2])
+
+    def test_extract_network_from_broadcast_raises_when_missing_column(self):
+        with self.assertRaises(ValueError):
+            self.extractor.extract_network_from_broadcast(
+                communication_data=self.data,
+                column_names=bne.ColumnNameOptions(
+                    text_column_name='not_existing_column_name'))
+
     def test_extract_network_from_broadcast_unweighted(self):
         computed_graph = self.extractor.extract_network_from_broadcast(
             communication_data=self.data,

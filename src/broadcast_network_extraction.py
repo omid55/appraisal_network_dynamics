@@ -1,6 +1,6 @@
 # Omid55
 # Start date:     3 Oct 2019
-# Modified date:  25 Oct 2019
+# Modified date:  27 Nov 2019
 # Author:   Omid Askarisichani
 # Email:    omid55@cs.ucsb.edu
 #
@@ -111,10 +111,29 @@ class AggregationType(enum.Enum):
 
 
 class NetworkExtraction(object):
-    def __init__(self):
-        self.sentiment_analyzer = text_processor.SentimentAnalyzer()
-        self.emotion_analyzer = text_processor.EmotionDetector()
+    """Extracts network structure from broadcast communication log data.
 
+        Usage:
+            net_extractor = broadcast_network_extraction.NetworkExtraction()
+            network = net_extractor.extract_network_from_broadcast(
+                communication_data=messages,
+                time_window=[1, 10],
+                weight_type=WeightType.REPLY_DURATION,
+                aggregation_type=AggregationType.AVERAGE,
+                column_names=ColumnNameOptions(),
+                gamma=0.1)
+
+        Properties:
+            None.
+    """
+
+    def __init__(self):
+        self._sentiment_analyzer = text_processor.SentimentAnalyzer()
+        self._emotion_analyzer = text_processor.EmotionDetector()
+
+    # *****************************************************************
+    #                         Private functions
+    # *****************************************************************
     def _compute_weight(self,
                         time1: pd.Timestamp,
                         time2: pd.Timestamp,
@@ -149,13 +168,13 @@ class NetworkExtraction(object):
                     'Second time cannot be smaller than the first one.')
             return np.exp(-gamma * duration)
         elif weight_type == WeightType.SENTIMENT:
-            return self.sentiment_analyzer.compute_sentiment(content)
+            return self._sentiment_analyzer.compute_sentiment(content)
         elif weight_type == WeightType.EMOTION_VALENCE:
-            return self.emotion_analyzer.compute_mean_emotion(content)[1]
+            return self._emotion_analyzer.compute_mean_emotion(content)[1]
         elif weight_type == WeightType.EMOTION_AROUSAL:
-            return self.emotion_analyzer.compute_mean_emotion(content)[2]
+            return self._emotion_analyzer.compute_mean_emotion(content)[2]
         elif weight_type == WeightType.EMOTION_DOMINANCE:
-            return self.emotion_analyzer.compute_mean_emotion(content)[3]
+            return self._emotion_analyzer.compute_mean_emotion(content)[3]
         else:
             raise ValueError('Wrong weight type was sent.')
 
@@ -183,6 +202,9 @@ class NetworkExtraction(object):
             new_dgraph[edge[0]][edge[1]]['weight'] = func(weight_list)
         return new_dgraph
 
+    # *****************************************************************
+    #                         Public functions
+    # *****************************************************************
     def extract_network_from_broadcast(
         self,
         communication_data: pd.DataFrame,
@@ -191,7 +213,7 @@ class NetworkExtraction(object):
         aggregation_type: AggregationType = AggregationType.SUM,
         column_names: ColumnNameOptions = ColumnNameOptions(),
         gamma: float = 0.0) -> nx.DiGraph:
-        """Extracts the network structure of members in a broadcast setting's log.
+        """Extracts the network structure of members in a broadcast log data.
 
         Args:
             communication_data: Dataframe of a broadcast log.
@@ -210,8 +232,14 @@ class NetworkExtraction(object):
             A directed graph structure among members in a broadcast log data.
 
         Raises:
-            ValueError: If the column names do not exist in the communication data.
+            ValueError: If the column names do not exist in the data or
+                time_window had an incorrect range.
         """
+        if (time_window[0] < 0 or
+            time_window[1] < 0 or
+            time_window[0] >= time_window[1]):
+            raise ValueError('Time window was wrong. It was {}'.format(
+                time_window))
         # Opens the settings for the convenience.
         # ------------------------------------------------
         text_column_name = column_names.text_column_name
