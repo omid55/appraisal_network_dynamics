@@ -313,6 +313,21 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
         expected_graph.add_edge(31, 29, weight=1) # 31 answers to person 29
         utils.assert_graph_equals(computed_graph, expected_graph)
 
+    def test_extract_network_from_broadcast_average_sentiment_weight_real_log(
+        self):
+        computed_graph = self.extractor.extract_network_from_broadcast(
+            communication_data=self.real_log_data,
+            time_window=[2, 10],
+            weight_type=bne.WeightType.SENTIMENT,
+            aggregation_type=bne.AggregationType.AVERAGE)
+        expected_graph = nx.DiGraph()
+        expected_graph.add_nodes_from([30, 29, 32, 31])
+        expected_graph.add_edge(30, 29, weight=0.4019)   # Sentiment of yes.
+        expected_graph.add_edge(
+            32, 29, weight=0.0)  # If English is not fixed, sentiment is 0!
+        expected_graph.add_edge(31, 29, weight=0.296)    # Sentiment of yeah.
+        utils.assert_graph_equals(computed_graph, expected_graph)
+
     def test_extract_network_from_broadcast_average_reply_dur_weight_real_log(
         self):
         computed_graph = self.extractor.extract_network_from_broadcast(
@@ -331,21 +346,6 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             31, 29, weight=np.exp(-0.15*4))  # 31 answers to 29
         expected_graph.add_edge(31, 30, weight=np.exp(-0.15*1))
         expected_graph.add_edge(31, 32, weight=np.exp(-0.15*1))
-        utils.assert_graph_equals(computed_graph, expected_graph)
-
-    def test_extract_network_from_broadcast_average_sentiment_weight_real_log(
-        self):
-        computed_graph = self.extractor.extract_network_from_broadcast(
-            communication_data=self.real_log_data,
-            time_window=[2, 20],
-            weight_type=bne.WeightType.SENTIMENT,
-            aggregation_type=bne.AggregationType.AVERAGE)
-        expected_graph = nx.DiGraph()
-        expected_graph.add_nodes_from([30, 29, 32, 31])
-        expected_graph.add_edge(30, 29, weight=0.4019)   # Sentiment of yes.
-        expected_graph.add_edge(
-            32, 29, weight=0.0)  # If English is not fixed, sentiment is 0!
-        expected_graph.add_edge(31, 29, weight=0.296)    # Sentiment of yeah.
         utils.assert_graph_equals(computed_graph, expected_graph)
 
     ############# On the back and forth log data ##############################
@@ -406,6 +406,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
         self):
         computed_graph = self.extractor.extract_network_from_broadcast(
             communication_data=self.back_and_forth_data,
+            time_window=[2, 10],
             weight_type=bne.WeightType.SENTIMENT,
             aggregation_type=bne.AggregationType.AVERAGE)
         expected_graph = nx.DiGraph()

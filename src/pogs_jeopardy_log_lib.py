@@ -125,12 +125,6 @@ class TeamLogProcessor(object):
         self.game_info = game_info
         self._load_all_files(logs_directory_path)
 
-    def __getattr__(self, item):
-        try:
-            return self[item]
-        except KeyError:
-            raise AttributeError(item)
-
     def _load_all_files(self, logs_directory_path: Text) -> None:
         """Load all files pipeline.
 
@@ -147,11 +141,9 @@ class TeamLogProcessor(object):
         self._load_messages()
         self._load_answers_chosen()
         self._load_machine_usage_info()
-
         self._preload_data(logs_directory_path)
         self._define_team_member_order(logs_directory_path)
         self._load_ratings()
-
         self._load_accumulated_score()
         self._load_survey()
         self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
