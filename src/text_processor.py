@@ -196,163 +196,6 @@ class SentimentAnalyzer(object):
         #     print(sentence.sentiment.polarity)
 
 
-class TextPreprocessor(object):
-    def _get_messages_as_sequential_list(self):
-        """Aggregates all the messages in a sequential list in the form:
-        [ user_id, message ]
-
-        Args:
-            None.
-
-        Returns:
-            List of messages where each message is a list as described above.
-
-        Raises:
-            None.
-        """
-        messages = []
-        for index in range(len(self.messages)):
-            messages_of_question = list(
-                self.messages[index].content.values[:])
-            senders_of_message_per_question = list(
-                self.messages[index].sender_subject_id.values[:])
-            for i in range(len(messages_of_question)):
-                messages.append(
-                    [senders_of_message_per_question[i],
-                     messages_of_question[i]])
-        return messages
-
-    def _get_messages_as_aggregated_dict(self):
-        """Aggregates all the messages in an aggregated list per user for every 
-        5 questions, all naively concatenated with " / "
-
-        Args:
-            None.
-
-        Returns:
-            Dict of aggregated messages for every 5 questions
-
-        Raises:
-            None.
-        """
-        aggregated_messages = {}
-        message_group = {}
-        for index in range(len(self.messages)):
-            if ((index // 5) in message_group.keys()):
-                message_group[index // 5] = message_group[
-                    index // 5].append(self.messages[index])
-            else:
-                message_group[index // 5] = self.messages[index]
-
-        for index in range(len(message_group)):
-            message_dict = {}
-            for id in self.team_members:
-                message_dict[id] = ""
-
-            for message_index, row in message_group[index].iterrows():
-                message_dict[int(row.sender_subject_id)
-                             ] = message_dict[int(row.sender_subject_id)
-                                              ] + " / " + row.content
-            aggregated_messages[index] = message_dict
-        return aggregated_messages
-
-    def _compute_emotion(self, messages):
-        """Computes emotion values for all messages
-
-        Args:
-            None.
-
-        Returns:
-            Average of emotion values and the number of words with emotion.
-
-        Raises:
-            None.
-        """
-        emotion_detector = EmotionDetector()
-        results = []
-        if (isinstance(messages, list)):
-            for message in messages:
-                results.append(
-                    [message[0], emotion_detector.compute_mean_emotion(message[1])])
-        elif (isinstance(messages, dict)):
-            for key in messages.keys():
-                for subkey in messages[key]:
-                    results.append(
-                        [subkey, emotion_detector.compute_mean_emotion(messages[key][subkey])])
-
-        return results
-
-    def _compute_sentiment(self, messages):
-        """Computes emotion values for all messages
-
-        Args:
-            None.
-
-        Returns:
-            Average of emotion values and the number of words with emotion.
-
-        Raises:
-            None.
-        """
-        sentiment_analyzer = SentimentAnalyzer()
-        results = []
-        text_blob_results = []
-
-        if (isinstance(messages, list)):
-            for message in messages:
-                results.append(
-                    [message[0], sentiment_analyzer.compute_sentiment(message[1])])
-                text_blob_results.append(
-                    [message[0], sentiment_analyzer.compute_sentiment_with_textblob(
-                        message[1])])
-        elif (isinstance(messages, dict)):
-            for key in messages.keys():
-                for subkey in messages[key]:
-                    results.append(
-                        [subkey, sentiment_analyzer.compute_sentiment(
-                            messages[key][subkey])])
-                    text_blob_results.append(
-                        [subkey, sentiment_analyzer.compute_sentiment_with_textblob(
-                            messages[key][subkey])])
-
-        return results, text_blob_results
-
-    def _preprocess(self, translate_slang, team_id):
-        """Preprocesses the message data for a team
-
-        Args:
-            translate_slang: If the messages should substitute acronyms for
-            formal English (e.g. LOL -> Laughing out Loud).
-
-        Returns:
-            None.
-
-        Raises:
-            None.
-        """
-
-        self._load_messages_for_team(
-            team_id,
-            logs_directory_path=expanduser(
-                '~/Datasets/Jeopardy/'))
-                # '~/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/'))
-        if translate_slang:
-            self.slang_translator = SlangToFormalTranslator()
-            self.messages = self.slang_translator.translate_messages(
-                self.messages)
-        message_list = self._get_messages_as_sequential_list()
-        aggregated_message_list = self._get_messages_as_aggregated_dict()
-
-        self.emotion_results = self._compute_emotion(message_list)
-        self.sentiment_results, self.sentiment_text_blob_results = self._compute_sentiment(
-            message_list)
-
-        self.aggregated_emotion_results = self._compute_emotion(
-            aggregated_message_list)
-        self.aggregatedsentiment_results, self.sentiment_text_blob_results = self._compute_sentiment(
-            aggregated_message_list)
-
-
 class FormalEnglishTranslator(object):
     """Changes slang or wrong text to formal and correct English.
 
@@ -419,11 +262,17 @@ class FormalEnglishTranslator(object):
                            fix_spelling: bool = False,
                            message_column_name: Text = 'event_content',
                            ) -> pd.DataFrame:
-        """Translates ...
+        """Translates all messages in dataframe into formal and fixed English.
         
         Args:
+            messages: Dataframe including messages in one of its columns.
+
+            fix_spelling: Whether to use spellchecker and fixer or not.
+
+            message_column_name: Name of the column containing content.
 
         Returns:
+            Dataframe with fixed english in given message column.
 
         Raises:
             ValueError: If the message column name does not exist.
@@ -433,3 +282,160 @@ class FormalEnglishTranslator(object):
         new_messages[message_column_name] = messages[message_column_name].apply(
             self._get_formal_text, fix_spelling=fix_spelling)
         return new_messages
+
+
+# class TextPreprocessor(object):
+#     def _get_messages_as_sequential_list(self):
+#         """Aggregates all the messages in a sequential list in the form:
+#         [ user_id, message ]
+
+#         Args:
+#             None.
+
+#         Returns:
+#             List of messages where each message is a list as described above.
+
+#         Raises:
+#             None.
+#         """
+#         messages = []
+#         for index in range(len(self.messages)):
+#             messages_of_question = list(
+#                 self.messages[index].content.values[:])
+#             senders_of_message_per_question = list(
+#                 self.messages[index].sender_subject_id.values[:])
+#             for i in range(len(messages_of_question)):
+#                 messages.append(
+#                     [senders_of_message_per_question[i],
+#                      messages_of_question[i]])
+#         return messages
+
+#     def _get_messages_as_aggregated_dict(self):
+#         """Aggregates all the messages in an aggregated list per user for every 
+#         5 questions, all naively concatenated with " / "
+
+#         Args:
+#             None.
+
+#         Returns:
+#             Dict of aggregated messages for every 5 questions
+
+#         Raises:
+#             None.
+#         """
+#         aggregated_messages = {}
+#         message_group = {}
+#         for index in range(len(self.messages)):
+#             if ((index // 5) in message_group.keys()):
+#                 message_group[index // 5] = message_group[
+#                     index // 5].append(self.messages[index])
+#             else:
+#                 message_group[index // 5] = self.messages[index]
+
+#         for index in range(len(message_group)):
+#             message_dict = {}
+#             for id in self.team_members:
+#                 message_dict[id] = ""
+
+#             for message_index, row in message_group[index].iterrows():
+#                 message_dict[int(row.sender_subject_id)
+#                              ] = message_dict[int(row.sender_subject_id)
+#                                               ] + " / " + row.content
+#             aggregated_messages[index] = message_dict
+#         return aggregated_messages
+
+#     def _compute_emotion(self, messages):
+#         """Computes emotion values for all messages
+
+#         Args:
+#             None.
+
+#         Returns:
+#             Average of emotion values and the number of words with emotion.
+
+#         Raises:
+#             None.
+#         """
+#         emotion_detector = EmotionDetector()
+#         results = []
+#         if (isinstance(messages, list)):
+#             for message in messages:
+#                 results.append(
+#                     [message[0], emotion_detector.compute_mean_emotion(message[1])])
+#         elif (isinstance(messages, dict)):
+#             for key in messages.keys():
+#                 for subkey in messages[key]:
+#                     results.append(
+#                         [subkey, emotion_detector.compute_mean_emotion(messages[key][subkey])])
+
+#         return results
+
+#     def _compute_sentiment(self, messages):
+#         """Computes emotion values for all messages
+
+#         Args:
+#             None.
+
+#         Returns:
+#             Average of emotion values and the number of words with emotion.
+
+#         Raises:
+#             None.
+#         """
+#         sentiment_analyzer = SentimentAnalyzer()
+#         results = []
+#         text_blob_results = []
+
+#         if (isinstance(messages, list)):
+#             for message in messages:
+#                 results.append(
+#                     [message[0], sentiment_analyzer.compute_sentiment(message[1])])
+#                 text_blob_results.append(
+#                     [message[0], sentiment_analyzer.compute_sentiment_with_textblob(
+#                         message[1])])
+#         elif (isinstance(messages, dict)):
+#             for key in messages.keys():
+#                 for subkey in messages[key]:
+#                     results.append(
+#                         [subkey, sentiment_analyzer.compute_sentiment(
+#                             messages[key][subkey])])
+#                     text_blob_results.append(
+#                         [subkey, sentiment_analyzer.compute_sentiment_with_textblob(
+#                             messages[key][subkey])])
+
+#         return results, text_blob_results
+
+#     def _preprocess(self, translate_slang, team_id):
+#         """Preprocesses the message data for a team
+
+#         Args:
+#             translate_slang: If the messages should substitute acronyms for
+#             formal English (e.g. LOL -> Laughing out Loud).
+
+#         Returns:
+#             None.
+
+#         Raises:
+#             None.
+#         """
+
+#         self._load_messages_for_team(
+#             team_id,
+#             logs_directory_path=expanduser(
+#                 '~/Datasets/Jeopardy/'))
+#                 # '~/Documents/koa/College/UCSB/2019-2020/Research/Jeopardy/'))
+#         if translate_slang:
+#             self.slang_translator = SlangToFormalTranslator()
+#             self.messages = self.slang_translator.translate_messages(
+#                 self.messages)
+#         message_list = self._get_messages_as_sequential_list()
+#         aggregated_message_list = self._get_messages_as_aggregated_dict()
+
+#         self.emotion_results = self._compute_emotion(message_list)
+#         self.sentiment_results, self.sentiment_text_blob_results = self._compute_sentiment(
+#             message_list)
+
+#         self.aggregated_emotion_results = self._compute_emotion(
+#             aggregated_message_list)
+#         self.aggregatedsentiment_results, self.sentiment_text_blob_results = self._compute_sentiment(
+#             aggregated_message_list)

@@ -78,7 +78,7 @@ class AggregationType(enum.Enum):
 
     @staticmethod
     def _my_exists(input_list: List) -> int:
-        if len(input_list) > 0:
+        if len(input_list) > 0 and np.sum(input_list) > 0:
             return 1
         return 0
 
@@ -117,7 +117,7 @@ class NetworkExtraction(object):
             net_extractor = broadcast_network_extraction.NetworkExtraction()
             network = net_extractor.extract_network_from_broadcast(
                 communication_data=messages,
-                time_window=[1, 10],
+                time_window=[2, 10],
                 weight_type=WeightType.REPLY_DURATION,
                 aggregation_type=AggregationType.AVERAGE,
                 column_names=ColumnNameOptions(),
@@ -208,12 +208,16 @@ class NetworkExtraction(object):
     def extract_network_from_broadcast(
         self,
         communication_data: pd.DataFrame,
-        time_window: Tuple = [1, 10],
+        time_window: Tuple = [2, 10],
         weight_type: WeightType = WeightType.NONE,
         aggregation_type: AggregationType = AggregationType.SUM,
         column_names: ColumnNameOptions = ColumnNameOptions(),
         gamma: float = 0.0) -> nx.DiGraph:
         """Extracts the network structure of members in a broadcast log data.
+
+        Time window is considered inclusive for both boundaries. It means for
+        [2, 10] if there is a message exactly after 2 or before 10 seconds, it
+        is considered a reply.
 
         Args:
             communication_data: Dataframe of a broadcast log.
@@ -262,6 +266,8 @@ class NetworkExtraction(object):
                     timedelta(seconds=time_window[1]))]
             for i in response_df.index:
                 responder = response_df.at[i, sender_column_name]
+                if pivot == responder:
+                    continue  # Because we do not want self loop in our graphs.
                 response_time = response_df.at[i, time_column_name]
                 response_text = response_df.at[i, text_column_name]
                 if not dgraph.has_edge(responder, pivot):
