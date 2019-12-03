@@ -104,6 +104,7 @@ class EmotionDetector(object):
     def compute_mean_emotion(
             self,
             content: str,
+            normalized: bool = False,
             verbose: bool = False) -> Tuple[int, float, float, float]:
         """Computes the mean emotion from the given content.
 
@@ -116,6 +117,8 @@ class EmotionDetector(object):
 
         Args:
             content: String content to be used for emotion analysis.
+
+            normalized: Normalized score by dividing by 9 as the max value.
 
             verbose: If we want to print words with information.
 
@@ -156,6 +159,12 @@ class EmotionDetector(object):
             dominance_score /= count
         if verbose:
             print('\n')
+        if normalized:
+            return (
+                count,
+                valence_score / 9,
+                arousal_score / 9,
+                dominance_score / 9)
         return count, valence_score, arousal_score, dominance_score
 
 

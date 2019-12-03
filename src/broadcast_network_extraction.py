@@ -170,11 +170,14 @@ class NetworkExtraction(object):
         elif weight_type == WeightType.SENTIMENT:
             return self._sentiment_analyzer.compute_sentiment(content)
         elif weight_type == WeightType.EMOTION_VALENCE:
-            return self._emotion_analyzer.compute_mean_emotion(content)[1]
+            return self._emotion_analyzer.compute_mean_emotion(
+                content=content, normalized=True)[1]
         elif weight_type == WeightType.EMOTION_AROUSAL:
-            return self._emotion_analyzer.compute_mean_emotion(content)[2]
+            return self._emotion_analyzer.compute_mean_emotion(
+                content=content, normalized=True)[2]
         elif weight_type == WeightType.EMOTION_DOMINANCE:
-            return self._emotion_analyzer.compute_mean_emotion(content)[3]
+            return self._emotion_analyzer.compute_mean_emotion(
+                content=content, normalized=True)[3]
         else:
             raise ValueError('Wrong weight type was sent.')
 
@@ -212,7 +215,8 @@ class NetworkExtraction(object):
         weight_type: WeightType = WeightType.NONE,
         aggregation_type: AggregationType = AggregationType.SUM,
         column_names: ColumnNameOptions = ColumnNameOptions(),
-        gamma: float = 0.0) -> nx.DiGraph:
+        gamma: float = 0.0,
+        node_list: List = None) -> nx.DiGraph:
         """Extracts the network structure of members in a broadcast log data.
 
         Time window is considered inclusive for both boundaries. It means for
@@ -231,6 +235,8 @@ class NetworkExtraction(object):
             column_names: The column names options needed in communication_data.
 
             gamma: The coefficient for exponential weight based on duration.
+
+            node_list: The list of nodes if we want to preset them in the graph.
 
         Returns:
             A directed graph structure among members in a broadcast log data.
@@ -254,6 +260,8 @@ class NetworkExtraction(object):
             communication_data, [
                 text_column_name, time_column_name, sender_column_name])
         dgraph = nx.DiGraph()
+        if node_list:
+            dgraph.add_nodes_from(node_list)
         if (not communication_data.empty
             and isinstance(communication_data.iloc[0][time_column_name], str)):
             communication_data[time_column_name] = (

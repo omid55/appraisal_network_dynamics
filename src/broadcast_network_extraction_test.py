@@ -267,7 +267,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             aggregation_type=bne.AggregationType.AVERAGE)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
-        expected_graph.add_edge(122, 123, weight=3.87)
+        expected_graph.add_edge(122, 123, weight=0.43)
         utils.assert_graph_equals(computed_graph, expected_graph)
     
     def test_extract_network_from_broadcast_average_emotion_arousal_weight(
@@ -279,7 +279,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             aggregation_type=bne.AggregationType.AVERAGE)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
-        expected_graph.add_edge(122, 123, weight=2.87)
+        expected_graph.add_edge(122, 123, weight=0.3188888888888889)
         utils.assert_graph_equals(computed_graph, expected_graph)
 
     def test_extract_network_from_broadcast_average_emotion_dominance_weight(
@@ -291,7 +291,7 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             aggregation_type=bne.AggregationType.AVERAGE)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([122, 123])
-        expected_graph.add_edge(122, 123, weight=3.37)
+        expected_graph.add_edge(122, 123, weight=0.37444444444444447)
         utils.assert_graph_equals(computed_graph, expected_graph)
 
     ####################### On the real log data ##############################
@@ -319,6 +319,22 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
             aggregation_type=bne.AggregationType.BINARY)
         expected_graph = nx.DiGraph()
         expected_graph.add_nodes_from([30, 29, 32, 31])
+        expected_graph.add_edge(30, 29, weight=1) # 30 answers to person 29
+        expected_graph.add_edge(32, 29, weight=1) # 32 answers to person 29
+        expected_graph.add_edge(31, 29, weight=1) # 31 answers to person 29
+        utils.assert_graph_equals(computed_graph, expected_graph)
+
+    def test_extract_network_from_broadcast_unweighted_real_log_with_node_list(
+        self):
+        node_list = [30, 29, 32, 31, 41]
+        computed_graph = self.extractor.extract_network_from_broadcast(
+            communication_data=self.real_log_data,
+            time_window=[2, 10],
+            weight_type=bne.WeightType.NONE,
+            aggregation_type=bne.AggregationType.BINARY,
+            node_list=node_list)
+        expected_graph = nx.DiGraph()
+        expected_graph.add_nodes_from(node_list)
         expected_graph.add_edge(30, 29, weight=1) # 30 answers to person 29
         expected_graph.add_edge(32, 29, weight=1) # 32 answers to person 29
         expected_graph.add_edge(31, 29, weight=1) # 31 answers to person 29
