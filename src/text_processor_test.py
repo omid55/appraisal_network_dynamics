@@ -90,11 +90,11 @@ class FormalEnglishTranslatorTest(unittest.TestCase):
     # =========================================================================
     def test_load_slang_dictionary(self):
         self.assertEqual(
-            self.translator.slang_dict['afaik'], 'as far as i know')
-        self.assertEqual(self.translator.slang_dict['b4n'], 'bye for now')
-        self.assertEqual(self.translator.slang_dict['gn'], 'good night')
-        self.assertEqual(self.translator.slang_dict['ltns'], 'long time no see')
-        self.assertEqual(self.translator.slang_dict['7k'], 'sick:-d laughter')
+            self.translator._slang_dict['afaik'], 'as far as i know')
+        self.assertEqual(self.translator._slang_dict['b4n'], 'bye for now')
+        self.assertEqual(self.translator._slang_dict['gn'], 'good night')
+        self.assertEqual(self.translator._slang_dict['ltns'], 'long time no see')
+        self.assertEqual(self.translator._slang_dict['7k'], 'sick:-d laughter')
 
     # =========================================================================
     # =========================== _get_formal_text ============================

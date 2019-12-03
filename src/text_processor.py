@@ -204,7 +204,7 @@ class FormalEnglishTranslator(object):
             dataframe = fixer.translate_messages(dataframe)
 
         Properties:
-            slang_dict: Maps slang text to formal English sentences.
+            _slang_dict: Maps slang text to formal English sentences.
     """
     def __init__(
         self, slang_dictionary_filepath: Text = 'bagofwords/slang.txt'):
@@ -214,13 +214,13 @@ class FormalEnglishTranslator(object):
 
     def _load_slang_dictionary(
         self, slang_dictionary_filepath: Text) -> None:
-        self.slang_dict = {}
+        self._slang_dict = {}
         with open(slang_dictionary_filepath, 'r') as slang_file:    
             count = 0
             for row in slang_file:
                 count += 1
                 strings = row.split('=')
-                self.slang_dict[str(strings[0]).lower()] = str(
+                self._slang_dict[str(strings[0]).lower()] = str(
                     strings[1].replace('\n', '')).lower()
 
     def _get_formal_text(self,
@@ -239,13 +239,13 @@ class FormalEnglishTranslator(object):
         Raises:
             None.
         """
-        # if not slang_dict:
+        # if not self._slang_dict:
         #     self._load_slang_dictionary()
         tokenizer = TweetTokenizer()
         tokens = tokenizer.tokenize(content.lower())
         for j, word in enumerate(tokens):
-            if word in self.slang_dict.keys():
-                tokens[j] = self.slang_dict[word]
+            if word in self._slang_dict.keys():
+                tokens[j] = self._slang_dict[word]
         formal_content = ' '.join(tokens)
         if fix_spelling:
             tokens = tokenizer.tokenize(formal_content)
