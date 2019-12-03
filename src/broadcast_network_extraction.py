@@ -254,7 +254,8 @@ class NetworkExtraction(object):
             communication_data, [
                 text_column_name, time_column_name, sender_column_name])
         dgraph = nx.DiGraph()
-        if isinstance(communication_data.iloc[0][time_column_name], str):
+        if (not communication_data.empty
+            and isinstance(communication_data.iloc[0][time_column_name], str)):
             communication_data[time_column_name] = (
                 pd.to_datetime(communication_data[time_column_name]))
         for j in communication_data.index:

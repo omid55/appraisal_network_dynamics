@@ -170,6 +170,17 @@ class BroadcastNetworkExtractionTest(unittest.TestCase):
                       '2019-05-21 10:17:12'],  # 2
         'sender_subject_id': [1, 2, 3, 3, 1, 2]})
 
+    def test_extract_network_from_broadcast_returns_empty_graph_when_empty_df(
+        self):
+        empty_data = pd.DataFrame({
+            'event_content': [],
+            'timestamp': [],
+            'sender_subject_id': []})
+        computed_graph = self.extractor.extract_network_from_broadcast(
+            communication_data=empty_data)
+        expected_graph = nx.DiGraph()
+        utils.assert_graph_equals(computed_graph, expected_graph)
+
     def test_extract_network_from_broadcast_raises_when_wrong_time_window(
         self):
         with self.assertRaises(ValueError):
