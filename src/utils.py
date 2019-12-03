@@ -593,3 +593,30 @@ def draw_from_empirical_distribution(
         high=bin_edges[selected_bin_index + 1],
         size=1)[0]
     return drawn_sample
+
+
+def shuffle_matrix_in_given_order(matrix: np.matrix,
+                                  order: np.ndarray) -> np.matrix:
+    """Shuffles a square matrix in a given order of rows and columns.
+    
+    Args:
+        matrix: Given matrix to be shuffled.
+
+        order: New order of rows and columns.
+
+    Returns:
+        Matrix in given order of rows and columns.
+    
+    Raises:
+        ValueError: If matrix is not square or the number of elements in
+            order does not equal to number of rows in the matrix.
+    """
+    if matrix.shape[0] != matrix.shape[1]:
+        raise ValueError('Matrix was not square. Matrix shape: {}'.format(
+            matrix.shape))
+    if len(order) != matrix.shape[0]:
+        raise ValueError('The number of elements in the order does not match'
+            ' the number of rows in the matrix.'
+            ' Matrix rows: {} != length of order: {}'.format(
+                matrix.shape[0], len(order)))
+    return matrix[order, :][:, order]

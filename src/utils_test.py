@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 import numpy as np
+import numpy.testing as np_testing
 import unittest
 import sys
 import os
@@ -174,7 +175,7 @@ class MyTestClass(unittest.TestCase):
              [4, 5, 7],
              [12, 13, 15]])
         computed = utils.sub_adjacency_matrix(adj_matrix, [0, 1, 3])
-        np.testing.assert_array_equal(expected, computed)
+        np_testing.assert_array_equal(expected, computed)
 
     # =========================================================================
     # ==================== swap_nodes_in_matrix ===============================
@@ -191,7 +192,7 @@ class MyTestClass(unittest.TestCase):
              [5, 4, 3],
              [2, 1, 0]])
         computed = utils.swap_nodes_in_matrix(matrix, node1, node2)
-        np.testing.assert_array_equal(expected, computed)
+        np_testing.assert_array_equal(expected, computed)
 
     # =========================================================================
     # ==================== make_matrix_row_stochastic =========================
@@ -206,7 +207,7 @@ class MyTestClass(unittest.TestCase):
              [0.25, 0.33, 0.42],
              [0.29, 0.33, 0.38]])
         computed = utils.make_matrix_row_stochastic(matrix)
-        np.testing.assert_array_almost_equal(expected, computed, decimal=2)
+        np_testing.assert_array_almost_equal(expected, computed, decimal=2)
 
     # =========================================================================
     # ======================= save_figure =====================================
@@ -259,7 +260,7 @@ class MyTestClass(unittest.TestCase):
         original_matrix = matrix.copy()
         computed = utils.swap_two_elements_in_matrix(
             matrix=matrix, x1=0, y1=2, x2=1, y2=0, inplace=inplace)
-        np.testing.assert_array_equal(expected, computed)
+        np_testing.assert_array_equal(expected, computed)
         if inplace:
             self.assertEqual(matrix.all(), computed.all())
         else:
@@ -276,7 +277,7 @@ class MyTestClass(unittest.TestCase):
              [-4, 0, 0, 0],
              [2, 0, 0, 0]])
         computed = utils.dgraph2adjacency(dg)
-        np.testing.assert_array_equal(expected, computed)
+        np_testing.assert_array_equal(expected, computed)
 
     # =========================================================================
     # ==================== adjacency2digraph ==================================
@@ -362,6 +363,29 @@ class MyTestClass(unittest.TestCase):
             data_points=[2, 2, 2, 2, 2],
             nbins=1)
         self.assertEqual(expected, np.round(computed))
+
+    # =========================================================================
+    # ==================== shuffle_matrix_in_given_order ======================
+    # =========================================================================
+    def test_shuffle_matrix_in_given_order_raises_when_wrong_matrix(self):
+        with self.assertRaises(ValueError):
+            utils.shuffle_matrix_in_given_order(
+                matrix=np.matrix([[1, 2, 3], [4, 5, 6]]),
+                order=np.array([0, 2, 1]))
+
+    def test_shuffle_matrix_in_given_order_raises_when_wrong_order_length(self):
+        with self.assertRaises(ValueError):
+            utils.shuffle_matrix_in_given_order(
+                matrix=np.matrix([[1, 2], [3, 4]]),
+                order=np.array([0, 2, 1]))
+
+    def test_shuffle_matrix_in_given_order(self):
+        matrix = np.matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        order = np.array([0, 2, 1])
+        expected = np.matrix([[1, 3, 2], [7, 9, 8], [4, 6, 5]])
+        computed = utils.shuffle_matrix_in_given_order(
+            matrix=matrix, order=order)
+        np_testing.assert_array_equal(expected, computed)
 
 
 if __name__ == '__main__':
