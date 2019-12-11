@@ -209,6 +209,37 @@ class MyTestClass(unittest.TestCase):
         computed = utils.make_matrix_row_stochastic(matrix)
         np_testing.assert_array_almost_equal(expected, computed, decimal=2)
 
+    def test_make_matrix_row_stochastic_when_mostly_is_row_stochastic_already(
+        self):
+        matrix = np.matrix([
+            [0.85, 0.05, 0.05, 0.05],
+            [0.35, 0.25, 0.35, 0.03],
+            [0.02, 0.01, 0.02, 0.02],
+            [0.25, 0.25, 0.25, 0.25]])
+        expected = np.matrix([
+            [0.85, 0.05, 0.05, 0.05],
+            [0.36, 0.26, 0.36, 0.03],
+            [0.29, 0.14, 0.29, 0.29],
+            [0.25, 0.25, 0.25, 0.25]])
+        computed = utils.make_matrix_row_stochastic(matrix)
+        np_testing.assert_array_almost_equal(expected, computed, decimal=2)
+
+    def test_make_matrix_row_stochastic_when_all_zeros(self):
+        matrix = np.zeros((4, 4))
+        expected = np.ones((4, 4)) * 0.25
+        computed = utils.make_matrix_row_stochastic(matrix)
+        np_testing.assert_array_almost_equal(expected, computed, decimal=2)
+
+    def test_make_matrix_row_stochastic_when_already_row_stochastic(self):
+        matrix = np.matrix([
+            [0.11, 0.26, 0.34, 0.29],
+            [0.26, 0.21, 0.25, 0.28],
+            [0.05, 0.05, 0.85, 0.05],
+            [0.25, 0.25, 0.25, 0.25]])
+        expected = matrix
+        computed = utils.make_matrix_row_stochastic(matrix)
+        np_testing.assert_array_almost_equal(expected, computed, decimal=2)
+
     # =========================================================================
     # ======================= save_figure =====================================
     # ======================= load_figure =====================================

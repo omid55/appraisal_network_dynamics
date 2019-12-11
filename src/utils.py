@@ -201,7 +201,10 @@ def make_matrix_row_stochastic(
     Raises:
         None.
     """
+    matrix = np.array(matrix)  # To make sure it is numpy array and not matrix.
     matrix += eps
+    if 0 in np.sum(matrix, axis=1):
+        matrix += 0.01
     return np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
 
 
