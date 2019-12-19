@@ -611,31 +611,31 @@ class TeamLogProcessorLoadGameQuestionsTest(unittest.TestCase):
         self.assertEqual(len(self.loader.game_info.questions), 6)
 
     def test_load_game_questions_has_correct_id(self):
-        self.assertEqual(self.loader.game_info.questions[2].id, 26)
+        self.assertEqual(self.loader.game_info.questions[26].id, 26)
 
     def test_load_game_questions_has_correct_content(self):
         self.assertEqual(
-            self.loader.game_info.questions[3].question_content,
+            self.loader.game_info.questions[41].question_content,
             'This Disney movie was not created by Walt Disney Animation'
             ' Studios.')
 
     def test_load_game_questions_has_correct_answer(self):
         self.assertEqual(
-            self.loader.game_info.questions[0].answer, 'Radio Waves')
+            self.loader.game_info.questions[1].answer, 'Radio Waves')
 
     def test_load_game_questions_has_correct_choices(self):
         self.assertEqual(
-            self.loader.game_info.questions[1].choices,
+            self.loader.game_info.questions[4].choices,
             ['oxygen', 'nitrogen', 'argon', 'Helium'])
 
     def test_load_game_questions_has_correct_category(self):
         self.assertEqual(
-            self.loader.game_info.questions[4].category,
+            self.loader.game_info.questions[41].category,
             lib.Category.LITERATURE_AND_MEDIA)
 
     def test_load_game_questions_has_correct_level(self):
         self.assertEqual(
-            self.loader.game_info.questions[5].level,
+            self.loader.game_info.questions[43].level,
             lib.Level.HARD)
 
 
@@ -947,24 +947,24 @@ class TeamLogProcessorScoreTest(unittest.TestCase):
         self.assertEqual(all(key in self.loader.score.keys() for key in keys), True)
 
     def test_score_has_correct_values(self):
-        self.assertEqual(self.loader.score[1] == 4, True)
-        self.assertEqual(self.loader.score[43] == -1, True)
-        self.assertEqual(self.loader.score[26] == -1, True)
-        self.assertEqual(self.loader.score[41] == -1, True)
-        self.assertEqual(self.loader.score[4] == 4, True)
-        self.assertEqual(self.loader.score[42] == -2, True)
+        self.assertEqual(self.loader.score[1], 4)
+        self.assertEqual(self.loader.score[43], -1)
+        self.assertEqual(self.loader.score[26], -1)
+        self.assertEqual(self.loader.score[41], -1)
+        self.assertEqual(self.loader.score[4], 4)
+        self.assertEqual(self.loader.score[42], -2)
 
     # Accumulated score has an extra index at 0 as the starting point
     def test_size_of_accumulated_score(self):
         self.assertEqual(len(self.loader.accumulated_score), 7)
 
     def test_accumulated_score_has_correct_values(self):
-        self.assertEqual(self.loader.accumulated_score[1] == 4, True)
-        self.assertEqual(self.loader.accumulated_score[2] == 3, True)
-        self.assertEqual(self.loader.accumulated_score[3] == 2, True)
-        self.assertEqual(self.loader.accumulated_score[4] == 1, True)
-        self.assertEqual(self.loader.accumulated_score[5] == 5, True)
-        self.assertEqual(self.loader.accumulated_score[6] == 3, True)
+        self.assertEqual(self.loader.accumulated_score[1], 4) 
+        self.assertEqual(self.loader.accumulated_score[2], 3)
+        self.assertEqual(self.loader.accumulated_score[3], 2)
+        self.assertEqual(self.loader.accumulated_score[4], 1)
+        self.assertEqual(self.loader.accumulated_score[5], 5)
+        self.assertEqual(self.loader.accumulated_score[6], 3)
 
 
 # =========================================================================

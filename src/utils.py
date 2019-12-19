@@ -4,10 +4,9 @@
 # Email:    omid55@cs.ucsb.edu
 # General utility module.
 
-from __future__ import division
-from __future__ import print_function
-from __future__ import absolute_import
+from __future__ import division, print_function, absolute_import, unicode_literals
 
+from itertools import permutations
 import pandas as pd
 import numpy as np
 import matplotlib
@@ -18,6 +17,7 @@ import shelve
 # import enforce
 from typing import Dict
 from typing import List
+from typing import Tuple
 
 
 # @enforce.runtime_validation
@@ -623,3 +623,51 @@ def shuffle_matrix_in_given_order(matrix: np.matrix,
             ' Matrix rows: {} != length of order: {}'.format(
                 matrix.shape[0], len(order)))
     return matrix[order, :][:, order]
+
+
+def replicate_networks_in_train_dataset_with_reordering(
+    X_train:List[Dict],
+    y_train:List[Dict],
+    matrix_string_name = 'influence_matrix') -> Tuple[List[Dict], List[Dict]]:
+    """Replicates matrices in the training dataset to have all orders of nodes.
+    
+    Args:
+        X_train: Training features with vectors and matrices.
+
+        y_train: Training matrix labels (groundtruth).
+
+        matrix_string_name: The string name of groundtruth matrix.
+
+    Retruns:
+        Replicated X_train and y_train with the same order with m! * n samples
+            where X_train has n samples and matrices have m columns.
+
+    Raises:
+        ValueError: If the length of X_train and y_train do not match.
+    """
+    if len(X_train) != len(y_train):
+        raise ValueError('Length of features and labels do not match. '
+                         'X_train len: {} != y_train len: {}'.format(
+                             len(X_train), len(y_train)))
+    n = y_train[0][matrix_string_name].shape[1]
+    replicated_X_train = []
+    replicated_y_train = []
+    for index in range(len(X_train)):
+        for order in permutations(np.arange(n)):
+            rep_X_train_dt = {}
+            rep_y_train_dt = {}
+            for element_type, element in X_train[index].items():
+                if len(element.shape) == 1:
+                    rep_X_train_dt[element_type] = element[list(order)]
+                elif element.shape[0] == element.shape[1]:  # if it was a network:
+                    rep_X_train_dt[element_type] = (
+                        shuffle_matrix_in_given_order(element, order))
+                else:   # if it was a matrix of embeddings:
+                    rep_X_train_dt[element_type] = (
+                        element[order, :])
+                rep_y_train_dt[matrix_string_name] = (
+                    shuffle_matrix_in_given_order(
+                        y_train[index][matrix_string_name], order))
+            replicated_X_train.append(rep_X_train_dt)
+            replicated_y_train.append(rep_y_train_dt)
+    return replicated_X_train, replicated_y_train

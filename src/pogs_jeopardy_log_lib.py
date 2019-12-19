@@ -179,18 +179,18 @@ class TeamLogProcessor(object):
     def _load_game_questions(self, file_path: Text) -> None:
         """Loads every question, choices and the right answer.
         """
+        self.game_info.questions = {}
         with open(file_path, 'r') as f:
             question_list = json.load(f)
             self.game_info.num_of_questions = len(question_list)
             for question in question_list:
-                self.game_info.questions.append(
-                    JeopardyQuestion(
-                        id=question['ID'],
-                        question_content=question['question'],
-                        answer=question['Answer'],
-                        choices=question['value'],
-                        category=Category.parse(question['Category']),
-                        level=Level.parse(question['Level'])))
+                self.game_info.questions[question['ID']] = JeopardyQuestion(
+                    id=question['ID'],
+                    question_content=question['question'],
+                    answer=question['Answer'],
+                    choices=question['value'],
+                    category=Category.parse(question['Category']),
+                    level=Level.parse(question['Level']))
 
     def _load_messages(self) -> None:
         """Loads the communication messages for the current team.
@@ -541,11 +541,7 @@ class TeamLogProcessor(object):
             final_answer_chosen = None
             if len(set(self.group_answers_chosen[i].values())) == 1:
                 final_answer_chosen = self.group_answers_chosen[i][list(self.group_answers_chosen[i].keys())[0]]
-
-            answer = None
-            for questions_index in range(len(self.game_info.questions)):
-                if (i == self.game_info.questions[questions_index].id):
-                     answer = self.game_info.questions[questions_index].answer
+            answer = self.game_info.questions[i].answer
 
             if (final_answer_chosen == answer):
                 score_earned = score_earned + 4
@@ -578,42 +574,6 @@ class TeamLogProcessor(object):
                         survey_dict[2] == -1):
                         survey_dict[2] = float(current_frame['stringValue'][0:1])
             self.pre_experiment_rating.append(survey_dict)
-
-
-    def _load_influence_matrices(self) -> None:
-        pass
-#         team_size = self.game_info.num_of_team_members   # For convenience.
-#         self.agent_ratings = list()
-#         self.member_influences = list()
-#         mInfluences = [0 for i in range(team_size)]
-#         aRatings = [0 for i in range(team_size)]
-#         count = 0
-#         influenceMatrices = self.team_event_logs[(self.team_event_logs['extra_data'] == "InfluenceMatrix")]  
-#         influenceMatrixWithoutUndefined = influenceMatrices[~influenceMatrices['stringValue'].str.contains("undefined")]
-#         finalInfluences = influenceMatrixWithoutUndefined.groupby(['questionScore', 'sender'], as_index=False, sort=False).last()
-#         for i in range(len(finalInfluences)):
-#             count +=1 
-#             aR = list()
-#             mI = list() 
-#             idx = self.teamArray.index(finalInfluences.iloc[i]['sender'])
-#             for j in range(0, team_size):
-#                 temp = finalInfluences.iloc[i]['stringValue']
-# #                 Fill missing values
-#                 xy = re.findall(r'Ratings(.*?) Member', temp)[0].split("+")[j].split("=")[1]
-#                 if(xy==''):
-#                     xy = '0.5'
-#                 yz= temp.replace('"', '')[temp.index("Influences ")+10:].split("+")[j].split("=")[1]
-#                 if(yz == ''):
-#                     yz = '25'
-#                 aR.append(float(xy))
-#                 mI.append(int(round(float(yz))))
-#             aRatings[idx]=aR
-#             mInfluences[idx]=mI 
-#             if(count % team_size == 0):
-#                 self.member_influences.append(mInfluences)
-#                 mInfluences = [0 for i in range(team_size)]
-#                 self.agent_ratings.append(aRatings)
-#                 aRatings = [0 for i in range(team_size)]
 
     def _old_load_all(self, directory, teamId):
             #Constants
