@@ -211,12 +211,12 @@ class MyTestClass(unittest.TestCase):
 
     def test_make_matrix_row_stochastic_when_mostly_is_row_stochastic_already(
         self):
-        matrix = np.matrix([
+        matrix = np.array([
             [0.85, 0.05, 0.05, 0.05],
             [0.35, 0.25, 0.35, 0.03],
             [0.02, 0.01, 0.02, 0.02],
             [0.25, 0.25, 0.25, 0.25]])
-        expected = np.matrix([
+        expected = np.array([
             [0.85, 0.05, 0.05, 0.05],
             [0.36, 0.26, 0.36, 0.03],
             [0.29, 0.14, 0.29, 0.29],
@@ -231,7 +231,7 @@ class MyTestClass(unittest.TestCase):
         np_testing.assert_array_almost_equal(expected, computed, decimal=2)
 
     def test_make_matrix_row_stochastic_when_already_row_stochastic(self):
-        matrix = np.matrix([
+        matrix = np.array([
             [0.11, 0.26, 0.34, 0.29],
             [0.26, 0.21, 0.25, 0.28],
             [0.05, 0.05, 0.85, 0.05],
@@ -401,25 +401,25 @@ class MyTestClass(unittest.TestCase):
     def test_shuffle_matrix_in_given_order_raises_when_wrong_matrix(self):
         with self.assertRaises(ValueError):
             utils.shuffle_matrix_in_given_order(
-                matrix=np.matrix([[1, 2, 3], [4, 5, 6]]),
+                matrix=np.array([[1, 2, 3], [4, 5, 6]]),
                 order=np.array([0, 2, 1]))
 
     def test_shuffle_matrix_in_given_order_raises_when_wrong_order_length(self):
         with self.assertRaises(ValueError):
             utils.shuffle_matrix_in_given_order(
-                matrix=np.matrix([[1, 2], [3, 4]]),
+                matrix=np.array([[1, 2], [3, 4]]),
                 order=np.array([0, 2, 1]))
 
     def test_shuffle_matrix_in_given_order(self):
-        matrix = np.matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         order = np.array([0, 2, 1])
-        expected = np.matrix([[1, 3, 2], [7, 9, 8], [4, 6, 5]])
+        expected = np.array([[1, 3, 2], [7, 9, 8], [4, 6, 5]])
         computed = utils.shuffle_matrix_in_given_order(
             matrix=matrix, order=order)
         np_testing.assert_array_equal(expected, computed)
 
     # =========================================================================
-    # ========= replicate_networks_in_train_dataset_with_reordering ===========
+    # ========= replicate_matrices_in_train_dataset_with_reordering ===========
     # =========================================================================
     def test_replicate_networks_raises_when_not_matching_lengths(self):
         with self.assertRaises(ValueError):
@@ -433,20 +433,20 @@ class MyTestClass(unittest.TestCase):
                  [15, 16, 17, 18],
                  [19, 20, 21, 22]])}]
             y_train = [
-                {'influence_matrix': np.matrix(
+                {'influence_matrix': np.array(
                     [[0.9, 0.8, 0.7],
                     [0.6, 0.5, 0.4],
                     [0.3, 0.2, 0.1]])}]
-            utils.replicate_networks_in_train_dataset_with_reordering(
+            utils.replicate_matrices_in_train_dataset_with_reordering(
                 X_train, y_train)
 
-    def test_replicate_networks_in_train_dataset_with_reordering(self):
+    def test_replicate_matrices_in_train_dataset_with_reordering(self):
         X_train = [
             {'content_embedding_matrix': np.array(
                 [[1, 2, 3, 4],
                  [5, 6, 7, 8],
                  [9, 10, 11, 12]]),
-             'first_influence_matrices': np.matrix(
+             'first_influence_matrices': np.array(
                  [[0.1, 0.2, 0.3],
                   [0.4, 0.5, 0.6],
                   [0.7 , 0.8 , 0.9]]),
@@ -455,17 +455,17 @@ class MyTestClass(unittest.TestCase):
                 [[11, 12, 13, 14],
                  [15, 16, 17, 18],
                  [19, 20, 21, 22]]),
-             'first_influence_matrices': np.matrix(
+             'first_influence_matrices': np.array(
                  [[0.88, 0.04, 0.04],
                   [0.25, 0.25, 0.25],
                   [0.4 , 0.2 , 0.2]]),
              'individual_performance': np.array([0.4, 0.5, 0.67])}]
         y_train = [
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.9, 0.8, 0.7],
                  [0.6, 0.5, 0.4],
                  [0.3, 0.2, 0.1]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.78, 0.05, 0.08],
                  [0.25, 0.25, 0.25],
                  [0.5, 0.2 ,0.1]])}]
@@ -474,7 +474,7 @@ class MyTestClass(unittest.TestCase):
                 [[ 1,  2,  3,  4],
                  [5, 6, 7, 8],
                  [ 9, 10, 11, 12]]),
-             'first_influence_matrices': np.matrix(
+             'first_influence_matrices': np.array(
                     [[0.1, 0.2, 0.3],
                      [0.4, 0.5, 0.6],
                      [0.7, 0.8, 0.9]]),
@@ -483,131 +483,132 @@ class MyTestClass(unittest.TestCase):
                 [[ 1,  2,  3,  4],
                 [ 9, 10, 11, 12],
                 [ 5,  6,  7,  8]]),
-             'first_influence_matrices': np.matrix([[0.1, 0.3, 0.2],
+             'first_influence_matrices': np.array([[0.1, 0.3, 0.2],
                     [0.7, 0.9, 0.8],
                     [0.4, 0.6, 0.5]]),
              'individual_performance': np.array([0.7, 0.9, 0.8])},
             {'content_embedding_matrix': np.array([[ 5,  6,  7,  8],
                 [ 1,  2,  3,  4],
                 [ 9, 10, 11, 12]]),
-             'first_influence_matrices': np.matrix([[0.5, 0.4, 0.6],
+             'first_influence_matrices': np.array([[0.5, 0.4, 0.6],
                     [0.2, 0.1, 0.3],
                     [0.8, 0.7, 0.9]]),
              'individual_performance': np.array([0.8, 0.7, 0.9])},
             {'content_embedding_matrix': np.array([[ 5,  6,  7,  8],
                 [ 9, 10, 11, 12],
                 [ 1,  2,  3,  4]]),
-             'first_influence_matrices': np.matrix([[0.5, 0.6, 0.4],
+             'first_influence_matrices': np.array([[0.5, 0.6, 0.4],
                     [0.8, 0.9, 0.7],
                     [0.2, 0.3, 0.1]]),
              'individual_performance': np.array([0.8, 0.9, 0.7])},
             {'content_embedding_matrix': np.array([[ 9, 10, 11, 12],
                 [ 1,  2,  3,  4],
                 [ 5,  6,  7,  8]]),
-             'first_influence_matrices': np.matrix([[0.9, 0.7, 0.8],
+             'first_influence_matrices': np.array([[0.9, 0.7, 0.8],
                     [0.3, 0.1, 0.2],
                     [0.6, 0.4, 0.5]]),
              'individual_performance': np.array([0.9, 0.7, 0.8])},
             {'content_embedding_matrix': np.array([[ 9, 10, 11, 12],
                 [ 5,  6,  7,  8],
                 [ 1,  2,  3,  4]]),
-             'first_influence_matrices': np.matrix([[0.9, 0.8, 0.7],
+             'first_influence_matrices': np.array([[0.9, 0.8, 0.7],
                     [0.6, 0.5, 0.4],
                     [0.3, 0.2, 0.1]]),
              'individual_performance': np.array([0.9, 0.8, 0.7])},
             {'content_embedding_matrix': np.array([[11, 12, 13, 14],
                 [15, 16, 17, 18],
                 [19, 20, 21, 22]]),
-             'first_influence_matrices': np.matrix([[0.88, 0.04, 0.04],
+             'first_influence_matrices': np.array([[0.88, 0.04, 0.04],
                     [0.25, 0.25, 0.25],
                     [0.4 , 0.2 , 0.2 ]]),
              'individual_performance': np.array([0.4 , 0.5 , 0.67])},
             {'content_embedding_matrix': np.array([[11, 12, 13, 14],
                 [19, 20, 21, 22],
                 [15, 16, 17, 18]]),
-             'first_influence_matrices': np.matrix([[0.88, 0.04, 0.04],
+             'first_influence_matrices': np.array([[0.88, 0.04, 0.04],
                     [0.4 , 0.2 , 0.2 ],
                     [0.25, 0.25, 0.25]]),
              'individual_performance': np.array([0.4 , 0.67, 0.5 ])},
             {'content_embedding_matrix': np.array([[15, 16, 17, 18],
                 [11, 12, 13, 14],
                 [19, 20, 21, 22]]),
-             'first_influence_matrices': np.matrix([[0.25, 0.25, 0.25],
+             'first_influence_matrices': np.array([[0.25, 0.25, 0.25],
                     [0.04, 0.88, 0.04],
                     [0.2 , 0.4 , 0.2 ]]),
              'individual_performance': np.array([0.5 , 0.4 , 0.67])},
             {'content_embedding_matrix': np.array([[15, 16, 17, 18],
                 [19, 20, 21, 22],
                 [11, 12, 13, 14]]),
-             'first_influence_matrices': np.matrix([[0.25, 0.25, 0.25],
+             'first_influence_matrices': np.array([[0.25, 0.25, 0.25],
                     [0.2 , 0.2 , 0.4 ],
                     [0.04, 0.04, 0.88]]),
              'individual_performance': np.array([0.5 , 0.67, 0.4 ])},
             {'content_embedding_matrix': np.array([[19, 20, 21, 22],
                 [11, 12, 13, 14],
                 [15, 16, 17, 18]]),
-             'first_influence_matrices': np.matrix([[0.2 , 0.4 , 0.2 ],
+             'first_influence_matrices': np.array([[0.2 , 0.4 , 0.2 ],
                     [0.04, 0.88, 0.04],
                     [0.25, 0.25, 0.25]]),
              'individual_performance': np.array([0.67, 0.4 , 0.5 ])},
             {'content_embedding_matrix': np.array([[19, 20, 21, 22],
                 [15, 16, 17, 18],
                 [11, 12, 13, 14]]),
-             'first_influence_matrices': np.matrix([[0.2 , 0.2 , 0.4 ],
+             'first_influence_matrices': np.array([[0.2 , 0.2 , 0.4 ],
                     [0.25, 0.25, 0.25],
                     [0.04, 0.04, 0.88]]),
              'individual_performance': np.array([0.67, 0.5 , 0.4 ])}]
         expected_y_rep = [
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.9, 0.8, 0.7],
                 [0.6, 0.5, 0.4],
                 [0.3, 0.2, 0.1]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.9, 0.7, 0.8],
                 [0.3, 0.1, 0.2],
                 [0.6, 0.4, 0.5]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.5, 0.6, 0.4],
                 [0.8, 0.9, 0.7],
                 [0.2, 0.3, 0.1]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.5, 0.4, 0.6],
                 [0.2, 0.1, 0.3],
                 [0.8, 0.7, 0.9]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.1, 0.3, 0.2],
                 [0.7, 0.9, 0.8],
                 [0.4, 0.6, 0.5]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.1, 0.2, 0.3],
                 [0.4, 0.5, 0.6],
                 [0.7, 0.8, 0.9]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.78, 0.05, 0.08],
                 [0.25, 0.25, 0.25],
                 [0.5 , 0.2 , 0.1 ]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.78, 0.08, 0.05],
                 [0.5 , 0.1 , 0.2 ],
                 [0.25, 0.25, 0.25]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.25, 0.25, 0.25],
                 [0.05, 0.78, 0.08],
                 [0.2 , 0.5 , 0.1 ]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.25, 0.25, 0.25],
                 [0.2 , 0.1 , 0.5 ],
                 [0.05, 0.08, 0.78]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.1 , 0.5 , 0.2 ],
                 [0.08, 0.78, 0.05],
                 [0.25, 0.25, 0.25]])},
-            {'influence_matrix': np.matrix(
+            {'influence_matrix': np.array(
                 [[0.1 , 0.2 , 0.5 ],
                 [0.25, 0.25, 0.25],
                 [0.08, 0.05, 0.78]])}]
-        computed_X_rep, computed_y_rep = utils.replicate_networks_in_train_dataset_with_reordering(
-            X_train, y_train)
+        computed_X_rep, computed_y_rep = (
+            utils.replicate_matrices_in_train_dataset_with_reordering(
+                X_train, y_train))
         # All asserts:
         for index in range(len(expected_y_rep)):
             np_testing.assert_array_equal(
@@ -618,6 +619,174 @@ class MyTestClass(unittest.TestCase):
                 np_testing.assert_array_equal(
                     expected_X_rep[index][key],
                     computed_X_rep[index][key])
+
+    # =========================================================================
+    # ======================== matrix_estimation_error ========================
+    # =========================================================================
+    @parameterized.expand([
+        ['NotMatchingDimensions',
+         np.array([[1, 2], [3, 4]]),
+         np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
+         'normalized_frob_norm'],
+        ['WrongTypeStr',
+         np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]),
+         np.array([[1, 2, 3], [4, 5, 6], [2, 4, 6]]),
+         'wrong_type_str']])
+    def test_matrix_estimation_raises_when(
+            self, name, true_matrix, pred_matrix, type_str):
+        with self.assertRaises(ValueError):
+            utils.matrix_estimation_error(
+                true_matrix=true_matrix,
+                pred_matrix=pred_matrix,
+                type_str=type_str)
+
+    @parameterized.expand([
+        ['EqualMatricesForbNorm',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'normalized_frob_norm',
+         0.0],
+        ['EqualMatricesMSE',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'mse',
+         0.0],
+        ['EqualMatricesNegCorr',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'neg_corr',
+         -1.0],
+        ['EqualMatricesCosineDistance',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'cosine_dist',
+         0.0],
+        ['ComputeForbNorm',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'normalized_frob_norm',
+         np.sqrt(0.05**2 + 0.05**2 + 0.1**2) / 1.1157956],
+        ['ComputeMSE',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'mse',
+         (0.05**2 + 0.05**2 + 0.1**2) / 16],
+        ['ComputeNegativeCorrelation',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'neg_corr',
+         -0.987466],
+        ['ComputeCosineDistance',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'cosine_dist',
+         0.005131]])
+    def test_matrix_estimation(
+            self, name, true_matrix, pred_matrix, type_str, expected):
+        computed = utils.matrix_estimation_error(
+            true_matrix=true_matrix,
+            pred_matrix=pred_matrix,
+            type_str=type_str)
+        self.assertAlmostEqual(expected, computed, places=6)
+
+    # =========================================================================
+    # ===================== most_influential_on_others ========================
+    # =========================================================================
+    @parameterized.expand([
+        ['OneInfluential',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+        True,
+        [3]],
+        ['OneInfluentialWithSelf',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+        False,
+        [0]],
+        ['MultiInfluentials',
+         np.array(
+             [[0.25 , 0.25, 0.25, 0.25],
+              [0.25 , 0.25, 0.25, 0.25],
+              [0.25 , 0.25, 0.25, 0.25],
+              [0.25 , 0.25, 0.25, 0.25]]),
+        False,
+        [0, 1, 2, 3]]])
+    def test_most_influential_on_others(
+        self, name, influence_matrix, remove_self_influence, expected):
+        computed = utils.most_influential_on_others(
+            influence_matrix=influence_matrix,
+            remove_self_influence=remove_self_influence)
+        self.assertListEqual(expected, computed)
 
 
 if __name__ == '__main__':

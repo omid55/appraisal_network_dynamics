@@ -15,6 +15,9 @@ import pickle as pk
 import networkx as nx
 import shelve
 # import enforce
+from numpy.linalg import norm
+from scipy.stats import pearsonr
+from scipy.spatial.distance import cosine
 from typing import Dict
 from typing import List
 from typing import Tuple
@@ -598,8 +601,8 @@ def draw_from_empirical_distribution(
     return drawn_sample
 
 
-def shuffle_matrix_in_given_order(matrix: np.matrix,
-                                  order: np.ndarray) -> np.matrix:
+def shuffle_matrix_in_given_order(matrix: np.ndarray,
+                                  order: np.ndarray) -> np.array:
     """Shuffles a square matrix in a given order of rows and columns.
     
     Args:
@@ -625,7 +628,7 @@ def shuffle_matrix_in_given_order(matrix: np.matrix,
     return matrix[order, :][:, order]
 
 
-def replicate_networks_in_train_dataset_with_reordering(
+def replicate_matrices_in_train_dataset_with_reordering(
     X_train:List[Dict],
     y_train:List[Dict],
     matrix_string_name = 'influence_matrix') -> Tuple[List[Dict], List[Dict]]:
@@ -671,3 +674,89 @@ def replicate_networks_in_train_dataset_with_reordering(
             replicated_X_train.append(rep_X_train_dt)
             replicated_y_train.append(rep_y_train_dt)
     return replicated_X_train, replicated_y_train
+
+
+def matrix_estimation_error(
+    true_matrix: np.ndarray,
+    pred_matrix: np.ndarray,
+    type_str: str = 'normalized_frob_norm') -> float:
+    """Computes the error (loss) in matrix estimation problem.
+
+    Different types of loss are supported as follows,
+     normalized_frob_norm: (Frobenius) norm2(X - \widetilde{X}) / norm2(X).
+     mse: How far each element of matrices on average MSE are from each others.
+     neg_corr: Negative correlation of vectorized matrices if stat significant.
+     cosine_dist: Cosine distance of vectorized matrices from each other.
+    
+    Args:
+        true_matrix: The groundtruth matrix.
+
+        pred_matrix: The predicted matrix.
+
+        type_str: The type of error to be computed between the two matrices.
+
+    Returns:
+        The error (loss) in float.
+
+    Raises:
+        ValueError: If the two matrices do not have the same dimensions. Also,
+        if an invalid type_str was given.
+    """
+    if true_matrix.shape != pred_matrix.shape:
+        raise ValueError('The shape of two matrices do not match.'
+                         ' true: {} and predicted: {}.'.format(
+                             true_matrix.shape, pred_matrix.shape))
+    if type_str == 'normalized_frob_norm':
+        frob_norm_of_difference = norm(true_matrix - pred_matrix)
+        normalized_frob_norm_of_difference = frob_norm_of_difference / norm(
+            true_matrix)
+        return normalized_frob_norm_of_difference
+    elif type_str == 'mse':
+        return (np.square(true_matrix - pred_matrix)).mean(axis=None)
+    elif type_str == 'neg_corr':
+        # (r, p) = spearmanr(
+        #     np.array(true_matrix.flatten()),
+        #     np.array(pred_matrix.flatten()))
+        (r, p) = pearsonr(
+            np.array(true_matrix.flatten()),
+            np.array(pred_matrix.flatten()))
+        if p > 0.05:
+            r = 0
+        return - r
+    elif type_str == 'cosine_dist':
+        err = cosine(
+            np.array(true_matrix.flatten()), np.array(pred_matrix.flatten()))
+        return err
+    else:
+        raise ValueError('Wrong type_str was given, which was: {}'.format(
+            type_str))
+
+
+def most_influential_on_others(
+    influence_matrix: np.ndarray,
+    remove_self_influence: bool = True) -> List[int]:
+    """Gets the index of the most influential individual using influence matrix.
+    
+    Influence on everyone is computed by summation of each column in an
+    influence matrix. If remove_self_influence is True, then only influences
+    that one person is having on other that are reported by others is taken
+    into account (the diagonal is going to be filled with 0s).
+    
+    Args:
+        influence_matrix:
+
+        remove_self_influence:
+
+    Returns:
+        The list of indices of the most influential person(s).
+
+    Raises:
+        None.
+    """
+    matrix = np.array(influence_matrix)
+    if remove_self_influence:
+        np.fill_diagonal(matrix, 0)  # Only the influence on others.
+    how_influential_one_is = np.sum(matrix, axis=0)
+    # return np.argmax(how_influential_one_is)  # Works only for the first one.
+    return np.where(
+        how_influential_one_is == np.max(how_influential_one_is))[0].tolist()
