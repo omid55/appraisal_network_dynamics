@@ -702,6 +702,8 @@ def matrix_estimation_error(
         ValueError: If the two matrices do not have the same dimensions. Also,
         if an invalid type_str was given.
     """
+    true_matrix = np.array(true_matrix)
+    pred_matrix = np.array(pred_matrix)
     if true_matrix.shape != pred_matrix.shape:
         raise ValueError('The shape of two matrices do not match.'
                          ' true: {} and predicted: {}.'.format(
