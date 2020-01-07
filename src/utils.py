@@ -12,6 +12,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import pickle as pk
+import dill
 import networkx as nx
 import shelve
 # import enforce
@@ -21,6 +22,7 @@ from scipy.spatial.distance import cosine
 from typing import Dict
 from typing import List
 from typing import Tuple
+from statsmodels.tsa.stattools import grangercausalitytests
 
 
 # @enforce.runtime_validation
@@ -458,10 +460,27 @@ def save_it(obj: object, file_path: str, verbose: bool = False) -> None:
     Raises:
         None.
     """
-    with open(file_path, 'wb') as handle:
-        pk.dump(obj, handle, protocol=pk.HIGHEST_PROTOCOL)
-    if verbose:
-        print('{} is successfully saved.'.format(file_path))
+    try:
+        with open(file_path, 'wb') as handle:
+            pk.dump(obj, handle, protocol=pk.HIGHEST_PROTOCOL)
+        if verbose:
+            print('{} is successfully saved.'.format(file_path))
+    except Exception as e:
+        if verbose:
+            print('Pickling was failed:')
+            print(e)
+            print('Now, trying dill...')
+        try:
+            file_path += '.dill'
+            with open(file_path, 'wb') as handle:
+                dill.dump(obj, handle)
+            if verbose:
+                print('{} is successfully saved.'.format(file_path))
+        except Exception as e:
+            print('Sorry. Pickle and Dill both failed. Here is the exception:')
+            print(type(e))
+            print(e.args)
+            print(e)
 
 
 # @enforce.runtime_validation
@@ -481,7 +500,10 @@ def load_it(file_path: str, verbose: bool = False) -> object:
     """
     obj = None
     with open(file_path, 'rb') as handle:
-        obj = pk.load(handle)
+        if file_path.endswith('.dill'):
+            obj = dill.load(handle)
+        else:
+            obj = pk.load(handle)
     if verbose:
         print('{} is successfully loaded.'.format(file_path))
     return obj
@@ -762,3 +784,42 @@ def most_influential_on_others(
     # return np.argmax(how_influential_one_is)  # Works only for the first one.
     return np.where(
         how_influential_one_is == np.max(how_influential_one_is))[0].tolist()
+
+
+def compute_relationship(
+        v1: np.ndarray,
+        v2: np.ndarray,
+        maxlag: int = 4,
+        verbose: bool = True) -> dict:
+    """Computes the relationship between two vectors.
+    
+    Args:
+    
+
+    Returns:
+        Dictionary of correlation p-value, r-value and causality report.
+
+    Raises:
+        If there was insufficient observations for the given lag.
+    """
+    # Correlation test.
+    rval, pval = pearsonr(v1, v2)
+
+    if verbose:
+        significant = ''
+        if pval < 0.05:
+            significant = 'yay!!!!'
+        print('r-val: {}\np-val: {} \t{}'.format(rval, pval, significant))
+
+        # Scatter plot.
+        plt.scatter(v1, v2)
+        plt.show()
+
+    # Causality test.
+    # It tests whether the time series in the second column Granger causes
+    #  the time series in the first column.
+    causality_res = grangercausalitytests(
+        np.column_stack((v1, v2)),
+        maxlag=maxlag,
+        verbose=verbose)
+    return {'rval': rval, 'pval': pval, 'causality': causality_res}

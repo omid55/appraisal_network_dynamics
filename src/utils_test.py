@@ -788,6 +788,25 @@ class MyTestClass(unittest.TestCase):
             remove_self_influence=remove_self_influence)
         self.assertListEqual(expected, computed)
 
+    # =========================================================================
+    # ======================= compute_relationship ============================
+    # =========================================================================
+    def test_compute_relationship(self):
+        v1 = np.array([1, 5, 3, 9, 12, -20])
+        v2 = v1 + 10
+        v2[2] = 1
+        rval = 0.9145820068272351
+        pval = 0.010632735522386102
+        causality = {
+            'params_ftest': (0.029052209167631956, 0.8803416609558238, 2.0, 1),
+            'lrtest': (0.0721080571503876, 0.7882918211658008, 1),
+            'ssr_ftest': (0.0290522091676317, 0.8803416609558238, 2.0, 1),
+            'ssr_chi2test': (0.07263052291907925, 0.7875445526201577, 1)}
+        computed = utils.compute_relationship(v1, v2, maxlag=1, verbose=False)
+        self.assertEqual(rval, computed['rval'])
+        self.assertEqual(pval, computed['pval'])
+        self.assertDictEqual(causality, computed['causality'][1][0])
+
 
 if __name__ == '__main__':
     unittest.main()
