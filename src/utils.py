@@ -792,9 +792,19 @@ def compute_relationship(
         maxlag: int = 4,
         verbose: bool = True) -> dict:
     """Computes the relationship between two vectors.
-    
+
+    Granger causality tests whether the time series in the 2nd column Granger
+    causes the time series in the 1st column. In here it means, if v2 Granger
+    causes v1 or not.
+
     Args:
+        v1: First array of numbers.
+
+        v2: Second array of numbers.
+
+        maxlag: Maximum lag in the Granger causality test.
     
+        verbose: If we the function to print the full report.
 
     Returns:
         Dictionary of correlation p-value, r-value and causality report.
@@ -816,8 +826,6 @@ def compute_relationship(
         plt.show()
 
     # Causality test.
-    # It tests whether the time series in the second column Granger causes
-    #  the time series in the first column.
     causality_res = grangercausalitytests(
         np.column_stack((v1, v2)),
         maxlag=maxlag,
