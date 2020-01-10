@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import pickle as pk
 import dill
 import networkx as nx
+import seaborn as sns
 import shelve
 # import enforce
 from numpy.linalg import norm
@@ -22,6 +23,7 @@ from scipy.spatial.distance import cosine
 from typing import Dict
 from typing import List
 from typing import Tuple
+from typing import Text
 from statsmodels.tsa.stattools import grangercausalitytests
 
 
@@ -45,7 +47,7 @@ def print_dict_pretty(input_dict: Dict) -> None:
 
 # @enforce.runtime_validation
 def check_required_columns(
-        data: pd.DataFrame, columns: List[str]) -> None:
+        data: pd.DataFrame, columns: List[Text]) -> None:
     """Checks whether input dataframe includes all required columns.
 
     Args:
@@ -69,7 +71,7 @@ def check_required_columns(
 def graph_equals(
         g1: nx.DiGraph,
         g2: nx.DiGraph,
-        weight_column_name: str = 'weight') -> bool:
+        weight_column_name: Text = 'weight') -> bool:
     """Checks if two graphs are equal.
 
     If weight_column_name is None, then it does not check weight values.
@@ -104,7 +106,7 @@ def graph_equals(
 def assert_graph_equals(
         g1: nx.DiGraph,
         g2: nx.DiGraph,
-        weight_column_name: str = 'weight') -> None:
+        weight_column_name: Text = 'weight') -> None:
     """Checks if two graphs are equal.
 
     If weight_column_name is None, then it does not check weight values.
@@ -216,7 +218,7 @@ def make_matrix_row_stochastic(
 # @enforce.runtime_validation
 def save_figure(
         fig_object: matplotlib.figure.Figure,
-        file_path: str) -> None:
+        file_path: Text) -> None:
     """Fully saves the figure in pdf and pkl format for later modification.
 
     This function saves the figure in a pkl and pdf such that later can
@@ -228,7 +230,7 @@ def save_figure(
     Args:
         fig_object: Figure object (computed by "plt.figure()")
 
-        file_path: String file path without file extension.
+        file_path: Texting file path without file extension.
 
     Returns:
         None.
@@ -244,14 +246,14 @@ def save_figure(
 
 
 # @enforce.runtime_validation
-def load_figure(file_path: str) -> matplotlib.figure.Figure:
+def load_figure(file_path: Text) -> matplotlib.figure.Figure:
     """Fully loads the saved figure to be able to be modified.
 
     It can be easily showed by:
         fig_object.show()
 
     Args:
-        file_path: String file path without file extension.
+        file_path: Texting file path without file extension.
 
     Returns:
         Figure object.
@@ -267,7 +269,7 @@ def load_figure(file_path: str) -> matplotlib.figure.Figure:
 # @enforce.runtime_validation
 def save_all_variables_of_current_session(
         locals_: dict,
-        file_path: str,
+        file_path: Text,
         verbose: bool = False) -> None:
     """Saves all defined variables in the current session to be used later.
 
@@ -278,7 +280,7 @@ def save_all_variables_of_current_session(
     Args:
         locals_: Just call this as the first parameter ALWAYS: locals()
 
-        file_path: String file path (with extension).
+        file_path: Texting file path (with extension).
 
         verbose: Whether to print the name of variables it is saving.
 
@@ -308,7 +310,7 @@ def save_all_variables_of_current_session(
 # @enforce.runtime_validation
 def load_all_variables_of_saved_session(
         globals_: dict,
-        file_path: str) -> None:
+        file_path: Text) -> None:
     """Loads all defined variables from a saved session into current session.
 
     It should be used after running "save_all_variables_of_current_session".
@@ -316,7 +318,7 @@ def load_all_variables_of_saved_session(
     Args:
         globals_: Just call this as the first parameter ALWAYS: globals()
 
-        file_path: String file path (with extension).
+        file_path: Texting file path (with extension).
 
     Returns:
         None.
@@ -446,11 +448,11 @@ def _adjacency2digraph_with_given_mapping(
 
 
 # @enforce.runtime_validation
-def save_it(obj: object, file_path: str, verbose: bool = False) -> None:
+def save_it(obj: object, file_path: Text, verbose: bool = False) -> None:
     """Saves the input object in the given file path.
 
     Args:
-        file_path: String file path (with extension).
+        file_path: Texting file path (with extension).
 
         verbose: Whether to print information about saving successfully or not.
 
@@ -484,11 +486,11 @@ def save_it(obj: object, file_path: str, verbose: bool = False) -> None:
 
 
 # @enforce.runtime_validation
-def load_it(file_path: str, verbose: bool = False) -> object:
+def load_it(file_path: Text, verbose: bool = False) -> object:
     """Loads from the given file path a saved object.
 
     Args:
-        file_path: String file path (with extension).
+        file_path: Texting file path (with extension).
 
         verbose: Whether to print info about loading successfully or not.
 
@@ -514,8 +516,8 @@ def plot_box_plot_for_transitions(
         matrix: np.ndarray,
         balanced_ones: np.ndarray,
         with_labels: bool = True,
-        fname: str = '',
-        ftitle: str = '') -> None:
+        fname: Text = '',
+        ftitle: Text = '') -> None:
     """Plots a boxplot for transitoins of a set of balanced/unbalanced states.
 
     Args:
@@ -701,7 +703,7 @@ def replicate_matrices_in_train_dataset_with_reordering(
 def matrix_estimation_error(
     true_matrix: np.ndarray,
     pred_matrix: np.ndarray,
-    type_str: str = 'normalized_frob_norm') -> float:
+    type_str: Text = 'normalized_frob_norm') -> float:
     """Computes the error (loss) in matrix estimation problem.
 
     Different types of loss are supported as follows,
@@ -789,7 +791,10 @@ def most_influential_on_others(
 def compute_relationship(
         v1: np.ndarray,
         v2: np.ndarray,
+        v1_label: Text = 'v1',
+        v2_label: Text = 'v2',
         maxlag: int = 4,
+        fname: Text = '',
         verbose: bool = True) -> dict:
     """Computes the relationship between two vectors.
 
@@ -802,7 +807,13 @@ def compute_relationship(
 
         v2: Second array of numbers.
 
+        v1_label: The string label for v1.
+
+        v2_label: The string label for v2.
+
         maxlag: Maximum lag in the Granger causality test.
+
+        fname: File name. If empty string, it does not save it.
     
         verbose: If we the function to print the full report.
 
@@ -822,8 +833,15 @@ def compute_relationship(
         print('r-val: {}\np-val: {} \t{}'.format(rval, pval, significant))
 
         # Scatter plot.
-        plt.scatter(v1, v2)
+        f = plt.figure()
+        sns.scatterplot(v2, v1)
+        plt.plot((min(v1), max(v2)), (max(v1), min(v2)), 'r')
+        plt.xlabel(v2_label)
+        plt.ylabel(v1_label)
         plt.show()
+        if fname:
+            f.savefig('{}.png'.format(fname), bbox_inches='tight')
+            f.savefig('{}.pdf'.format(fname), bbox_inches='tight')
 
     # Causality test.
     causality_res = grangercausalitytests(
