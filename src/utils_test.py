@@ -693,6 +693,19 @@ class MyTestClass(unittest.TestCase):
               [0.15, 0.25, 0.35, 0.25]]),
          'cosine_dist',
          0.0],
+        ['EqualMatricesL1',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'l1',
+         0.0],
         ['ComputeForbNorm',
          np.array(
              [[0.6 , 0.15, 0.  , 0.25],
@@ -744,7 +757,21 @@ class MyTestClass(unittest.TestCase):
               [0.2 , 0.2 , 0.4 , 0.2 ],
               [0.15, 0.25, 0.35, 0.25]]),
          'cosine_dist',
-         0.005131]])
+         0.005131],
+         ['ComputeL1',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'l1',
+         0.0499999],
+         ])
     def test_matrix_estimation(
             self, name, true_matrix, pred_matrix, type_str, expected):
         computed = utils.matrix_estimation_error(

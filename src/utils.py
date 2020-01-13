@@ -473,12 +473,20 @@ def save_it(obj: object, file_path: Text, verbose: bool = False) -> None:
             print(e)
             print('Now, trying dill...')
         try:
+            try:
+                os.remove(file_path)
+            except:
+                pass
             file_path += '.dill'
             with open(file_path, 'wb') as handle:
                 dill.dump(obj, handle)
             if verbose:
                 print('{} is successfully saved.'.format(file_path))
         except Exception as e:
+            try:
+                os.remove(file_path)
+            except:
+                pass
             print('Sorry. Pickle and Dill both failed. Here is the exception:')
             print(type(e))
             print(e.args)
@@ -707,10 +715,12 @@ def matrix_estimation_error(
     """Computes the error (loss) in matrix estimation problem.
 
     Different types of loss are supported as follows,
-     normalized_frob_norm: (Frobenius) norm2(X - \widetilde{X}) / norm2(X).
-     mse: How far each element of matrices on average MSE are from each others.
-     neg_corr: Negative correlation of vectorized matrices if stat significant.
-     cosine_dist: Cosine distance of vectorized matrices from each other.
+    normalized_frob_norm: (Frobenius) norm2(X - \widetilde{X}) / norm2(X).
+    mse: How far each element of matrices on average MSE are from each others.
+    neg_corr: Negative correlation of vectorized matrices if stat significant.
+    cosine_dist: Cosine distance of vectorized matrices from each other.
+    l1: L1-norm distance in each row (since they are row-stochastic).
+    kl_divergence: 
     
     Args:
         true_matrix: The groundtruth matrix.
@@ -728,6 +738,7 @@ def matrix_estimation_error(
     """
     true_matrix = np.array(true_matrix)
     pred_matrix = np.array(pred_matrix)
+    n, m = true_matrix.shape
     if true_matrix.shape != pred_matrix.shape:
         raise ValueError('The shape of two matrices do not match.'
                          ' true: {} and predicted: {}.'.format(
@@ -753,6 +764,20 @@ def matrix_estimation_error(
         err = cosine(
             np.array(true_matrix.flatten()), np.array(pred_matrix.flatten()))
         return err
+    # # Distribution-based error metrics:
+    # elif type_str == 'kl':
+    #     err = 0
+    #     for i in range(n):
+    #         for j in range(m):
+    #             err += true_matrix[i, j] * (np.log2(
+    #                 true_matrix[i, j]) - np.log2(pred_matrix[i, j]))
+    #     err /= n
+    #     return err
+    # L1-norm distance in each row (since they are row-stochastic).
+    elif type_str == 'l1':
+        return np.mean(
+            [np.linalg.norm(true_matrix[i, :] - pred_matrix[i, :], 1)
+            for i in range(n)])
     else:
         raise ValueError('Wrong type_str was given, which was: {}'.format(
             type_str))
