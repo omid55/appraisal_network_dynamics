@@ -5,6 +5,7 @@ import cvxpy as cp
 from collections import defaultdict
 from sklearn.model_selection import KFold
 import sys
+from datetime import datetime
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Dropout, Conv1D, LSTM, MaxPooling1D, GlobalAveragePooling1D
@@ -78,6 +79,7 @@ def model_builder(
             X_train_subset, X_validation = X_train[train_index], X_train[validation_index]
             y_train_subset, y_validation = y_train[train_index], y_train[validation_index]
             if with_replication:
+                print('Replicating ...')
                 X_train_subset, y_train_subset = utils.replicate_matrices_in_train_dataset_with_reordering(
                     X_train_subset, y_train_subset)
                 X_train_subset = np.array(X_train_subset)
@@ -99,8 +101,12 @@ def model_builder(
     else:
         best_lambda = 0.1
     print('Training with the best lambda: {} on entire training set...'.format(best_lambda))
-    X_train, y_train = utils.replicate_matrices_in_train_dataset_with_reordering(
-        X_train, y_train)
+    if with_replication:
+        print('Replicating ...')
+        X_train, y_train = utils.replicate_matrices_in_train_dataset_with_reordering(
+            X_train, y_train)
+        X_train = np.array(X_train)
+        y_train = np.array(y_train)
     train_error, test_error = model_func(
         X_train=X_train,
         y_train=y_train,
@@ -125,7 +131,7 @@ def convex_optimization_model_func(
         lambdaa,
         error_type_str,
         params={'with_constraints': True}):
-    
+
     def predict(data_element, feature_names, B, Ws, is_solved=False):
         """Defines the prediction function."""
         predicted = 0
@@ -147,6 +153,21 @@ def convex_optimization_model_func(
                 data_element_matrix = data_element[feature_name]
             predicted += (data_element_matrix * W_for_this_feature)
         return predicted
+
+    # def predict(data_element, feature_names, B, Ws, is_solved=False):
+    #     """Defines the prediction function."""
+    #     predicted = 0
+    #     if is_solved:
+    #         predicted += B.value
+    #     else:
+    #         predicted += B
+    #     for feature_name in feature_names:
+    #         if is_solved:
+    #             W_for_this_feature = Ws[feature_name].value
+    #         else:
+    #             W_for_this_feature = Ws[feature_name]
+    #         predicted += (data_element[feature_name].T * W_for_this_feature)
+    #     return predicted
     
     def predict_all_after_solving(X_train_or_validation_or_test, B, Ws, feature_names):
         """Predicts for all data points in the given set."""
@@ -166,6 +187,8 @@ def convex_optimization_model_func(
             # If it was a vector, it makes a matrix with it.
             Ws[feature_name] = cp.Variable(
                 len(X_train[0][feature_name]), len(X_train[0][feature_name]))
+            # Ws[feature_name] = cp.Variable(
+            #     len(X_train[0][feature_name]), 1)
         else:
             # Unless it is already a matrix.
             Ws[feature_name] = cp.Variable(
@@ -173,6 +196,8 @@ def convex_optimization_model_func(
     B = cp.Variable(4, 4)
 
     # Computing loss.
+    print('Computing convex loss on {} training data samples.'.format(
+        len(X_train)))
     constraints = []
     losses = 0
     for index in range(len(X_train)):
@@ -223,6 +248,7 @@ def convex_optimization_model_func(
         y_train_or_validation_or_test_predicted=y_validation_or_test_predicted,
         estimation_name=estimation_name,
         error_type_str=error_type_str)
+    # utils.save_it({'Ws': Ws, 'B': B}, 'cvxvars_{}.pkl'.format(datetime.now()))
     return train_error, validation_or_test_error
 
 
@@ -310,3 +336,31 @@ def concatinated_deep_neural_network_model_func(
         error_type_str=error_type_str)
 
     return train_error, validation_or_test_error
+
+
+def predict_next_influence_matrix_with_ven_de_rijt_sbt(
+        influence_matrix, mode = 1):
+    n, m = influence_matrix.shape
+    if n != m:
+        raise ValueError('The matrix was not squared.')
+    next_influence_matrix = np.zeros(influence_matrix.shape)
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                ks = list(set.difference(set(range(n)), [i, j]))
+                wij = 0
+                for k in ks:
+                    wij += influence_matrix[i, k] * influence_matrix[k, j] 
+#                 wij /= (n - 2)
+                next_influence_matrix[i, j] = wij
+    if mode == 1:
+        # Fill the diagonal with previous influence matrix and normalize to become row-stochastic.
+        np.fill_diagonal(next_influence_matrix, np.diag(influence_matrix))
+        next_influence_matrix = utils.make_matrix_row_stochastic(
+            next_influence_matrix)
+    elif mode == 2:
+        # Fill the diagonal with 1 - sum of the current filled row.
+        np.fill_diagonal(next_influence_matrix, 1 - np.sum(next_influence_matrix, axis=1))
+    else:
+        print('ERROR: mode was wrong. It was {}'.format(mode))
+    return next_influence_matrix
