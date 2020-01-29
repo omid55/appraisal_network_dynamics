@@ -63,13 +63,12 @@ def model_builder(
             utils.make_matrix_row_stochastic(
                 np.random.rand(4, 4))) for _ in range(len(y_train))]
     if model_func in ['average', 'uniform', 'random']:
-        y_train_average = []
         train_error = compute_error(
             y_train, y_baseline_predicted, estimation_name=estimation_name, error_type_str=error_type_str)
         test_error = compute_error(
             y_test, y_baseline_predicted, estimation_name=estimation_name, error_type_str=error_type_str)
         return train_error, test_error, None
-    
+
     # For the proposed models.
     validation_errors = defaultdict(lambda: 0)
     if tune_hyperparameters_by_validation:
@@ -338,29 +337,107 @@ def concatinated_deep_neural_network_model_func(
     return train_error, validation_or_test_error
 
 
-def predict_next_influence_matrix_with_ven_de_rijt_sbt(
-        influence_matrix, mode = 1):
-    n, m = influence_matrix.shape
-    if n != m:
-        raise ValueError('The matrix was not squared.')
-    next_influence_matrix = np.zeros(influence_matrix.shape)
-    for i in range(n):
-        for j in range(n):
-            if i != j:
-                ks = list(set.difference(set(range(n)), [i, j]))
-                wij = 0
-                for k in ks:
-                    wij += influence_matrix[i, k] * influence_matrix[k, j] 
-#                 wij /= (n - 2)
-                next_influence_matrix[i, j] = wij
-    if mode == 1:
-        # Fill the diagonal with previous influence matrix and normalize to become row-stochastic.
-        np.fill_diagonal(next_influence_matrix, np.diag(influence_matrix))
-        next_influence_matrix = utils.make_matrix_row_stochastic(
-            next_influence_matrix)
-    elif mode == 2:
-        # Fill the diagonal with 1 - sum of the current filled row.
-        np.fill_diagonal(next_influence_matrix, 1 - np.sum(next_influence_matrix, axis=1))
+def last_model_func(
+        X_train,
+        y_train,
+        X_validation_or_test,
+        y_validation_or_test,
+        feature_names=[],
+        estimation_name='influence_matrix',
+        lambdaa=[],
+        error_type_str='mse',
+        params={}):
+    """Baseline model that always predicts no change in the influence matrix."""
+    y_validation_or_test_predicted = [
+        item['previous_influence_matrix']
+        for item in X_validation_or_test]
+    validation_or_test_error = compute_error(
+        y_train_or_validation_or_test_true=y_validation_or_test,
+        y_train_or_validation_or_test_predicted=y_validation_or_test_predicted,
+        estimation_name=estimation_name,
+        error_type_str=error_type_str)
+    return -1, validation_or_test_error
+
+
+def sbt_model_func(
+        X_train,
+        y_train,
+        X_validation_or_test,
+        y_validation_or_test,
+        feature_names=[],
+        estimation_name='influence_matrix',
+        lambdaa=[],
+        error_type_str='mse',
+        params={'mode': 1}):
+    """Structural Balance Theory model inspired (similar to Kulakowski)."""
+    if 'mode' in params:
+        mode = params['mode']
     else:
-        print('ERROR: mode was wrong. It was {}'.format(mode))
-    return next_influence_matrix
+        mode = 1
+    y_validation_or_test_predicted = []
+    for item in X_validation_or_test:
+        influence_matrix = item['previous_influence_matrix'] 
+        n, m = influence_matrix.shape
+        if n != m:
+            raise ValueError('The matrix was not squared.')
+        next_influence_matrix = np.zeros((n, n))
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    ks = list(set.difference(set(range(n)), [i, j]))
+                    wij = 0
+                    for k in ks:
+                        wij += influence_matrix[i, k] * influence_matrix[k, j] 
+    #                 wij /= (n - 2)
+                    next_influence_matrix[i, j] = wij
+        if mode == 1:
+            # Fill the diagonal with previous influence matrix and normalize to become row-stochastic.
+            np.fill_diagonal(next_influence_matrix, np.diag(influence_matrix))
+            next_influence_matrix = utils.make_matrix_row_stochastic(
+                next_influence_matrix)
+        elif mode == 2:
+            # Fill the diagonal with 1 - sum of the current filled row.
+            np.fill_diagonal(
+                next_influence_matrix, 1 - np.sum(
+                    next_influence_matrix, axis=1))
+        else:
+            raise ValueError(
+                'The input mode was wrong. It was {}'.format(mode))
+        y_validation_or_test_predicted.append(next_influence_matrix)
+    validation_or_test_error = compute_error(
+        y_train_or_validation_or_test_true=y_validation_or_test,
+        y_train_or_validation_or_test_predicted=y_validation_or_test_predicted,
+        estimation_name=estimation_name,
+        error_type_str=error_type_str)
+    return -1, validation_or_test_error
+
+
+def mei_inspired_model_func(
+        X_train,
+        y_train,
+        X_validation_or_test,
+        y_validation_or_test,
+        feature_names=[],
+        estimation_name='influence_matrix',
+        lambdaa=[],
+        error_type_str='mse',
+        params={}):
+    """Model inspired by the Mei et al. 2017 study."""
+    y_validation_or_test_predicted = []
+    for item in X_validation_or_test:
+        influence_matrix = item['previous_influence_matrix'] 
+        n, m = influence_matrix.shape
+        if n != m:
+            raise ValueError('The matrix was not squared.')
+        perfs = item['individual_performance']
+        p_minus_Mp = np.diag(perfs - np.mean(perfs))
+        A_dot = (p_minus_Mp * np.diag(np.diag(influence_matrix)) * (
+            np.eye(n) - influence_matrix)) / np.sum(perfs)
+        y_validation_or_test_predicted.append(influence_matrix + A_dot)
+    validation_or_test_error = compute_error(
+        y_train_or_validation_or_test_true=y_validation_or_test,
+        y_train_or_validation_or_test_predicted=y_validation_or_test_predicted,
+        estimation_name=estimation_name,
+        error_type_str=error_type_str)
+    return -1, validation_or_test_error
+    

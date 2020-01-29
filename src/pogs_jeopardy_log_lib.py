@@ -146,7 +146,7 @@ class TeamLogProcessor(object):
         self._load_ratings()
         self._load_accumulated_score()
         self._load_survey()
-        self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
+        # self._old_load_all(logs_directory_path, self.team_id)  ## DELETE.
 
     def _load_this_team_event_logs(self,
                                    logs_file_path:Text,
@@ -226,12 +226,6 @@ class TeamLogProcessor(object):
             begin_index = end_index
             end_index += 1
 
-    def _set_team_members(self, individual_answers_chosen):
-        self.members = []
-        for index, row in individual_answers_chosen.iterrows():
-            if ((row["sender_subject_id"]) not in self.members):
-                self.members.append(row["sender_subject_id"])
-
     def _get_last_individual_answers(self, individual_answers_chosen):
         last_answers = {}
         for index, row in individual_answers_chosen.iterrows():
@@ -264,7 +258,7 @@ class TeamLogProcessor(object):
             question_number = question_info[1]
             return answer + "," + question_number
 
-        individual_answers_chosen = []
+        individual_answers_chosen_list = []
         group_answers_chosen = []
         self.question_order = []
 
@@ -275,7 +269,7 @@ class TeamLogProcessor(object):
                 df = df[df.extra_data == 'IndividualResponse']
                 df.event_content = df.event_content.apply(
                     extract_answer_and_question)
-                individual_answers_chosen.append(df)
+                individual_answers_chosen_list.append(df)
 
                 df = self.team_event_logs.iloc[
                     indices[begin_index] + 1: indices[end_index]]
@@ -289,13 +283,13 @@ class TeamLogProcessor(object):
 
         self.individual_answers_chosen = {}
         self.group_answers_chosen = {}
-        self._set_team_members(individual_answers_chosen[0])
-        for index in range(len(individual_answers_chosen)):
-            event_content = str(individual_answers_chosen[index].event_content)
+        # self._set_team_members(individual_answers_chosen_list[0])
+        for index in range(len(individual_answers_chosen_list)):
+            event_content = str(individual_answers_chosen_list[index].event_content)
             question_number = int(float(event_content.split("\n")[0].split(",")[1]))
 
             self.question_order.append(question_number)
-            last_answers = self._get_last_individual_answers(individual_answers_chosen[index])
+            last_answers = self._get_last_individual_answers(individual_answers_chosen_list[index])
             self.individual_answers_chosen[question_number] = last_answers
             last_group_answers = copy.deepcopy(last_answers)
             last_group_answers = self._get_last_group_answers(group_answers_chosen[index], last_group_answers)
@@ -362,25 +356,26 @@ class TeamLogProcessor(object):
             begin_index = end_index
             end_index += 1
 
-    def _create_team_member_mapping(self, df) -> None:
-        self.team_member_mapping = {}
-        for index in range(len(df)):
-            sender_subject_id = int(str(df.sender_subject_id.iloc[index]))
-            session_id = str(df[df.columns[8]].iloc[index])
-            if session_id not in self.team_member_mapping:
-                self.team_member_mapping[session_id] = sender_subject_id
+    # def _create_team_member_mapping(self, df) -> None:
+    #     self.team_member_mapping = {}
+    #     for index in range(len(df)):
+    #         sender_subject_id = int(str(df.sender_subject_id.iloc[index]))
+    #         session_id = str(df[df.columns[8]].iloc[index])
+    #         if session_id not in self.team_member_mapping:
+    #             self.team_member_mapping[session_id] = sender_subject_id
 
-    def _add_to_team_member_mapping(self, sender) -> None:
-        subject = pd.read_csv(
-            self.logs_directory_path + 'subject.csv',
-            sep=',',
-            quotechar='|',
-            names=['sender_subject_id', 'sender', 'sender_dup', 'group',
-                   'empty'])
+    # def _add_to_team_member_mapping(self, sender) -> None:
+    #     subject = pd.read_csv(
+    #         self.logs_directory_path + 'subject.csv',
+    #         sep=',',
+    #         quotechar='|',
+    #         names=['sender_subject_id', 'sender', 'sender_dup', 'group',
+    #                'empty'])
 
-        row = subject.loc[subject['sender'] == sender]
-        item = row.iloc[0][0]
-        self.team_member_mapping[sender] = item
+    #     row = subject.loc[subject['sender'] == sender]
+    #     item = row.iloc[0][0]
+    #     self.team_member_mapping[sender] = item
+
 
     def _preload_data(self, directory) -> None:
         # Preloading of the data
@@ -419,6 +414,10 @@ class TeamLogProcessor(object):
         self.team_array = []
         for i in range(self.team_size):
             self.team_array.append(self.team_member.iloc[i])
+        self.members = []
+        for member in self.team_array:
+            self.members.append(
+                list(subjects[subjects['displayName'] == member]['sender_subject_id'])[0])
 
     def _extract_and_fill_missing_values(self, temp, aR, mI, aR_from_data, mI_from_data):
         for j in range(0, self.team_size):
