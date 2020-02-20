@@ -1,5 +1,4 @@
 # Omid55
-
 import numpy as np
 import cvxpy as cp
 from collections import defaultdict
@@ -48,7 +47,7 @@ def model_builder(
         with_replication=True,
         lambdas = [0, 0.1, 1, 10, 100, 1000],
         model_func='average',
-        params={'with_constraints': True, 'n_splits': 3}):
+        params={'with_constraints': True, 'n_splits': 3, 'best_lambda': 0.1}):
     
     # For the baseline models.
     if model_func == 'average':
@@ -98,7 +97,7 @@ def model_builder(
                     params=params)[1]
         best_lambda = min(validation_errors, key=validation_errors.get)
     else:
-        best_lambda = 0.1
+        best_lambda = params['best_lambda']
     print('Training with the best lambda: {} on entire training set...'.format(best_lambda))
     if with_replication:
         print('Replicating ...')
@@ -145,12 +144,13 @@ def convex_optimization_model_func(
                 W_for_this_feature = Ws[feature_name]
             if len(data_element[feature_name].shape) == 1:
                 # If it was a vector, it makes a matrix with it.
-                p = data_element[feature_name]
-                data_element_matrix = np.row_stack([p, p, p, p])
+                # p = data_element[feature_name]
+                # data_element_matrix = np.row_stack([p, p, p, p])
+                element = np.matrix(data_element[feature_name]).T
             else:
                 # Unless it is already a matrix.
-                data_element_matrix = data_element[feature_name]
-            predicted += (data_element_matrix * W_for_this_feature)
+                element = data_element[feature_name]
+            predicted += (element * W_for_this_feature)
         return predicted
 
     # def predict(data_element, feature_names, B, Ws, is_solved=False):
@@ -184,19 +184,22 @@ def convex_optimization_model_func(
     for feature_name in feature_names:
         if len(X_train[0][feature_name].shape) == 1:
             # If it was a vector, it makes a matrix with it.
-            Ws[feature_name] = cp.Variable(
-                len(X_train[0][feature_name]), len(X_train[0][feature_name]))
             # Ws[feature_name] = cp.Variable(
-            #     len(X_train[0][feature_name]), 1)
+            #     len(X_train[0][feature_name]), len(X_train[0][feature_name]))
+            Ws[feature_name] = cp.Variable(1, len(X_train[0][feature_name]))
         else:
             # Unless it is already a matrix.
             Ws[feature_name] = cp.Variable(
-                X_train[0][feature_name].shape[1], X_train[0][feature_name].shape[0])
+                X_train[0][feature_name].shape[1],
+                X_train[0][feature_name].shape[0])
     B = cp.Variable(4, 4)
 
     # Computing loss.
     print('Computing convex loss on {} training data samples.'.format(
         len(X_train)))
+    print('Variables are:')
+    for k, w in Ws.items():
+        print('\t{}: {}'.format(k, w.size))
     constraints = []
     losses = 0
     for index in range(len(X_train)):
@@ -207,8 +210,22 @@ def convex_optimization_model_func(
         estimation_predicted = predict(
             data_element=element, feature_names=feature_names, B=B, Ws=Ws, is_solved=False)
 
-        # Defining the loss function.
+        # ------------------------------------------------------------------
+        #  ------------- Defining the loss function ------------------------
+        # ------------------------------------------------------------------
+        # L2-loss:
         loss = cp.sum_squares(estimation_predicted - estimation_groundtruth)
+
+        # # L1-loss:
+        # loss = cp.sum_entries(
+        #     cp.abs(
+        #         estimation_predicted - estimation_groundtruth))
+        # loss = cp.norm1(estimation_predicted - estimation_groundtruth) / 4
+
+        # # Bregman matrix divergence:
+        # aa_minus = estimation_predicted * np.linalg.inv(estimation_groundtruth)
+        # loss = cp.trace(aa_minus) - cp.log_det(aa_minus) - 4
+        # ------------------------------------------------------------------
 
         losses += loss
         if params['with_constraints']:
@@ -266,9 +283,15 @@ def concatinated_deep_neural_network_model_func(
     flatten_y_train = []
     for i in range(len(X_train)):
         features = X_train[i]
-        label = y_train[i][estimation_name]            
-        flatten_X_train.append(np.hstack(
-            [np.array(features[feature_name].flatten())[0] for feature_name in feature_names]))
+        label = y_train[i][estimation_name]
+        feat_list = []
+        for feature_name in feature_names:
+            if len(features[feature_name].shape) == 1:
+                feat_list.append(features[feature_name])
+            else:
+                feat_list.append(
+                    np.array(features[feature_name].flatten())[0])
+        flatten_X_train.append(np.hstack(feat_list))
         flatten_y_train.append(np.array(label.flatten())[0])
     flatten_X_train = np.array(flatten_X_train)
     flatten_y_train = np.array(flatten_y_train)
@@ -278,8 +301,14 @@ def concatinated_deep_neural_network_model_func(
     for i in range(len(X_validation_or_test)):
         features = X_validation_or_test[i]
         label = y_validation_or_test[i][estimation_name]
-        flatten_X_validation_or_test.append(np.hstack(
-            [np.array(features[feature_name].flatten())[0] for feature_name in feature_names]))
+        feat_list = []
+        for feature_name in feature_names:
+            if len(features[feature_name].shape) == 1:
+                feat_list.append(features[feature_name])
+            else:
+                feat_list.append(
+                    np.array(features[feature_name].flatten())[0])
+        flatten_X_validation_or_test.append(np.hstack(feat_list))
         flatten_y_validation_or_test.append(np.array(label.flatten())[0])
     flatten_X_validation_or_test = np.array(flatten_X_validation_or_test)
     flatten_y_validation_or_test = np.array(flatten_y_validation_or_test)
@@ -295,21 +324,21 @@ def concatinated_deep_neural_network_model_func(
             input_shape=(input_size,),
             kernel_regularizer=regularizers.l1(lambdaa),
             activity_regularizer=regularizers.l1(lambdaa)),
-#         Dropout(0.5),
+        Dropout(0.5),
         Dense(
             units=64,
             kernel_initializer='he_normal',
             activation='elu',
             kernel_regularizer=regularizers.l1(lambdaa),
             activity_regularizer=regularizers.l1(lambdaa)),
-#         Dropout(0.5),
+        Dropout(0.5),
         Dense(
             units=32,
             kernel_initializer='he_normal',
             activation='elu',
             kernel_regularizer=regularizers.l1(lambdaa),
             activity_regularizer=regularizers.l1(lambdaa)),
-#         Dropout(0.5),
+        Dropout(0.5),
         Dense(16, kernel_initializer='glorot_uniform', activation='sigmoid')])
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
@@ -369,7 +398,8 @@ def sbt_model_func(
         lambdaa=[],
         error_type_str='mse',
         params={'mode': 1}):
-    """Structural Balance Theory model inspired (similar to Kulakowski)."""
+    """Structural Balance Theory model inspired (similar to Kulakowski et 2005).
+    """
     if 'mode' in params:
         mode = params['mode']
     else:

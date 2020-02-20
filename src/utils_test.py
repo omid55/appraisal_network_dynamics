@@ -706,6 +706,19 @@ class MyTestClass(unittest.TestCase):
               [0.15, 0.25, 0.35, 0.25]]),
          'l1',
          0.0],
+        ['EqualMatricesKL',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'kl',
+         0.0],
         ['ComputeForbNorm',
          np.array(
              [[0.6 , 0.15, 0.  , 0.25],
@@ -771,6 +784,45 @@ class MyTestClass(unittest.TestCase):
               [0.15, 0.25, 0.35, 0.25]]),
          'l1',
          0.0499999],
+        ['ComputeKL',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'kl',
+         (0.6 * np.log(0.6 / 0.7) - 0.6 + 0.7 + 0.15 * np.log(0.15 / 0.1) - 0.15 + 0.1 + 0.25 * np.log(0.25 / 0.2) - 0.25 + 0.2) / 4],
+        ['ComputeKL_P0',
+         np.array(
+             [[0.6 , 0.15, 0.  , 0.25],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7 , 0.1, 0.1, 0.1],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'kl',
+         (0.6 * np.log(0.6 / 0.7) - 0.6 + 0.7 + 0.15 * np.log(0.15 / 0.1) - 0.15 + 0.1 + 0.1 + 0.25 * np.log(0.25 / 0.1) - 0.25 + 0.1) / 4],
+        ['ComputeKL_infinity',
+         np.array(
+             [[0.6, 0.1, 0.1, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         np.array(
+             [[0.7, 0.1, 0, 0.2],
+              [0.25, 0.25, 0.25, 0.25],
+              [0.2 , 0.2 , 0.4 , 0.2 ],
+              [0.15, 0.25, 0.35, 0.25]]),
+         'kl',
+         np.inf]
          ])
     def test_matrix_estimation(
             self, name, true_matrix, pred_matrix, type_str, expected):
@@ -833,6 +885,109 @@ class MyTestClass(unittest.TestCase):
         self.assertEqual(rval, computed['rval'])
         self.assertEqual(pval, computed['pval'])
         self.assertDictEqual(causality, computed['causality'][1][0])
+
+
+    # =========================================================================
+    # ====================== get_stationary_distribution ======================
+    # =========================================================================
+    def test_get_stationary_distribution_simple(self):
+        transition_matrix = np.array(
+            [[0, 0, 1],
+             [0, 0, 1],
+             [0, 0, 1]], dtype=float)
+        expected = np.array([0, 0, 1])
+        computed = utils.get_stationary_distribution(
+            transition_matrix, aperiodic_irreducible_eps=0.0)
+        np.testing.assert_array_almost_equal(expected, computed, decimal=4)
+
+    def test_get_stationary_distribution_full_matrix(self):
+        transition_matrix = np.array(
+            [[0.6, 0.1, 0.3],
+             [0.1, 0.7, 0.2],
+             [0.2, 0.2, 0.6]], dtype=float)
+        expected = np.array([0.2759, 0.3448, 0.3793])
+        computed = utils.get_stationary_distribution(
+            transition_matrix, aperiodic_irreducible_eps=0.0)
+        np.testing.assert_array_almost_equal(expected, computed, decimal=4)
+
+    def test_get_stationary_distribution_not_row_stochastic(self):
+        transition_matrix = np.array(
+            [[0, 0, 0],
+             [9, 0, 1],
+             [1, 0, 3]], dtype=float)
+        expected = np.array([0.3571, 0.1191, 0.5238])
+        computed = utils.get_stationary_distribution(
+            transition_matrix, aperiodic_irreducible_eps=0.0001)
+        np.testing.assert_array_almost_equal(expected, computed, decimal=4)
+
+    def test_get_stationary_distribution(self):
+        transition_matrix = np.array(
+            [[0, 0, 0],
+             [0.9, 0, 0.1],
+             [0.25, 0, 0.75]], dtype=float)
+        expected = np.array([0.3571, 0.1191, 0.5238])
+        computed = utils.get_stationary_distribution(
+            transition_matrix, aperiodic_irreducible_eps=0.0001)
+        np.testing.assert_array_almost_equal(expected, computed, decimal=4)
+
+
+    # =========================================================================
+    # =============== get_relative_reflected_appraisal_matrix =================
+    # =========================================================================
+    def test_get_relative_reflected_appraisal_matrix(self):
+        influence_matrix = np.array(
+            [[0.2 , 0.35, 0.25, 0.2 ],
+            [0.35, 0.65, 0.  , 0.  ],
+            [0.3 , 0.4 , 0.  , 0.3 ],
+            [0.33, 0.33, 0.09, 0.25]])
+        expected = np.array(
+            [[0, 0.44, 0.31, 0.25],
+            [1, 0, 0, 0],
+            [0.3, 0.4, 0, 0.3],
+            [0.44, 0.44, 0.12, 0]])
+        computed = utils.get_relative_reflected_appraisal_matrix(
+            influence_matrix)
+        np_testing.assert_almost_equal(expected, computed, decimal=2)
+
+    def test_get_relative_reflected_appraisal_matrix_when_numpymatrices(self):
+        influence_matrix = np.matrix(
+            [[0.2 , 0.35, 0.25, 0.2 ],
+            [0.35, 0.65, 0.  , 0.  ],
+            [0.3 , 0.4 , 0.  , 0.3 ],
+            [0.33, 0.33, 0.09, 0.25]])
+        expected = np.matrix(
+            [[0, 0.44, 0.31, 0.25],
+            [1, 0, 0, 0],
+            [0.3, 0.4, 0, 0.3],
+            [0.44, 0.44, 0.12, 0]])
+        computed = utils.get_relative_reflected_appraisal_matrix(
+            influence_matrix)
+        np_testing.assert_almost_equal(expected, computed, decimal=2)
+    
+    # =========================================================================
+    # ================= get_average_influence_on_others =======================
+    # =========================================================================
+    def test_get_average_influence_on_others_raises_when_wrong_index(self):
+        with self.assertRaises(ValueError):
+            influence_matrix = np.array(
+                [[0.2 , 0.35, 0.25, 0.2 ],
+                [0.35, 0.65, 0.  , 0.  ],
+                [0.3 , 0.4 , 0.  , 0.3 ],
+                [0.33, 0.33, 0.09, 0.25]])
+            utils.get_average_influence_on_others(
+                influence_matrix=influence_matrix, index=5)
+
+    def test_get_average_influence_on_others(self):
+        influence_matrix = np.array(
+            [[0.2 , 0.35, 0.25, 0.2 ],
+            [0.35, 0.65, 0.  , 0.  ],
+            [0.3 , 0.4 , 0.  , 0.3 ],
+            [0.33, 0.33, 0.09, 0.25]])
+        index = 1
+        expected = 0.36
+        computed = utils.get_average_influence_on_others(
+            influence_matrix=influence_matrix, index=index)
+        self.assertAlmostEqual(expected, computed, places=4)
 
 
 if __name__ == '__main__':

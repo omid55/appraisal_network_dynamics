@@ -116,6 +116,7 @@ class TeamLogProcessor(object):
             game_info: Jeopardy-like game information.
             team_event_logs: All event logs for this team.
             messages: The communication messages among members.
+            members: List of members in the correct order.
     """
     def __init__(self,
                  team_id: int,
@@ -135,9 +136,9 @@ class TeamLogProcessor(object):
         self._load_game_questions(
             file_path=logs_directory_path + '/jeopardy.json')
         self._load_this_team_event_logs(
-            logs_file_path=logs_directory_path + 'event_log.csv',
+            logs_file_path=logs_directory_path + '/event_log.csv',
             team_has_subject_file_path=logs_directory_path
-                + 'team_has_subject.csv')
+                + '/team_has_subject.csv')
         self._load_messages()
         self._load_answers_chosen()
         self._load_machine_usage_info()
@@ -379,8 +380,8 @@ class TeamLogProcessor(object):
 
     def _preload_data(self, directory) -> None:
         # Preloading of the data
-        self.event_log = pd.read_csv(directory+"event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
-        self.team_subjects = pd.read_csv(directory+"team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
+        self.event_log = pd.read_csv(directory+"/event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
+        self.team_subjects = pd.read_csv(directory+"/team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
         event_log_no_message =  self.event_log[(self.event_log['event_type'] == "TASK_ATTRIBUTE")]
         event_log_no_message["sender_subject_id"] = pd.to_numeric(event_log_no_message["sender_subject_id"])
 
@@ -407,7 +408,7 @@ class TeamLogProcessor(object):
 
     def _define_team_member_order(self, directory) -> None:
         # Define teammember order
-        subjects = pd.read_csv(directory+"subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
+        subjects = pd.read_csv(directory+"/subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
         team_with_subject_details = pd.merge(self.team_subjects, subjects, on='sender_subject_id', how='left')
         self.team_member = team_with_subject_details[(team_with_subject_details['teamId'] == self.team_id)]['displayName']
         self.team_size = len(self.team_member)
@@ -523,13 +524,6 @@ class TeamLogProcessor(object):
 
     def _load_accumulated_score(self) -> None:
         """Loads the accumulated score per question"""
-        indices = [0] + list(
-            np.where(self.team_event_logs.extra_data == 'SubmitButtonField')[0])
-        begin_index = 0
-        end_index = 1
-
-        # def parse_event_content(event_content):
-
         self.score = {}
         self.accumulated_score = {}
         self.accumulated_score[0] = 0
@@ -540,6 +534,12 @@ class TeamLogProcessor(object):
             final_answer_chosen = None
             if len(set(self.group_answers_chosen[i].values())) == 1:
                 final_answer_chosen = self.group_answers_chosen[i][list(self.group_answers_chosen[i].keys())[0]]
+
+            if i not in self.game_info.questions:
+                print(
+                    'Warning: question {} was not found in the game info.'.format(i))
+                continue
+
             answer = self.game_info.questions[i].answer
 
             if (final_answer_chosen == answer):
@@ -586,15 +586,15 @@ class TeamLogProcessor(object):
         self.c = 4
         self.e = -1
         self.z = -1
-        
+
 #         Other Parameters
         self.influenceMatrixIndex = 0
         self.machineUseCount = [-1, -1, -1, -1]
         self.firstMachineUsage = [-1, -1, -1, -1]
         
         # Preloading of the data
-        eventLog = pd.read_csv(directory+"event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
-        teamSubjects = pd.read_csv(directory+"team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
+        eventLog = pd.read_csv(directory+"/event_log.csv", sep=',',quotechar="|", names=["id","event_type","event_content","timestamp","completed_task_id","sender_subject_id","receiver_subject_id","session_id","sender","receiver","extra_data"])
+        teamSubjects = pd.read_csv(directory+"/team_has_subject.csv",sep=',',quotechar="|",names=["id","teamId","sender_subject_id"]).drop('id',1)
         elNoMessage =  eventLog[(eventLog['event_type'] == "TASK_ATTRIBUTE")]
         elNoMessage["sender_subject_id"] = pd.to_numeric(elNoMessage["sender_subject_id"])
         
@@ -624,7 +624,7 @@ class TeamLogProcessor(object):
             self.machineAskedQuestions.append(int(float(self.machineAsked.iloc[i]['questionNumber'])))
         
         # Load correct answers
-        with open(directory+"jeopardy.json") as json_data:
+        with open(directory+"/jeopardy.json") as json_data:
                 d = json.load(json_data)
         self.correctAnswers = list()
         self.options = list()
@@ -659,7 +659,7 @@ class TeamLogProcessor(object):
                 self.groupSubmission.groupAnswer[i] = "Consensus Not Reached"
              
         # Define teammember order
-        subjects = pd.read_csv(directory+"subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
+        subjects = pd.read_csv(directory+"/subject.csv", sep=',',quotechar="|", names=["sender_subject_id","externalId","displayName","sessionId","previousSessionSubject"])
         teamWithSujectDetails = pd.merge(teamSubjects, subjects, on='sender_subject_id', how='left')
         self.teamMember = teamWithSujectDetails[(teamWithSujectDetails['teamId'] == teamId)]['displayName']        
         self.teamSize = len(self.teamMember)

@@ -836,44 +836,62 @@ class TeamLogProcessorLoadRatingsTest(unittest.TestCase):
         correct_team_array = ['pogs3.2', 'pogs3.4', 'pogs3.3', 'pogs3.1']
         self.assertEqual(correct_team_array, self.loader.team_array)
 
-    def test_set_team_members(self):
+    def test_team_members_order(self):
         expected_members = [18, 20, 19, 17]
         computed_members = self.loader.members
         self.assertListEqual(expected_members, computed_members)
 
     def test_agent_ratings(self):
-        correct_agent_ratings_0 = [
-            [0.0, 0.0, 0.0, 0.0], [0.3, 0.1, 0.3, 0.3],
-            [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
-        correct_agent_ratings_1 = [
-            [2.0, 2.0, 4.0, 4.0], [4.0, 4.0, 2.0, 2.0],
-            [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0]]
-        correct_agent_ratings_2 = [
-            [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0],
-            [0.0, 1.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0]]
-        correct_agent_ratings_3 = [
-            [0.0, 0.0, 1.0, 1.0], [0.0, 0.0, 0.0, 0.0],
-            [0.0, 1.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0]]
-
-        self.assertEqual(correct_agent_ratings_0, self.loader.agent_ratings[0])
-        self.assertEqual(correct_agent_ratings_1, self.loader.agent_ratings[1])
-        self.assertEqual(correct_agent_ratings_2, self.loader.agent_ratings[2])
-        self.assertEqual(correct_agent_ratings_3, self.loader.agent_ratings[3])
+        expected = [
+            np.array(
+                [[0.0, 0.0, 0.0, 0.0],
+                [0.3, 0.1, 0.3, 0.3],
+                [0.0, 0.0, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0]]),
+            np.array(
+                [[2.0, 2.0, 4.0, 4.0],
+                [4.0, 4.0, 2.0, 2.0],
+                [0.0, 0.0, 0.0, 0.0],
+                [1.0, 1.0, 1.0, 1.0]]),
+            np.array(
+                [[0.0, 0.0, 0.0, 0.0],
+                [0.0, 0.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0, 0.0],
+                [1.0, 1.0, 1.0, 1.0]]),
+            np.array(
+                [[0.0, 0.0, 1.0, 1.0],
+                [0.0, 0.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0, 0.0],
+                [1.0, 1.0, 1.0, 1.0]])
+            ]
+        computed = self.loader.agent_ratings
+        np_testing.assert_array_equal(expected, computed)
 
     def test_member_influences(self):
-        correct_member_influences_0 = [
-            [25, 25, 25, 25], [40, 0, 40, 20], [0, 100, 0, 0], [1, 1, 1, 97]]
-        correct_member_influences_1 = [
-            [10, 20, 30, 40], [40, 30, 20, 10], [5, 20, 5, 70], [1, 1, 1, 97]]
-        correct_member_influences_2 = [
-            [25, 25, 25, 25], [25, 25, 25, 25], [10, 20, 10, 60], [1, 1, 1, 97]]
-        correct_member_influences_3 = [
-            [25, 25, 25, 25], [25, 25, 25, 25], [20, 30, 20, 30], [0, 2, 2, 96]]
-
-        self.assertEqual(correct_member_influences_0, self.loader.member_influences[0])
-        self.assertEqual(correct_member_influences_1, self.loader.member_influences[1])
-        self.assertEqual(correct_member_influences_2, self.loader.member_influences[2])
-        self.assertEqual(correct_member_influences_3, self.loader.member_influences[3])
+        expected = [
+            np.array(
+                [[25, 25, 25, 25],
+                [40, 0, 40, 20],
+                [0, 100, 0, 0],
+                [1, 1, 1, 97]]),
+            np.array(
+                [[10, 20, 30, 40],
+                [40, 30, 20, 10],
+                [5, 20, 5, 70],
+                [1, 1, 1, 97]]),
+            np.array(
+                [[25, 25, 25, 25],
+                [25, 25, 25, 25],
+                [10, 20, 10, 60],
+                [1, 1, 1, 97]]),
+            np.array(
+                [[25, 25, 25, 25],
+                [25, 25, 25, 25],
+                [20, 30, 20, 30],
+                [0, 2, 2, 96]])
+            ]
+        computed = self.loader.member_influences
+        np_testing.assert_array_equal(expected, computed)
 
     def test_agent_ratings_from_data(self):
         correct_agent_ratings_from_data_0 = [
@@ -1099,3 +1117,43 @@ class TeamLogProcessorSurveyTestForTeam11(unittest.TestCase):
             correct_survey_answers[2])
         self.assertDictEqual(self.loader.pre_experiment_rating[3],
             correct_survey_answers[3])
+
+# =========================================================================
+# ================== TeamLogProcessor's __init__ ==========================
+# =========================================================================
+class TeamLogProcessorInit(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        with open(TESTING_LOG_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_LOG)
+        with open(TESTING_TEAM_HAS_SUBJECT_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_TEAM_HAS_SUBJECT)
+        with open(TESTING_JEOPARDY_FILE_PATH, 'w') as f:
+            f.writelines(TESTING_JEOPARDY_JSON)
+        with open(TESTING_SUBJECT_PATH, 'w') as f:
+            f.writelines(TESTING_SUBJECT)
+
+    @classmethod
+    def tearDownClass(cls):
+        os.remove(TESTING_LOG_FILE_PATH)
+        os.remove(TESTING_JEOPARDY_FILE_PATH)
+
+    def test_init(self):
+        loader = lib.TeamLogProcessor(
+            team_id=7, logs_directory_path='/tmp')
+        np_testing.assert_array_equal(
+            loader.member_influences,
+            np.array(
+                [[[25, 25, 25, 25],
+                [40, 0, 40, 20],
+                [0, 100, 0, 0],
+                [1, 1, 1, 97]]]))
+        individual_responses = loader.individual_answers_chosen
+        group_responses = loader.group_answers_chosen
+        self.assertEqual(len(individual_responses), 6)
+        self.assertEqual(len(group_responses), 6)
+        self.assertEqual(individual_responses[41] ==
+            {17: 'Chicken Little', 18: 'Chicken Little',
+            19: 'Chicken Little', 20: 'Chicken Little'}, True)
+            

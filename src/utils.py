@@ -9,6 +9,7 @@ from __future__ import division, print_function, absolute_import, unicode_litera
 from itertools import permutations
 import pandas as pd
 import numpy as np
+import scipy as sp
 import matplotlib
 import matplotlib.pyplot as plt
 import pickle as pk
@@ -661,8 +662,8 @@ def shuffle_matrix_in_given_order(matrix: np.ndarray,
 
 
 def replicate_matrices_in_train_dataset_with_reordering(
-    X_train:List[Dict],
-    y_train:List[Dict],
+    X_train: List[Dict],
+    y_train: List[Dict],
     matrix_string_name = 'influence_matrix') -> Tuple[List[Dict], List[Dict]]:
     """Replicates matrices in the training dataset to have all orders of nodes.
     
@@ -720,7 +721,7 @@ def matrix_estimation_error(
     neg_corr: Negative correlation of vectorized matrices if stat significant.
     cosine_dist: Cosine distance of vectorized matrices from each other.
     l1: L1-norm distance in each row (since they are row-stochastic).
-    kl_divergence: 
+    kl: KL divergence in every row of the row-stochastic matrix.
     
     Args:
         true_matrix: The groundtruth matrix.
@@ -764,20 +765,40 @@ def matrix_estimation_error(
         err = cosine(
             np.array(true_matrix.flatten()), np.array(pred_matrix.flatten()))
         return err
-    # # Distribution-based error metrics:
-    # elif type_str == 'kl':
-    #     err = 0
-    #     for i in range(n):
-    #         for j in range(m):
-    #             err += true_matrix[i, j] * (np.log2(
-    #                 true_matrix[i, j]) - np.log2(pred_matrix[i, j]))
-    #     err /= n
-    #     return err
     # L1-norm distance in each row (since they are row-stochastic).
     elif type_str == 'l1':
-        return np.mean(
-            [np.linalg.norm(true_matrix[i, :] - pred_matrix[i, :], 1)
-            for i in range(n)])
+        return np.sum(abs(true_matrix - pred_matrix)) / n
+        # Which is the same as:
+        # return np.mean(
+        #     [np.linalg.norm(true_matrix[i, :] - pred_matrix[i, :], 1)
+        #     for i in range(n)])
+    # Distribution-based error metrics:
+    elif type_str == 'kl':
+        # The definition of KL divergence uses the following conventions
+        # (see Cover and Thomas, Elements of Information Theory):
+        # 0 * log(0 / 0) = 0, 0 * log(0 / q = 0, p * log(p / 0) = \infinity.
+        err = 0
+        for i in range(n):
+            for j in range(m):
+                err += sp.special.kl_div(true_matrix[i, j], pred_matrix[i, j])
+                # if true_matrix[i, j] > 0:
+                #     if pred_matrix[i, j] == 0:
+                #         err += 1000  # instead of becoming nan. << CHECK HERE >>
+                #     else:
+                #         err += true_matrix[i, j] * (
+                #             np.log2(true_matrix[i, j]) - np.log2(pred_matrix[i, j]))
+        err /= n
+        return err
+    # elif type_str == 'cross_entropy':
+    #     eps = 0.01
+    #     err = 0
+    #     for i in range(n):
+    #         if any(pred_matrix[i, :] == 0):
+    #             pred_matrix[i, :] += eps
+    #         for j in range(m):
+    #             err -= true_matrix[i, j] * np.log2(pred_matrix[i, j])
+    #     err /= n
+    #     return err 
     else:
         raise ValueError('Wrong type_str was given, which was: {}'.format(
             type_str))
@@ -860,7 +881,8 @@ def compute_relationship(
         # Scatter plot.
         f = plt.figure()
         sns.scatterplot(v2, v1)
-        plt.plot((min(v1), max(v2)), (max(v1), min(v2)), 'r')
+        # plt.plot((min(v1), max(v2)), (max(v1), min(v2)), 'r')
+        plt.plot(np.linspace(min(v2), max(v2)), np.linspace(min(v1), max(v1)), 'r')
         plt.xlabel(v2_label)
         plt.ylabel(v1_label)
         plt.show()
@@ -874,3 +896,121 @@ def compute_relationship(
         maxlag=maxlag,
         verbose=verbose)
     return {'rval': rval, 'pval': pval, 'causality': causality_res}
+
+
+# @enforce.runtime_validation
+def _get_eigen_decomposition_of_markov_transition(
+        transition_matrix: np.ndarray,
+        aperiodic_irreducible_eps: float = 0.0001) -> Tuple:
+    """Gets the eigen value and vectors from transition matrix.
+
+    A Markov chain is irreducible if we can go from any state to any state.
+    This entails all transition probabilities > 0.
+    A Markov chain is aperiodic if all states are accessible from all other
+    states. This entails all transition probabilities > 0.
+
+    Args:
+        transition_matrix: Square Markov transition matrix.
+
+        aperiodic_irreducible_eps: To make the matrix aperiodic/irreducible.
+
+    Returns:
+        Dictionary of eigen val/vec of irreducible and aperiodic markov chain.
+
+    Raises:
+        ValueError: If the matrix was not squared.
+    """
+    if transition_matrix.shape[0] != transition_matrix.shape[1]:
+        raise ValueError('Transition matrix is not squared.')
+    matrix = transition_matrix.copy()
+    matrix = np.nan_to_num(matrix)
+    matrix += aperiodic_irreducible_eps
+    aperiodic_irreducible_transition_matrix = (
+        matrix.T / np.sum(matrix, axis=1)).T
+    eigen_values, eigen_vectors = np.linalg.eig(
+        aperiodic_irreducible_transition_matrix.T)
+    return eigen_values, eigen_vectors
+
+
+# @enforce.runtime_validation
+def get_stationary_distribution(
+        transition_matrix: np.ndarray,
+        aperiodic_irreducible_eps: float = 0.0001) -> np.ndarray:
+    """Gets the stationary distribution of given transition matrix.
+
+    A Markov chain is irreducible if we can go from any state to any state.
+    This entails all transition probabilities > 0.
+    A Markov chain is aperiodic if all states are accessible from all other
+    states. This entails all transition probabilities > 0.
+
+    Args:
+        transition_matrix: Square Markov transition matrix.
+
+        aperiodic_irreducible_eps: To make the matrix aperiodic/irreducible.
+
+    Returns:
+        Array of size one dimension of matrix.
+
+    Raises:
+        ValueError: If the matrix was not squared.
+    """
+    eigen_values, eigen_vectors = (
+        _get_eigen_decomposition_of_markov_transition(
+            transition_matrix=transition_matrix,
+            aperiodic_irreducible_eps=aperiodic_irreducible_eps))
+    index = np.where(eigen_values > 0.99)[0][0]
+    stationary_distribution = [item.real for item in eigen_vectors[:, index]]
+    stationary_distribution /= np.sum(stationary_distribution)
+    return stationary_distribution
+
+
+def get_relative_reflected_appraisal_matrix(
+        influence_matrix: np.ndarray) -> np.ndarray:
+    """Gets relative reflected appraisal matrix.
+    
+    Relative reflected appraisal matrix is the zero-diagonaled influence matrix
+    after normalizing. It shows how much one is getting influenced by others
+    regardless of him or herself. In the derivtion, we call this matrix C.
+    
+    Args:
+        influence_matrix: row stochastic positive influence matrix.
+
+    Returns:
+        The relative reflected appraisal matrix.
+
+    Raises:
+        None.
+    """
+    influence_matrix = np.array(influence_matrix)
+    matrix = influence_matrix.copy()
+    np.fill_diagonal(matrix, 0)
+    matrix = np.nan_to_num(matrix.T / np.sum(matrix, axis=1)).T
+    return matrix
+
+
+def get_average_influence_on_others(
+        influence_matrix: np.ndarray, index: int) -> float:
+    """Gets average noramlized influence on others.
+    
+    \frac{1}{n-1}\sum\limits_{j \neq i} influence_matrix_{ji}
+
+    Args:
+        influence_matrix: row-stochastic positive influence matrix.
+
+        index: The index of individual to return their influence on others.
+
+    Returns:
+        The relative reflected appraisal matrix.
+
+    Raises:
+        ValueError: If index was outside of [0, n-1].
+    """
+    n, _ = influence_matrix.shape
+    if index < 0 or index >= n:
+        raise ValueError(
+            'Index was outside of boundary [0, {}]. It was {}'.format(
+                n-1, index))
+    influence_matrix = np.array(influence_matrix)
+    return np.mean(
+        influence_matrix[[i for i in range(n)
+           if i != index], index])
